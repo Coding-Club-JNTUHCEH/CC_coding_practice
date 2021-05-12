@@ -11,7 +11,7 @@ codeforces API: https://codeforces.com/apiHelp
 <img src="/readmeImgs/dashboard.png" width="70%">
 
 **Things to do:**
-- Create login and register page ( still not figure out what user database should contain)
+- Create login and register page ( still need to figure out what user database should contain)
 - write code to display leaderboard (backend & frontend)
 - improve UI of leaderboard
 - add filters to sort problems( need to change to backend for it)
