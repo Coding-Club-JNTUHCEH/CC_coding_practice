@@ -6,7 +6,7 @@ codeforces API: https://codeforces.com/apiHelp
 
 **Things done**
 
-wrote code that fetches problems from backend and displays as shown
+- wrote code that fetches problems from backend and displays as shown
 
 <img src="/readmeImgs/dashboard.png" width="70%">
 
