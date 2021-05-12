@@ -2,18 +2,15 @@
 A website to practice for coding club members
 codeforces API: https://codeforces.com/apiHelp
 
-step:1
-trying out codeforces API
-first on index page displaying questions in boxes
 
 
-what I did till now
+**Things done**
 
 wrote code that fetches problems from backend and displays as shown
 
-![ Image dashboard ] ( readmeImgs/dasboard.png )
+![ Image dashboard ] ( readmeImgs/dashboard.png )
 
-things to do:
+**Things to do:**
 - Create login and register page ( still not figure out what user database should contain)
 - write code to display leaderboard (backend & frontend)
 - improve UI of leaderboard
