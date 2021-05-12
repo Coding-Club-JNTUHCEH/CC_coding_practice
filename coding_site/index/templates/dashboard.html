@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+    
+    {% for problem in problems %} 
+        <div class="problemBox"  id = {{ problem.contestID }}{{problem.index}}>
+            <h5 class="card-title" style="font-size: 0fr;">{{ problem.name }}</h5>
+            <a href={{ problem.link }} target="_blank" class="btn btn-primary">Try</a>
+        </div>
+        {% endfor %}
+
+{% endblock %}

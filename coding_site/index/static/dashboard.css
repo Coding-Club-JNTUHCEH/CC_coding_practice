@@ -1,0 +1,11 @@
+.problemBox {
+    width: 23%;
+    border-color: blue;
+    border-width: 3px;
+    border-style: solid;
+    padding: 3px;
+    text-align: center;
+    margin: 7px;
+    float: left;
+    
+}
