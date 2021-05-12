@@ -8,7 +8,7 @@ codeforces API: https://codeforces.com/apiHelp
 
 wrote code that fetches problems from backend and displays as shown
 
-![ Image dashboard ] ( readmeImgs/dashboard.png )
+<img src="/readmeImgs/dashboard.png" width="70%">
 
 **Things to do:**
 - Create login and register page ( still not figure out what user database should contain)
