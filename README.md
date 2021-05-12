@@ -11,7 +11,7 @@ what I did till now
 
 wrote code that fetches problems from backend and displays as shown
 
-![Image dashboard] (readmeImgs/dasboard.png)
+![ Image dashboard ] ( readmeImgs/dasboard.png )
 
 things to do:
 - Create login and register page ( still not figure out what user database should contain)
