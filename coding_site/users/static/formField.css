@@ -1,0 +1,13 @@
+.formField {
+    width: 50%;
+    text-align: center;
+    margin-left: 25%;
+}
+input {
+    display: inline-block;
+    
+  }
+.fivePercentMargin {
+    margin-bottom: 5%; 
+    margin-top: 5%;
+}
