@@ -43,7 +43,7 @@ Register:
 <img src="/readmeImgs/register.png" width="70%">
 
 Profile View: 
-<img src="/readmeImgs/profile.png" width="70%">
+<img src="/readmeImgs/profile_view.png" width="70%">
 
 *Note*: superuser Credintials:
 
