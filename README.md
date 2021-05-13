@@ -29,20 +29,27 @@ codeforces API: https://codeforces.com/apiHelp
 if there are any more todo's to add, add them
 
 ## Database Design ( currently )
-Class Digram (for better understanding)
+
+**Class Digram (for better understanding)**
+
 <img src="/readmeImgs/class_diagram.png" width="70%">
 
 ## ScreenGrabs 
-Dasboard: 
+
+**Dasboard:** 
+
 <img src="/readmeImgs/dashboard.png" width="70%">
 
-Login: 
+**Login:** 
+
 <img src="/readmeImgs/login.png" width="70%">
 
-Register: 
+**Register:**
+
 <img src="/readmeImgs/register.png" width="70%">
 
-Profile View: 
+**Profile View:**
+
 <img src="/readmeImgs/profile_view.png" width="70%">
 
 *Note*: superuser Credintials:
