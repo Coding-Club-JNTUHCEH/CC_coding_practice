@@ -3,12 +3,56 @@
 {% load static %}
 {% block content %}
     <link rel="stylesheet" href="{% static 'dashboard.css' %}">
-    
-    {% for problem in problems %} 
-        <div class="problemBox"  id = {{ problem.contestID }}{{problem.index}}>
-            <h5 class="card-title" style="font-size: 0fr;">{{ problem.name }}</h5>
-            <a href={{ problem.link }} target="_blank" class="btn btn-primary">Try</a>
+    <div class = "container">
+        <div class="filterBox">
+            <div class = "FilterHeading">
+                <h4 style="text-align: center;"> Filter Problems</h4>
+            </div>
+            <div class = "rangeBox"> 
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col">
+                        <b>Difficulty :</b>
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="Min" name = "minPts" value="0">
+                    </div>
+                    <div class="col" style="max-width: fit-content;"> - </div>
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="Max" name = "maxPts" value="5000">
+                    </div>
+                    </div>
+                    <div class = "col" style="text-align: center; margin: 5%;">
+                        <button type="submit" class="btn btn-primary fivePercentMargin">Apply</button>
+                    </div>
+              </form>
+            </div>
+              
         </div>
-        {% endfor %}
+    
+        <table class="table table-bordered" style="width: 95%;">
+            <thead>
+            <tr>
+                <th scope="col">Contest</th>
+                <th scope="col">Problem ID</th>
+                <th scope="col">Problem Name</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Submit</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for problem in problems %} 
+                    <tr>
+                        <th scope="row">{{ problem.contestID }}</th>
+                        <td>{{ problem.index }}</td>
+                        <td>{{ problem.name }}</td>
+                        <td>{{ problem.rating }}</td>
+                        <td><a href={{ problem.link }} target="_blank" class="btn btn-primary">Try</a></td>
+                    </tr>
+                {% endfor %}
+            
+        </table>
+    </div>
 
 {% endblock %}
