@@ -1,37 +1,45 @@
-
 <!DOCTYPE html>
-    {% load static %}
-    <head>
-        <title>CC JNTUHCEH</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% load static %}
 
-    </head>
+<head>
+    <title>CC JNTUHCEH</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</head>
 
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{% url 'dashboard' %}">
-            <img src="{% static 'imgs/jntuhlogo.png' %}" width="50" height="50" class="d-inline-block align-top" alt="jntuh logo">
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">
+            <img src="{% static 'imgs/jntuhlogo.png' %}" width="50" height="50" class="d-inline-block align-top"
+                alt="jntuh logo">
             <p style="display: inline; font-size: 2vw;">Coding Club</p>
-            </a>
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'dashboard' %}">Leaderboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
-            </ul>
-            
-            <form class="form-inline my-2 my-lg-0" method="POST" action = "{% url 'profile' %}">
-                {% csrf_token %}
-                <input class="form-control mr-sm-2" type="text" placeholder="User" id = "username" name = "username" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
-            </form>
-        </nav>
-        {% block content %}
-        {% endblock %}
-    </body>
-    
+        </a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dashboard' %}">Leaderboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'profile' %}">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="text" placeholder="User" id="username" name="username"
+                aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+    {% block content %}
+    {% endblock %}
+
+
+</body>
