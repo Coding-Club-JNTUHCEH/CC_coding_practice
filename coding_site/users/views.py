@@ -8,18 +8,24 @@ from django.urls import reverse
 import time
 import requests
 from .models import UserProfile
+from index.models import Problem
+from index.views import ExtractProblemForDB
 from users.forms import SignUpForm
 
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            # print(form)
             
             cf = cleanFormData(form)
 
             user = User.objects.create_user(username= cf['username'], password= cf['raw_password'], email = cf['email'])
-            UserProfile.objects.create(user = user,name = cf['name'],codeForces_username =cf['CodeForces_Username'], year = cf['year'])
+            solved_p = solvedProblems(cf["CodeForces_Username"])
+            print(len(solved_p))
+            user_profile = UserProfile.objects.create(user = user,name = cf['name'],codeForces_username =cf['CodeForces_Username'], year = cf['year'],rating = getRating(cf["CodeForces_Username"]))
+
+            for p in solved_p:
+                user_profile.sloved_problems.add(p)
 
             user = authenticate(request, username=cf['username'], password=cf['raw_password'])
             if user is not None:
@@ -75,8 +81,7 @@ def profile_view(request,*args,**kwargs):
         
     return  render(request, "profile.html", context = context)
 
-def search_view(request):
-    return render(request,"hello.html")
+
 
 def logout_view(request,*args,**kwargs):
     logout(request)
@@ -84,8 +89,8 @@ def logout_view(request,*args,**kwargs):
 
 def fetchCFProfileInfo(username):
     url = 'https://codeforces.com/api/user.info?handles='+str(username)
-    data = requests.get(url)
-    JSONdata = data.json()
+
+    JSONdata = fetchURL(url)
     if JSONdata["status"] != 'OK' :
         return {}
     profile_0 = JSONdata["result"][0]
@@ -102,8 +107,6 @@ def fetchCFProfileInfo(username):
 
 def convertTime(seconds):
     now = time.time()
-    print(now)
-    print(seconds)
     diff  = now - seconds
     return diff/3600
     
@@ -119,3 +122,36 @@ def cleanFormData(form):
     profile['year'] = form.cleaned_data.get('year')
 
     return profile
+
+def solvedProblems(username):
+    problems = []
+    url = "https://codeforces.com/api/user.status?handle="+str(username)
+    JSONdata = fetchURL(url)
+    
+    if JSONdata["status"]!= 'OK':
+        return problems
+    for problem in JSONdata["result"]:
+        if problem["verdict"] == 'OK' :
+            contestID  = problem["problem"]["contestId"]
+            index      = problem["problem"]["index"]
+            try:
+                problems.append(Problem.objects.get(contestID=contestID, index=index))
+            except:
+                addNewProblemtoDB(problem["problem"])
+                problems.append(Problem.objects.get(contestID=contestID, index=index))
+    return problems
+
+def getRating(username):
+    try:
+        return fetchCFProfileInfo(username)["rating"]
+    except:
+        return 800
+def addNewProblemtoDB(problem):
+    p = ExtractProblemForDB(problem)
+    p_db = Problem.create(p)
+    p_db.save()
+    p_db.link_tags(p["tags"])
+
+def fetchURL(url):
+    data = requests.get(url)
+    return data.json()

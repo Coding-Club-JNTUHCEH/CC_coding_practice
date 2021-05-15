@@ -1,6 +1,8 @@
 from django.shortcuts import render
 import requests
+from django.core import serializers
 from django.contrib.auth.decorators import login_required
+from .models import Problem,Tag
 
 # Create your views here.
 @login_required
@@ -20,36 +22,61 @@ def dashboard_view(request):
 
 
 
-
-
-
-
 def fetchProblems(min = 0, max = 5000, filter = False):
-    url = 'https://codeforces.com/api/problemset.problems'
-    data = requests.get(url)
-    JSONdata = data.json()
-    problemSet = []
 
-    if JSONdata["status"] != 'OK':
-        return problemSet
+    if not filter:
+        problemSet = Problem.objects.all().values()
+    else:
+        problemSet = Problem.objects.filter(rating__lt = max,rating__gt = min).values()
 
-    for problem in JSONdata['result']['problems']:
-        p = ExtractProblem(problem)
-        if( not filter or ( p['rating']>=min and p['rating']<=max ) ):
-            problemSet.append(p)
         
     return problemSet
 
-def ExtractProblem(problem):
+
+
+
+def loadProblems_view(request):
+    
+    context = {"result" : fetchProblemsForDB()}
+
+    return render(request,"hello.html",context)
+
+def fetchProblemsForDB():
+    url = 'https://codeforces.com/api/problemset.problems'
+    data = requests.get(url)
+    JSONdata = data.json()
+    
+    if JSONdata["status"] != 'OK':    
+        return False
+    a = 1
+    for problem in JSONdata['result']['problems']:
+        p = ExtractProblemForDB(problem)
+        p_db = Problem.create(p)
+
+        try:
+            p_db.save()
+            p_db.link_tags(p["tags"])
+            print(str(a)+".Problem "+ str(p["contestID"])+p["index"]+" saved" .format(a))
+        except:
+            pass
+        a+=1
+    return True
+
+def ExtractProblemForDB(problem):
     if 'rating' in problem:
         rating = problem["rating"]
     else:
         rating = 0
+    if 'tags' in problem:
+        tags = problem["tags"]
+    else:
+        tags = []
 
     p = {'contestID' : problem["contestId"],
             'index'  : problem["index"],
             'name'   : problem["name"],
             'rating' : rating,
+            'tags'   : tags,
             'link'   : 'https://codeforces.com/problemset/problem/' + str(problem["contestId"]) + '/' + problem["index"],
         }
     return p
