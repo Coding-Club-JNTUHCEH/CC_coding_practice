@@ -50,33 +50,15 @@ def fetchProblemsForDB():
         return False
     a = 1
     for problem in JSONdata['result']['problems']:
-        p = ExtractProblemForDB(problem)
-        p_db = Problem.create(p)
-
+        
+        p_db = Problem.create(problem)
         try:
             p_db.save()
-            p_db.link_tags(p["tags"])
-            print(str(a)+".Problem "+ str(p["contestID"])+p["index"]+" saved" .format(a))
+            p_db.link_tags(problem["tags"])
+            print(str(a)+".Problem ",p_db," saved" .format(a))
         except:
-            pass
+            print(str(a)+".Problem ",p_db ," could not add" .format(a))
+            
         a+=1
     return True
 
-def ExtractProblemForDB(problem):
-    if 'rating' in problem:
-        rating = problem["rating"]
-    else:
-        rating = 0
-    if 'tags' in problem:
-        tags = problem["tags"]
-    else:
-        tags = []
-
-    p = {'contestID' : problem["contestId"],
-            'index'  : problem["index"],
-            'name'   : problem["name"],
-            'rating' : rating,
-            'tags'   : tags,
-            'link'   : 'https://codeforces.com/problemset/problem/' + str(problem["contestId"]) + '/' + problem["index"],
-        }
-    return p

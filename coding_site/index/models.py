@@ -20,24 +20,44 @@ class Problem(models.Model):
         unique_together = ['contestID', 'index']
 
     @classmethod
-    def create(*args, **kwargs):
+    def create(self,*args, **kwargs):
+        cleaned_problem = self.cleanProblemForDB(args[0])
         p = Problem(
-            contestID = args[1]["contestID"],
-            index = args[1]["index"],
-            name  = args[1]["name"],
-            rating= args[1]["rating"],
-            link   = args[1]["link"],
+            contestID   = cleaned_problem["contestID"],
+            index       = cleaned_problem["index"],
+            name        = cleaned_problem["name"],
+            rating      = cleaned_problem["rating"],
+            link        = cleaned_problem["link"],
         )
 
         return p
-
+    
+    
     def link_tags(self,tags):
         for tag in tags:
-            tag_obj = Tag.objects.get(tag_name = tag)
+            tag_obj,created = Tag.objects.get_or_create(tag_name = tag)
             self.tags.add(tag_obj)
     
+    def cleanProblemForDB(problem):
+        if 'rating' in problem:
+            rating = problem["rating"]
+        else:
+            rating = 0
+        if 'tags' in problem:
+            tags = problem["tags"]
+        else:
+            tags = []
+
+        p = {'contestID' : problem["contestId"],
+                'index'  : problem["index"],
+                'name'   : problem["name"],
+                'rating' : rating,
+                'tags'   : tags,
+                'link'   : 'https://codeforces.com/problemset/problem/' + str(problem["contestId"]) + '/' + problem["index"],
+            }
+        return p
     def __str__(self) -> str:
-        return self.name
+        return str(self.contestID) + self.index + " " + self.name
 
 
 
