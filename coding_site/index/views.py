@@ -34,7 +34,7 @@ def fetchProblems(min=0, max=5000, tag="", filter=False):
 
     for problem in JSONdata['result']['problems']:
         p = ExtractProblem(problem)
-        if(not filter or (p['rating'] >= min and p['rating'] <= max) and tag in p['tags']):
+        if(not filter or (p['rating'] >= min and p['rating'] <= max) or tag in p['tags']):
             problemSet.append(p)
 
     return problemSet

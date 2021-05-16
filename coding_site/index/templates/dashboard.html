@@ -22,11 +22,12 @@
                     <div class="col">
                         <input type="number" class="form-control" placeholder="Max" name="maxPts" value="5000">
                     </div>
-                    <div class="col">
-                        <label for="tags">Tags:</label>
-                        <select name="tags" form="form">
+                    <div class="col ">Tags:
+                        <select id="listOfTags">
+                            <option value="" selected></option>
 
-                            <option value="combine-tags-by-or" title="*combine tags by OR">*combine tags by OR</option>
+                            <option value="combine-tags-by-or" title="*combine tags by OR">*combine tags by OR
+                            </option>
                             <option value="2-sat" title="2-satisfiability">2-sat</option>
                             <option value="binary search" title="Binary search">binary search</option>
                             <option value="bitmasks" title="Bitmasks">bitmasks</option>
@@ -40,7 +41,8 @@
                                 title="Heaps, binary search trees, segment trees, hash tables, etc">data structures
                             </option>
                             <option value="dfs and similar" title="Dfs and similar">dfs and similar</option>
-                            <option value="divide and conquer" title="Divide and Conquer">divide and conquer</option>
+                            <option value="divide and conquer" title="Divide and Conquer">divide and conquer
+                            </option>
                             <option value="dp" title="Dynamic programming">dp</option>
                             <option value="dsu" title="Disjoint set union">dsu</option>
                             <option value="expression parsing" title="Parsing expression grammar">expression parsing
@@ -64,11 +66,13 @@
                             <option value="matrices"
                                 title="Matrix multiplication, determinant, Cramer's rule, systems of linear equations">
                                 matrices</option>
-                            <option value="meet-in-the-middle" title="Meet-in-the-middle">meet-in-the-middle</option>
+                            <option value="meet-in-the-middle" title="Meet-in-the-middle">meet-in-the-middle
+                            </option>
                             <option value="number theory" title="Number theory: Euler function, GCD, divisibility, etc">
                                 number theory</option>
                             <option value="probabilities"
-                                title="Probabilities, expected values, statistics, random variables, etc">probabilities
+                                title="Probabilities, expected values, statistics, random variables, etc">
+                                probabilities
                             </option>
                             <option value="schedules" title="Scheduling Algorithms">schedules</option>
                             <option value="shortest paths" title="Shortest paths on weighted and unweighted graphs">
@@ -84,6 +88,9 @@
                             <option value="trees" title="Trees">trees</option>
                             <option value="two pointers" title="Two pointers">two pointers</option>
                         </select>
+
+                        <div class="tags">
+                        </div>
                     </div>
 
 
