@@ -1,6 +1,6 @@
+from users.codeforces_API import fetchAllProblems
 from django.shortcuts import render
 import requests
-from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from .models import Problem,Tag
 
@@ -37,9 +37,22 @@ def fetchProblems(min = 0, max = 5000, filter = False):
 
 def loadProblems_view(request):
     
-    context = {"result" : fetchProblemsForDB()}
+    problems  = fetchAllProblems()
+    a = 1
+    if len(problems) == 0 or not request.user.is_superuser :
+        return render(request,"hello.html",context = {"result"  : False})
+    for problem in problems:
+        
+        p_db = Problem.create(problem)
+        try:
+            p_db.save()
+            p_db.link_tags(problem["tags"])
+            print(str(a)+".Problem ",p_db," saved" .format(a))
+        except:
+            print(str(a)+".Problem ",p_db ," could not add" .format(a))
+        a+=1
 
-    return render(request,"hello.html",context)
+    return render(request,"hello.html",context = {"result"  : True})
 
 def fetchProblemsForDB():
     url = 'https://codeforces.com/api/problemset.problems'
