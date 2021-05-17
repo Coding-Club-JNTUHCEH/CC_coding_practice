@@ -1,7 +1,7 @@
+from .codeforces_API import getSolvedProblems
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-import requests
 from index.models import Problem
 
 
@@ -29,20 +29,20 @@ class UserProfile(models.Model):
         return profile
 
     def add_solvedProblems(self):
-        url = "https://codeforces.com/api/user.status?handle="+str(self.codeForces_username)
-        data = requests.get(url)
-        JSONdata = data.json()
-    
-        if JSONdata["status"]!= 'OK':
-            return False
-        for problem in JSONdata["result"]:
+
+        solvedProblems =getSolvedProblems(self.codeForces_username)
+        for problem in solvedProblems:
             self.add_solvedProblem(problem)
-        return True
+
+    
     
     def add_solvedProblem(self,problem):
         if problem["verdict"] == 'OK' :
-            contestID  = problem["problem"]["contestId"]
-            index      = problem["problem"]["index"]
+            try:
+                contestID  = problem["problem"]["contestId"]
+                index      = problem["problem"]["index"]
+            except:
+                return
             try:
                 
                 self.sloved_problems.add(Problem.objects.get(contestID=contestID, index=index))

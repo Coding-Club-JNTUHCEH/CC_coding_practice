@@ -10,17 +10,19 @@ codeforces API: https://codeforces.com/apiHelp
 - Created login and register page 
 - wrote code to view UserProfiles
 - verify codeforces username when user registers
-
+- wrote code to display leaderboard ( backend & frontend )
+- Wrote code user can edit profile ( including password )
 
 
 **Things to do:**
 
-- write code to display leaderboard (backend & frontend)
+
 - improve UI of dasboard
 - add filters to sort problems( need to change to backend for it)
 - Improve design of Profile view ( for now it's basic)
 - need display proper errors for invalid users ( for now it redirects to hello world )
-- JavaScript should added for friendly user interface ( making it dynamic )
+- JavaScript should be added for friendly user interface ( making it dynamic )
+- design of Leaderboard
 
 **Final Touch**
 - design Front End more beautiful
@@ -40,6 +42,10 @@ if there are any more todo's to add, add them
 
 <img src="/readmeImgs/dashboard.png" width="70%">
 
+**Leaderboard:** 
+
+<img src="/readmeImgs/leaderboard.png" width="70%">
+
 **Login:** 
 
 <img src="/readmeImgs/login.png" width="70%">
@@ -51,6 +57,10 @@ if there are any more todo's to add, add them
 **Profile View:**
 
 <img src="/readmeImgs/profile_view.png" width="70%">
+
+**Edit Profile:**
+
+<img src="/readmeImgs/edit_profile.png" width="70%">
 
 *Note*: superuser Credintials:
 

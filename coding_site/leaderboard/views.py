@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from users.models import UserProfile
 
 # Create your views here.
-@login_required
+
 def leaderboard_view(request):
     
     users_list  = UserProfile.objects.values_list('codeForces_username')
@@ -15,5 +15,21 @@ def leaderboard_view(request):
     url = "https://codeforces.com/api/user.info?handles="+ users_str
     data = requests.get(url)
     JSONdata = data.json()
-    context ={}
+    if JSONdata["status"] != "OK" :
+        pass
+    else:
+        users = []
+        rank = 1
+        for user in JSONdata["result"]:
+            user_p = UserProfile.objects.get( codeForces_username = user["handle"] )
+            user_p.rating = user["rating"]
+            user_p.save()
+            users.append({
+                            "username" : user_p.user.username ,
+                            "rating"   : user_p.rating,
+                            "rank"     : rank
+                        })
+            rank+=1
+    
+    context ={ "users" : users }
     return render(request,"leaderboard.html",context=context)
