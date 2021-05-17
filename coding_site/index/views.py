@@ -11,7 +11,8 @@ def dashboard_view(request):
     if(request.method == "POST"):
         min_rating = int(request.POST.get("minPts"))
         max_rating = int(request.POST.get("maxPts"))
-        tags = str(request.POST.get("tags"))
+        tags = request.POST.getlist("listOfTags[]")
+        print(tags)
         problemSet = fetchProblems(
             min=min_rating, max=max_rating, tag=tags, filter=True)
 
@@ -23,7 +24,7 @@ def dashboard_view(request):
     return render(request, "dashboard.html", context=context)
 
 
-def fetchProblems(min=0, max=5000, tag="", filter=False):
+def fetchProblems(min=0, max=5000, tag=[], filter=False):
     url = 'https://codeforces.com/api/problemset.problems'
     data = requests.get(url)
     JSONdata = data.json()
