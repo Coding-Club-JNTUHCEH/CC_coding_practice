@@ -11,10 +11,10 @@ def dashboard_view(request):
     if(request.method == "POST"):
         min_rating = int(request.POST.get("minPts"))
         max_rating = int(request.POST.get("maxPts"))
-        tags = request.POST.getlist("listOfTags[]")
+        tags = request.POST.getlist("listOfTags")
         print(tags)
         problemSet = fetchProblems(
-            min=min_rating, max=max_rating, tag=tags, filter=True)
+            min=min_rating, max=max_rating, tags=tags, filter=True)
 
     else:
         problemSet = fetchProblems()
@@ -24,7 +24,7 @@ def dashboard_view(request):
     return render(request, "dashboard.html", context=context)
 
 
-def fetchProblems(min=0, max=5000, tag=[], filter=False):
+def fetchProblems(min=0, max=5000, tags=[], filter=False):
     url = 'https://codeforces.com/api/problemset.problems'
     data = requests.get(url)
     JSONdata = data.json()
@@ -35,7 +35,8 @@ def fetchProblems(min=0, max=5000, tag=[], filter=False):
 
     for problem in JSONdata['result']['problems']:
         p = ExtractProblem(problem)
-        if(not filter or (p['rating'] >= min and p['rating'] <= max) or tag in p['tags']):
+        check = any(tag in p['tags'] for tag in tags)
+        if(not filter or ((p['rating'] >= min and p['rating'] <= max) and check)):
             problemSet.append(p)
 
     return problemSet
@@ -47,13 +48,13 @@ def ExtractProblem(problem):
         tags = problem["tags"]
     elif 'rating' in problem:
         rating = problem["rating"]
-        tags = ""
+        tags = []
     elif 'tags' in problem:
         tags = problem["tags"]
         rating = 0
     else:
         rating = 0
-        tags = ""
+        tags = []
 
     p = {'contestID': problem["contestId"],
          'index': problem["index"],
