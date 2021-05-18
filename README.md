@@ -10,17 +10,15 @@ codeforces API: https://codeforces.com/apiHelp
 - Created login and register page 
 - wrote code to view UserProfiles
 - verify codeforces username when user registers
+- add filters to sort problems( need to change to backend for it)
 - wrote code to display leaderboard ( backend & frontend )
 - Wrote code user can edit profile ( including password )
+- add code to hide already solved problems by user
+- improved UI of dasboard
 
 
 **Things to do:**
 
-
-- improve UI of dasboard
-- add filters to sort problems( need to change to backend for it)
-- add profile edit feature 
-- add submission button in profile view (which redirects to codeforces submissions page)
 - Improve design of Profile view ( for now it's basic)
 - need display proper errors for invalid users ( for now it redirects to hello world )
 - JavaScript should be added for friendly user interface ( making it dynamic )
@@ -66,7 +64,7 @@ if there are any more todo's to add, add them
 
 *Note*: superuser Credintials:
 
-        username: abc
-        password : abc123.
+        username: jaya2102
+        password : abc
 
 if any changes database try to update the class digram : https://app.genmymodel.com/editor/edit/_J_QK8LQVEeuARqq-icHx7Q#

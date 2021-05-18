@@ -1,7 +1,10 @@
-from users.codeforces_API import fetchAllProblems
+
 from django.shortcuts import render
-from users.codeforces_API import fetchAllProblems
 from django.contrib.auth.decorators import login_required
+
+from users.models import UserProfile
+from users.codeforces_API import fetchAllProblems
+
 from .models import Problem,Tag
 # Create your views here.
 
@@ -13,20 +16,20 @@ def dashboard_view(request):
         context["min"] = int(request.POST.get("minPts"))
         context["max"] = int(request.POST.get("maxPts"))
         tags = request.POST.getlist("listOfTags")
-        context["problems"] = fetchProblems( min=context["min"] , max=context["max"] , tags=tags, filter=True )
+        context["problems"] = fetchProblems( min=context["min"] , max=context["max"] , tags=tags, user = request.user, filter=True )
 
     else:
         context["min"] = 0
         context["max"] = 5000
         context["problems"] = fetchProblems()
 
-    context["tags"]     = getTagList()
+    context["tags"]     = list(Tag.objects.all())
 
     return render(request, "dashboard.html", context=context)
 
 
-def fetchProblems(min=0, max=5000, tags=[], filter=False):
-    
+def fetchProblems(min=0, max=5000, tags=[],user = None ,filter=False):
+
     if not filter:
         problemSet = Problem.objects.all().values()
         
@@ -36,22 +39,15 @@ def fetchProblems(min=0, max=5000, tags=[], filter=False):
     else:
         tags_objList = []
         for tag in tags:
-            try:
-                tags_objList.append(Tag.objects.get(tag_name = tag))
-            except:
-                pass
-
-        problemSet = Problem.objects.filter(rating__lt = max, rating__gt = min, tags__in = tags_objList ).values()
-
+            tags_objList.append(Tag.objects.get_or_create(tag_name = tag)[0])
+            
+        problemSet = Problem.objects.filter(rating__lt = max, rating__gt = min, tags__in = tags_objList )
+    
+    user_solved =  UserProfile.objects.get(user = user).sloved_problems.all()
+    problemSet = problemSet.difference(user_solved).values()
         
     return problemSet
 
-def getTagList():
-    tags_list = []
-    tags = Tag.objects.all()
-    for tag in tags:
-        tags_list.append(tag.tag_name)
-    return tags_list
 
 def loadProblems_view(request):
     
