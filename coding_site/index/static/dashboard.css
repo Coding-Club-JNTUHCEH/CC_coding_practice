@@ -5,9 +5,10 @@
 }
 
 .filterBox {
-    width: 40%;
+    width: 90%;
+    height: 13rem;
     border-color: blue;
-    border-width: 3px;
+    border-width: 2px;
     border-style: solid;
     margin-bottom: 20px;
 }
@@ -22,6 +23,6 @@
 .rangeBox {
     padding-left: 2rem;
     padding-right: 2rem;
-    padding-top: 1rem;
+    padding-top: 2rem;
 }
 

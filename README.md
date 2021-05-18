@@ -19,6 +19,8 @@ codeforces API: https://codeforces.com/apiHelp
 
 - improve UI of dasboard
 - add filters to sort problems( need to change to backend for it)
+- add profile edit feature 
+- add submission button in profile view (which redirects to codeforces submissions page)
 - Improve design of Profile view ( for now it's basic)
 - need display proper errors for invalid users ( for now it redirects to hello world )
 - JavaScript should be added for friendly user interface ( making it dynamic )

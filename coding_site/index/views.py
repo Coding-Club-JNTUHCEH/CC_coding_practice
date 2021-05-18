@@ -1,39 +1,45 @@
 from users.codeforces_API import fetchAllProblems
 from django.shortcuts import render
-import requests
+from users.codeforces_API import fetchAllProblems
 from django.contrib.auth.decorators import login_required
 from .models import Problem,Tag
-
 # Create your views here.
+
+
 @login_required
 def dashboard_view(request):
 
-    if(request.method=="POST"):
+    if(request.method == "POST"):
         min_rating = int(request.POST.get("minPts"))
         max_rating = int(request.POST.get("maxPts"))
-        problemSet = fetchProblems(min = min_rating, max = max_rating, filter = True)
+        tags = request.POST.getlist("listOfTags")
+        # print(tags)
+        problemSet = fetchProblems(
+            min=min_rating, max=max_rating, tags=tags, filter=True)
 
     else:
         problemSet = fetchProblems()
+
+    context = {"problems": problemSet }
+
+    return render(request, "dashboard.html", context=context)
+
+
+def fetchProblems(min=0, max=5000, tags=[], filter=False):
     
-    context = {"problems" : problemSet}
-
-    return render(request,"dashboard.html",context=context)
-
-
-
-def fetchProblems(min = 0, max = 5000, filter = False):
-
     if not filter:
         problemSet = Problem.objects.all().values()
     else:
-        problemSet = Problem.objects.filter(rating__lt = max,rating__gt = min).values()
+        tags_objList = []
+        for tag in tags:
+            try:
+                tags_objList.append(Tag.objects.get(tag_name = tag))
+            except:
+                pass
+        problemSet = Problem.objects.filter(rating__lt = max, rating__gt = min, tags__in = tags_objList).values()
 
         
     return problemSet
-
-
-
 
 def loadProblems_view(request):
     
@@ -56,4 +62,4 @@ def loadProblems_view(request):
 
     return render(request,"hello.html",context = {"result"  : True, "count" : count})
 
-
+ 

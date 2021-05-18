@@ -1,9 +1,13 @@
 from django.db import models
 
 # Create your models here.
+from django.db import models
+
+# Create your models here.
 
 class Tag(models.Model) :
-    tag_name = models.CharField(max_length=32)
+    tag_name    = models.CharField(max_length=32)
+    tag_title   = models.CharField(max_length=64, default="did not set")
 
     def __str__(self) -> str:
         return self.tag_name
@@ -60,5 +64,8 @@ class Problem(models.Model):
         return str(self.contestID) + self.index + " " + self.name
 
 
+<<<<<<< HEAD
 
     
+=======
+>>>>>>> merge_test
