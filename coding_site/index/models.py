@@ -64,3 +64,8 @@ class Problem(models.Model):
         return str(self.contestID) + self.index + " " + self.name
 
 
+<<<<<<< HEAD
+
+    
+=======
+>>>>>>> merge_test

@@ -1,3 +1,4 @@
+from users.codeforces_API import fetchAllProblems
 from django.shortcuts import render
 from users.codeforces_API import fetchAllProblems
 from django.contrib.auth.decorators import login_required
@@ -19,13 +20,13 @@ def dashboard_view(request):
     else:
         problemSet = fetchProblems()
 
-    context = {"problems": problemSet}
+    context = {"problems": problemSet }
 
     return render(request, "dashboard.html", context=context)
 
 
 def fetchProblems(min=0, max=5000, tags=[], filter=False):
-
+    
     if not filter:
         problemSet = Problem.objects.all().values()
     else:
