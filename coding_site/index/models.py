@@ -9,8 +9,12 @@ class Tag(models.Model) :
     tag_name    = models.CharField(max_length=32)
     tag_title   = models.CharField(max_length=64, default="did not set")
 
+    class Meta:
+        ordering = ['tag_name']
+
     def __str__(self) -> str:
         return self.tag_name
+
 
 class Problem(models.Model):
     contestID = models.IntegerField()

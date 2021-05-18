@@ -65,6 +65,7 @@ def profile_view(request,*args,**kwargs):
         return  render(request, "error.html", context = {"msg" : "user does not exist"})
 
     user_details = UserProfile.objects.get(user = user).__dict__
+    user_details["username"] = user.username
     user_details["codeforces"] = fetchCFProfileInfo(user_details["codeForces_username"])
     UserProfile.objects.filter(user = user).update(rating = user_details["codeforces"]["rating"])
 

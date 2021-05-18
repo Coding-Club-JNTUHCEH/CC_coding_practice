@@ -8,19 +8,19 @@ from .models import Problem,Tag
 
 @login_required
 def dashboard_view(request):
-
+    context = {}
     if(request.method == "POST"):
-        min_rating = int(request.POST.get("minPts"))
-        max_rating = int(request.POST.get("maxPts"))
+        context["min"] = int(request.POST.get("minPts"))
+        context["max"] = int(request.POST.get("maxPts"))
         tags = request.POST.getlist("listOfTags")
-        # print(tags)
-        problemSet = fetchProblems(
-            min=min_rating, max=max_rating, tags=tags, filter=True)
+        context["problems"] = fetchProblems( min=context["min"] , max=context["max"] , tags=tags, filter=True )
 
     else:
-        problemSet = fetchProblems()
+        context["min"] = 0
+        context["max"] = 5000
+        context["problems"] = fetchProblems()
 
-    context = {"problems": problemSet }
+    context["tags"]     = getTagList()
 
     return render(request, "dashboard.html", context=context)
 
@@ -29,6 +29,10 @@ def fetchProblems(min=0, max=5000, tags=[], filter=False):
     
     if not filter:
         problemSet = Problem.objects.all().values()
+        
+    elif len(tags) == 0:
+        problemSet = Problem.objects.filter(rating__lt = max, rating__gt = min).values()
+
     else:
         tags_objList = []
         for tag in tags:
@@ -36,10 +40,18 @@ def fetchProblems(min=0, max=5000, tags=[], filter=False):
                 tags_objList.append(Tag.objects.get(tag_name = tag))
             except:
                 pass
-        problemSet = Problem.objects.filter(rating__lt = max, rating__gt = min, tags__in = tags_objList).values()
+
+        problemSet = Problem.objects.filter(rating__lt = max, rating__gt = min, tags__in = tags_objList ).values()
 
         
     return problemSet
+
+def getTagList():
+    tags_list = []
+    tags = Tag.objects.all()
+    for tag in tags:
+        tags_list.append(tag.tag_name)
+    return tags_list
 
 def loadProblems_view(request):
     
