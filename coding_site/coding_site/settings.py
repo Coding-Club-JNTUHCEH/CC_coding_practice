@@ -130,3 +130,5 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL='/login'
+
+os.makedirs(STATIC_ROOT, exist_ok=True)
