@@ -1,6 +1,0 @@
-
-
-Django
-requests
-time
-gunicorn
