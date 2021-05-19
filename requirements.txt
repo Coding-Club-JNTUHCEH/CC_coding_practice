@@ -18,9 +18,7 @@ whitenoise==5.2.0
 
 dj-database-url==0.5.0
 dj-static==0.0.6
-
 docopt==0.6.2
 gitignore==0.0.8
-psycopg2==2.7.7
 pytz==2018.9
 static3==0.7.0
