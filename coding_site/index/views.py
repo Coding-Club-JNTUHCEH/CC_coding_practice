@@ -42,10 +42,12 @@ def fetchProblems(min=0, max=5000, tags=[],user = None ,filter=False):
             tags_objList.append(Tag.objects.get_or_create(tag_name = tag)[0])
             
         problemSet = Problem.objects.filter(rating__lt = max, rating__gt = min, tags__in = tags_objList )
-    
-    user_solved =  UserProfile.objects.get(user = user).sloved_problems.all()
-    problemSet = problemSet.difference(user_solved).values()
-        
+
+    try:
+        user_solved =  UserProfile.objects.get(user = user).sloved_problems.all()
+        problemSet = problemSet.difference(user_solved).values()
+    except:
+        problemSet = problemSet.values()
     return problemSet
 
 
