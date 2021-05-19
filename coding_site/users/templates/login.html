@@ -9,10 +9,10 @@
         <form class="form-signin" action="{% url 'login' %}" method="post" >
             {% csrf_token %}
             <div style="padding: 4px;">
-            <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required="" autofocus="">
+                <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required="" autofocus="">
             </div>
             <div style="padding: 4px;">
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="" >
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="" >
             </div>
             <button class="btn btn-success btn-block fivePercentMargin" type="submit"><i class="fas fa-sign-in-alt"></i> Log in</button>
             

@@ -25,7 +25,7 @@ SECRET_KEY = 'dg+3a1_@0cb3e$y92t^i6mbznqx5yfvkm=pp7_us7_-gtazttp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['coding-club-jaya.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'index',
+    'leaderboard',
 ]
 
 MIDDLEWARE = [
