@@ -21,7 +21,7 @@ def leaderboard_view(request):
         users = []
         rank = 1
         for user in JSONdata["result"]:
-            user_p = UserProfile.objects.get( codeForces_username = user["handle"] )
+            user_p = UserProfile.objects.get(codeForces_username = user["handle"])
             user_p.rating = user["rating"]
             user_p.save()
             users.append({
