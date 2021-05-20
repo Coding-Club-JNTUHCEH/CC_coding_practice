@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+{% load static %}
+<head>
+    <title>CC JNTUHCEH</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">
+        <img src="{% static 'imgs/jntuhlogo.png' %}" width="50" height="50" class="d-inline-block align-top" alt="jntuh logo">
+        <p style="display: inline; font-size: 2vw;">Coding Club</p>
+        </a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'leaderboard' %}">Leaderboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'signup' %}" >Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+        </ul>
+        
+    </nav>
+    {% block content %}
+    {% endblock %}
+</body>

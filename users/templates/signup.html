@@ -1,0 +1,27 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'formField.css' %}">
+    <div style="text-align: center;" class = "formField">
+        <h2 class="fivePercentMargin">Sign up</h2>
+    
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-3 col-form-label">{{ field.label}} :</label>
+                    <div class="col-sm-9">
+                        {{ field }}
+                    </div>
+    
+                {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary fivePercentMargin">Submit</button>
+        </form>
+        {{ msg }}
+    </div>
+{% endblock %}
