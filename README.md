@@ -17,9 +17,14 @@ codeforces API: https://codeforces.com/apiHelp
 - improved UI of dasboard
 
 
+
+
 **Things to do:**
 
 - Improve design of Profile view ( for now it's basic)
+- add code to check and add recently submitted problems to solved_problems
+- add forgot password feature
+- add error pages
 - need display proper errors for invalid users ( for now it redirects to hello world )
 - JavaScript should be added for friendly user interface ( making it dynamic )
 - design of Leaderboard
