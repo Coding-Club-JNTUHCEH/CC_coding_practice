@@ -7,7 +7,7 @@ from django.db import models
 
 class Tag(models.Model) :
     tag_name    = models.CharField(max_length=32)
-    tag_title   = models.CharField(max_length=64, default="did not set")
+    # tag_title   = models.CharField(max_length=64, default="did not set")
 
     class Meta:
         ordering = ['tag_name']

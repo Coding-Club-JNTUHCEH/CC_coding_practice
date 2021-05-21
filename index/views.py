@@ -43,8 +43,7 @@ def fetchProblems(min=0, max=5000, tags=[],user = None ,filter=False):
             
         problemSet = Problem.objects.filter(rating__lt = max, rating__gt = min, tags__in = tags_objList )
 
-    
-    user_solved =  UserProfile.objects.get(user = user).sloved_problems.all()
+    user_solved =  UserProfile.objects.get(user = user).updated_solvedProblems().all()
     problemSet = problemSet.difference(user_solved).values()
     
     return problemSet

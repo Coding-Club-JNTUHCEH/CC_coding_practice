@@ -23,19 +23,25 @@ class UserProfile(models.Model):
 
     @classmethod
     def create(cls,*args, **kwargs):
-        profile=UserProfile(
+        profile = UserProfile(
             
         )
         return profile
 
     def add_solvedProblems(self):
 
-        solvedProblems =getSolvedProblems(self.codeForces_username)
+        solvedProblems = getSolvedProblems(self.codeForces_username)
         for problem in solvedProblems:
             self.add_solvedProblem(problem)
 
-    
-    
+    def updated_solvedProblems(self):
+        solvedProblems  = getSolvedProblems(self.codeForces_username)
+        remaing         = len(solvedProblems) - self.sloved_problems.count()
+        for p in range(remaing):
+            self.add_solvedProblem(solvedProblems[p])
+        return self.sloved_problems
+
+
     def add_solvedProblem(self,problem):
         if problem["verdict"] == 'OK' :
             try:
