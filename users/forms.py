@@ -9,10 +9,10 @@ from .codeforces_API import getRating
 import requests
 
 def validate_CFUsername(value):
-    # if not UserProfile.objects.filter(codeForces_username =value).exists():
-    #         raise ValidationError(
-    #             "Username already exists"
-    #         )
+    if UserProfile.objects.filter(codeForces_username =value).exists():
+            raise ValidationError(
+                "Username already exists"
+            )
     url = "https://codeforces.com/api/user.rating?handle=" + str(value)
     data = requests.get(url)
     JSONdata = data.json()
