@@ -1,4 +1,3 @@
-
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
@@ -43,11 +42,7 @@ def fetchProblems(min=0, max=5000, tags=[],user = None ,filter=False):
         problemSet = Problem.objects.filter(rating__lt = max, rating__gt = min, tags__in = tags_objList )
 
     user_solved =  UserProfile.objects.get(user = user).updated_solvedProblems().all()
-<<<<<<< HEAD
     problemSet = problemSet.difference(user_solved).values()
-=======
-    problemSet  = problemSet.difference(user_solved).values()
->>>>>>> 74af10b73ab35be501a04303d7230ae77339599e
     
     return problemSet
 
@@ -72,5 +67,3 @@ def loadProblems_view(request):
         a+=1
 
     return render(request,"hello.html",context = {"result"  : True, "count" : count})
-
- 

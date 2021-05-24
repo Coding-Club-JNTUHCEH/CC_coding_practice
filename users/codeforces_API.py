@@ -11,9 +11,9 @@ def fetchCFProfileInfo(username):
     lastOnline = convertTime(profile["lastOnlineTimeSeconds"])
 
     p = {
-        "rating"    :   profile["rating"] , 
-        "maxRating" :   profile["maxRating"],
-        "titlePhoto":   profile["titlePhoto"],
+        "rating"     :   profile["rating"] , 
+        "maxRating"  :   profile["maxRating"],
+        "titlePhoto" :   profile["titlePhoto"],
         "lastonline" :  lastOnline
     }
 
@@ -21,12 +21,12 @@ def fetchCFProfileInfo(username):
 
 
 def getSolvedProblems(username):
-        url = "https://codeforces.com/api/user.status?handle="+str(username)
-        data = requests.get(url)
-        JSONdata = data.json()
-        if JSONdata["status"]!= 'OK':
-                return []
-        return JSONdata["result"]
+    url = "https://codeforces.com/api/user.status?handle="+str(username)
+    data = requests.get(url)
+    JSONdata = data.json()
+    if JSONdata["status"] != 'OK':
+        return []
+    return JSONdata["result"]
 
 
 def fetchAllProblems():
@@ -38,10 +38,19 @@ def fetchAllProblems():
     return JSONdata['result']['problems']
 
 
+def fetchAllContests():
+    url = 'https://codeforces.com/api/contest.list'
+    JSONdata = fetchURL(url)
+
+    if JSONdata["status"] != 'OK':
+        return []
+    return JSONdata['result']
+
+
 def convertTime(seconds):
     now = time.time()
-    diff  = now - seconds
-    return round( diff/3600, 2)
+    diff = now - seconds
+    return round(diff/3600, 2)
 
 
 def getRating(username):
