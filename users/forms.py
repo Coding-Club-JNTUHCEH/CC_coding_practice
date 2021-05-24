@@ -47,7 +47,7 @@ class SignUpForm(UserCreationForm):
                                                                     "class"         : "form-control",
                                                                     "required"      : True,
                                                                     }))
-    codeForces_username = forms.CharField(validators=[validate_CFUsername], max_length=30,widget=forms.TextInput(attrs={
+    codeForces_username = forms.CharField(validators=[validate_CFUsername],help_text="need help?", max_length=30,widget=forms.TextInput(attrs={
                                                                     "placeholder"   : "Code Forces Username",
                                                                     "class"         : "form-control",
                                                                     "id"            : "name",

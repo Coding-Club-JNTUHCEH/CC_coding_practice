@@ -31,6 +31,7 @@ codeforces API: https://codeforces.com/apiHelp
 
 **Final Touch**
 - design Front End more beautiful
+- add dark mode
 
 
 if there are any more todo's to add, add them

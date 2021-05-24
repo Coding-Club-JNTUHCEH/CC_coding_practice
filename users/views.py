@@ -112,5 +112,8 @@ def logout_view(request):
     logout(request)
     return redirect(reverse(login_view))
 
+def help_CF_view(request):
+    return render(request, 'help_CF.html')
+
 
 
