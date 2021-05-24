@@ -62,7 +62,7 @@ def profile_view(request,*args,**kwargs):
     try:
         user = User.objects.get(username = username)
     except:
-        return  render(request, "error.html", context = {"msg" : "user does not exist"})
+        return render(request,'404.html',{})
 
     user_details = UserProfile.objects.get(user = user).__dict__
     user_details["username"] = user.username
@@ -111,6 +111,9 @@ def changePassword_view(request):
 def logout_view(request):
     logout(request)
     return redirect(reverse(login_view))
+
+def help_CF_view(request):
+    return render(request, 'help_CF.html')
 
 
 

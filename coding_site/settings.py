@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users',
     'index',
     'leaderboard',
+    'error_handling',
 ]
 
 MIDDLEWARE = [
@@ -141,6 +142,15 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL='/login'
+
+#SMTP Configurations
+EMAIL_BACKEND       = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST          = 'smtp.gmail.com'
+EMAIL_PORT          = 587
+EMAIL_USE_TLS       = True
+EMAIL_HOST_USER     = 'ccjntuhceh@gmail.com'
+EMAIL_HOST_PASSWORD = 'xufkcahntmdpiwyb'
+# DEFAULT_FROM_EMAIL  = 'Coding Club JNTUHCEH <noreply@ccjntuhceh@gmail.com>'
 
 os.makedirs(STATIC_ROOT, exist_ok=True)
 os.makedirs(STATICFILES_DIRS[0], exist_ok=True)

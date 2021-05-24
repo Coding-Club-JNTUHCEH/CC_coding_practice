@@ -14,23 +14,24 @@ codeforces API: https://codeforces.com/apiHelp
 - wrote code to display leaderboard ( backend & frontend )
 - Wrote code user can edit profile ( including password )
 - add code to hide already solved problems by user
+- add code to check and add recently submitted problems to solved_problems
 - improved UI of dasboard
-
-
-
+- added error pages
+- added forgot password feature
 
 **Things to do:**
 
 - Improve design of Profile view ( for now it's basic)
-- add code to check and add recently submitted problems to solved_problems
-- add forgot password feature
-- add error pages
+- create a new email account to send forgot password link
 - need display proper errors for invalid users ( for now it redirects to hello world )
 - JavaScript should be added for friendly user interface ( making it dynamic )
 - design of Leaderboard
+- add how to get codeforces username help page
+
 
 **Final Touch**
 - design Front End more beautiful
+- add dark mode
 
 
 if there are any more todo's to add, add them
@@ -66,6 +67,10 @@ if there are any more todo's to add, add them
 **Edit Profile:**
 
 <img src="/readmeImgs/edit_profile.png" width="70%">
+
+**404 Page:**
+
+<img src="/readmeImgs/404.png" width="70%">
 
 *Note*: superuser Credintials:
 

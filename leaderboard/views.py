@@ -33,3 +33,4 @@ def leaderboard_view(request):
     
     context ={ "users" : users }
     return render(request,"leaderboard.html",context=context)
+
