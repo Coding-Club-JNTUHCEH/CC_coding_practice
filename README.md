@@ -68,10 +68,13 @@ if there are any more todo's to add, add them
 
 <img src="/readmeImgs/edit_profile.png" width="70%">
 
+<<<<<<< HEAD
 **404 Page:**
 
 <img src="/readmeImgs/404.png" width="70%">
 
+=======
+>>>>>>> main
 *Note*: superuser Credintials:
 
         username: jaya2102
