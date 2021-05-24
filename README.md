@@ -20,7 +20,6 @@ codeforces API: https://codeforces.com/apiHelp
 - added forgot password feature
 
 
-
 **Things to do:**
 
 - Improve design of Profile view ( for now it's basic)
@@ -29,7 +28,6 @@ codeforces API: https://codeforces.com/apiHelp
 - JavaScript should be added for friendly user interface ( making it dynamic )
 - design of Leaderboard
 - add how to get codeforces username help page
-
 
 
 **Final Touch**
@@ -70,7 +68,6 @@ if there are any more todo's to add, add them
 **Edit Profile:**
 
 <img src="/readmeImgs/edit_profile.png" width="70%">
-
 
 **404 Page:**
 
