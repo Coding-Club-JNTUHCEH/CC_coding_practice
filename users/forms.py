@@ -9,10 +9,10 @@ from .codeforces_API import getRating
 import requests
 
 def validate_CFUsername(value):
-    # if not UserProfile.objects.filter(codeForces_username =value).exists():
-    #         raise ValidationError(
-    #             "Username already exists"
-    #         )
+    if UserProfile.objects.filter(codeForces_username =value).exists():
+            raise ValidationError(
+                "Username already exists"
+            )
     url = "https://codeforces.com/api/user.rating?handle=" + str(value)
     data = requests.get(url)
     JSONdata = data.json()
@@ -47,7 +47,7 @@ class SignUpForm(UserCreationForm):
                                                                     "class"         : "form-control",
                                                                     "required"      : True,
                                                                     }))
-    codeForces_username = forms.CharField(validators=[validate_CFUsername], max_length=30,widget=forms.TextInput(attrs={
+    codeForces_username = forms.CharField(validators=[validate_CFUsername],help_text="need help?", max_length=30,widget=forms.TextInput(attrs={
                                                                     "placeholder"   : "Code Forces Username",
                                                                     "class"         : "form-control",
                                                                     "id"            : "name",
