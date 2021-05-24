@@ -1,66 +1,76 @@
+
 from django.shortcuts import render
-import requests
 from django.contrib.auth.decorators import login_required
 
+from users.models import UserProfile
+from users.codeforces_API import fetchAllProblems
+
+from .models import Problem, Tag
 # Create your views here.
 
 
 @login_required
 def dashboard_view(request):
-
+    context = {}
     if(request.method == "POST"):
-        min_rating = int(request.POST.get("minPts"))
-        max_rating = int(request.POST.get("maxPts"))
+        context["min"] = int(request.POST.get("minPts"))
+        context["max"] = int(request.POST.get("maxPts"))
         tags = request.POST.getlist("listOfTags")
-        print(tags)
-        problemSet = fetchProblems(
-            min=min_rating, max=max_rating, tags=tags, filter=True)
+        context["problems"] = fetchProblems(
+            min=context["min"], max=context["max"], tags=tags, user=request.user, filter=True)
 
     else:
-        problemSet = fetchProblems()
+        context["min"] = 0
+        context["max"] = 5000
+        context["problems"] = fetchProblems()
 
-    context = {"problems": problemSet}
+    context["tags"] = list(Tag.objects.all())
 
     return render(request, "dashboard.html", context=context)
 
 
-def fetchProblems(min=0, max=5000, tags=[], filter=False):
-    url = 'https://codeforces.com/api/problemset.problems'
-    data = requests.get(url)
-    JSONdata = data.json()
-    problemSet = []
+def fetchProblems(min=0, max=5000, tags=[], user=None, filter=False):
 
-    if JSONdata["status"] != 'OK':
-        return problemSet
+    if not filter:
+        problemSet = Problem.objects.all().values()
 
-    for problem in JSONdata['result']['problems']:
-        p = ExtractProblem(problem)
-        check = any(tag in p['tags'] for tag in tags)
-        if(not filter or ((p['rating'] >= min and p['rating'] <= max) and check)):
-            problemSet.append(p)
+    elif len(tags) == 0:
+        problemSet = Problem.objects.filter(
+            rating__lt=max, rating__gt=min).values()
 
+    else:
+        tags_objList = []
+        for tag in tags:
+            tags_objList.append(Tag.objects.get_or_create(tag_name=tag)[0])
+
+        problemSet = Problem.objects.filter(
+            rating__lt=max, rating__gt=min, tags__in=tags_objList)
+
+    try:
+        user_solved = UserProfile.objects.get(user=user).sloved_problems.all()
+        problemSet = problemSet.difference(user_solved).values()
+    except:
+        problemSet = problemSet.values()
     return problemSet
 
 
-def ExtractProblem(problem):
-    if 'rating' in problem and 'tags' in problem:
-        rating = problem["rating"]
-        tags = problem["tags"]
-    elif 'rating' in problem:
-        rating = problem["rating"]
-        tags = []
-    elif 'tags' in problem:
-        tags = problem["tags"]
-        rating = 0
-    else:
-        rating = 0
-        tags = []
+def loadProblems_view(request):
 
-    p = {'contestID': problem["contestId"],
-         'index': problem["index"],
-         'name': problem["name"],
-         'rating': rating,
-         'tags': tags,
-         'link': 'https://codeforces.com/problemset/problem/' + str(problem["contestId"]) + '/' + problem["index"],
-         }
-    return p
+    problems = fetchAllProblems()
+    a, count = 1, 1
+    if len(problems) == 0 or not request.user.is_superuser:
+        return render(request, "hello.html", context={"result": False})
+
+    for problem in problems:
+
+        p_db = Problem.create(problem)
+        try:
+            p_db.save()
+            count += 1
+            p_db.link_tags(problem["tags"])
+            print(str(a)+".Problem ", p_db, " saved" .format(a))
+        except:
+            print(str(a)+".Problem ", p_db, " could not add" .format(a))
+        a += 1
+
+    return render(request, "hello.html", context={"result": True, "count": count})

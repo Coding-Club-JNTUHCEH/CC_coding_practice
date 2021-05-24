@@ -1,21 +1,36 @@
-
 {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
-    <div class="container">
-        <div style="text-align: center;">
-            <img src= {{ codeforces.titlePhoto }}> 
-            <h3> {{ name }}</h3>
-            <h6> {{ username }}</h6>
-        </div>
-        <div style="text-align: left;">
-            <p><b>CodeForces Name   :</b> {{ codeForces_name }} </p>
-            <p><b>Year of Admission :</b> {{ year }} </p>
-            <p><b>Last Online       :</b> {{ codeforces.lastonline }} Hours ago </p>
-            <p><b>Current Rating    :</b> {{ codeforces.rating }} </p>
-            <p><b>Max Rating        :</b> {{ codeforces.maxRating }} </p>
-        </div>
+<div class="container">
+    <div style="text-align: center;">
+        <img src={{ codeforces.titlePhoto }}>
+        <h3> {{ name }}</h3>
+        <h6> {{ username }}</h6>
     </div>
+    <div style="text-align: left;">
+        <p><b>CodeForces Name :</b> {{ codeForces_username }} </p>
+        <p><b>Year of Admission :</b> {{ year }} </p>
+        <p><b>Last Online :</b> {{ codeforces.lastonline }} Hours ago </p>
+        <p><b>Current Rating :</b> {{ codeforces.rating }} </p>
+        <p><b>Max Rating :</b> {{ codeforces.maxRating }} </p>
+    </div>
+    <div style="display: inline-block;">
+        <form action="https://codeforces.com/submissions/{{ codeForces_username }}">
+            {% if edit_profile %}
+            <button type="submit" class="btn btn-warning" value="Edit Profile" formaction="{% url 'edit_profile' %}">
+                Edit Profile
+            </button>
+            {% endif%}
+            <button type="submit" class="btn btn-success" target="_blank">
+                Submissions
+            </button>
+        </form>
+
+
+
+
+    </div>
+</div>
 
 {% endblock %}
