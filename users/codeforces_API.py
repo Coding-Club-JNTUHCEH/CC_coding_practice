@@ -1,21 +1,20 @@
 import time
 import requests
 
-
 def fetchCFProfileInfo(username):
     url = 'https://codeforces.com/api/user.info?handles='+str(username)
     JSONdata = fetchURL(url)
-
-    if JSONdata["status"] != 'OK':
+    
+    if JSONdata["status"] != 'OK' :
         return {}
     profile = JSONdata["result"][0]
     lastOnline = convertTime(profile["lastOnlineTimeSeconds"])
 
     p = {
-        "rating":   profile["rating"],
-        "maxRating":   profile["maxRating"],
-        "titlePhoto":   profile["titlePhoto"],
-        "lastonline":  lastOnline
+        "rating"     :   profile["rating"] , 
+        "maxRating"  :   profile["maxRating"],
+        "titlePhoto" :   profile["titlePhoto"],
+        "lastonline" :  lastOnline
     }
 
     return p
@@ -33,8 +32,8 @@ def getSolvedProblems(username):
 def fetchAllProblems():
     url = 'https://codeforces.com/api/problemset.problems'
     JSONdata = fetchURL(url)
-
-    if JSONdata["status"] != 'OK':
+    
+    if JSONdata["status"] != 'OK':    
         return []
     return JSONdata['result']['problems']
 

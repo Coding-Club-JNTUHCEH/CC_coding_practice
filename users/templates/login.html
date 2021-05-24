@@ -13,13 +13,16 @@
             </div>
             <div style="padding: 4px;">
                 <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="" >
+                <div style="text-align: right; margin: 1%;">
+                    <a href="{% url 'reset_password' %}">Forgot Password?</a>
+                </div>
             </div>
             <button class="btn btn-success btn-block fivePercentMargin" type="submit"><i class="fas fa-sign-in-alt"></i> Log in</button>
             
             <br>
             <!-- <p>Don't have an account!</p>  -->
             
-            <a href="/signup"><button class="btn btn-primary btn-block " type="button" id="btn-signup" formaction="{% url 'signup' %}" ><i class="fas fa-user-plus" ></i> Sign up New Account</button></a>
+            <a href="{% url 'signup' %}"><button class="btn btn-primary btn-block " type="button" id="btn-signup" formaction="{% url 'signup' %}" ><i class="fas fa-user-plus" ></i> Sign up New Account</button></a>
         </form>
     </div>
 
