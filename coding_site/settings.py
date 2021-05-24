@@ -11,12 +11,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-<<<<<<< HEAD:coding_site/settings.py
 import django_heroku
 import dj_database_url
-=======
-import sys
->>>>>>> main:coding_site/coding_site/settings.py
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -47,10 +44,7 @@ INSTALLED_APPS = [
     'index',
     'leaderboard',
     'contest',
-<<<<<<< HEAD:coding_site/settings.py
     'error_handling',
-=======
->>>>>>> main:coding_site/coding_site/settings.py
 ]
 
 MIDDLEWARE = [
