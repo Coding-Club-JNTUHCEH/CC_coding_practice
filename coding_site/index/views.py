@@ -57,6 +57,8 @@ def fetchProblems(min=0, max=5000, tags=[], user=None, filter=False):
 def loadProblems_view(request):
 
     problems = fetchAllProblems()
+    # Problem.objects.all().delete()
+
     a, count = 1, 1
     if len(problems) == 0 or not request.user.is_superuser:
         return render(request, "hello.html", context={"result": False})

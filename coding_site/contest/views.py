@@ -10,39 +10,23 @@ from django.http import HttpResponse
 
 
 def contest_page(request):
-    contests = Contest.objects.filter(name__icontains="Div.").values()
-    a = 1
-    limit = 15
-    if 'contest-all' in request.path:
-        limit = 200
+    contests = Contest.objects.filter(name__icontains="Div.")
+    # a = 1
+    # limit = 15
+    # if 'contest-all' in request.path:
+    #     limit = 200
 
-    for contest in contests:
-        if a < limit:
-            print(contest)
-            print(contest['name'])
-            print(contest['contestID'])
-            print(contest['type'])
-            # print(contest['problems'])
-            # contest['problems'] = ['A']
-            problems = Problem.objects.filter(
-                contestID=contest['contestID']).order_by("index")
-            print(problems)
-            print(len(problems))
-            # print(problems)
-            if problems.exists() and len(problems) > 4:
-                # print(type(problems_list))
-                contest['problems'] = list(problems)
-                a += 1
-            # print(contest['problems'])
-            print(contest)
-            # print(', '.join(contest.problems.values_list('name', flat=True)))
+    # for contest in contests:
+    #     if a < limit:
 
-        else:
-            break
+    #         print(contest)
+
+    #     else:
+    #         break
 
     print(request.path)
     path = request.path + '-all'
-    return render(request, 'contest_page.html', {'contests': contests, 'path': path})
+    return render(request, 'contest_page.html', {'contests': contests, 'path': path, })
 
 
 # https://codeforces.com/api/contest.list
@@ -51,6 +35,8 @@ def loadContests_view(request):
 
     contests = fetchAllContests()
     # problems = fetchAllProblems()
+    # Contest.objects.all().delete()
+
     a, count = 1, 1
     if len(contests) == 0:  # or not request.user.is_superuser:
         print(":( !!!!!")
@@ -61,40 +47,49 @@ def loadContests_view(request):
 
     for contest in contests:
 
+        # if a < 20:
+
         c_db = Contest.create(contest)
-        c_db.problems = c_db.add_problems()
+        # c_db.problems = c_db.add_problems()
 
         try:
             c_db.save()
             count += 1
+            # problems = Problem.objects.filter(
+            #     contestID=contest['contestID']).order_by("index")
+            # print(problems)
+            # c_db.link_problems(problems)
+            # print(str(a) + ".contest".format(a))
+            # print(contest)
+            # print("Contest added-"+a)
+            # print(str(a)+".Contest ", c_db, " saved".format(a))
         except:
             print("Error!!!")
-        a += 1
+            # print(str(a)+".Contest ", c_db, " could not add".format(a))
+        # a += 1
 
     print('yes!!!!')
     return render(request, "hello.html", context={"result": True, "count": count})
 
 
 def update_contestProblems(request):
-    contests = Contest.objects.all().filter(name__icontains="Div.")
-    a = 1
+    contests = Contest.objects.filter(name__icontains="Div.")
+    # a = 1
     for contest in contests:
-        if a < 15:
-            print(contest.name)
-            print(contest.contestID)
-            print(contest.type)
-            # print(Problem.objects.all())
-            problems = Problem.objects.filter(
-                contestID=contest.contestID).order_by("index")
-            print(problems)
-            print(len(problems))
-            # print(problems)
-            if problems.exists() and len(problems) > 4:
+        # if a < 20:
+        print(contest.name)
+        print(contest.contestID)
+        print(contest.type)
+        problems = Problem.objects.filter(
+            contestID=contest.contestID).order_by("-index")
+        print(problems)
+        if problems.exists() and len(problems) > 4:
+            # print(type(problems_list))
+            contest.link_problems(problems)
+            # a += 1
 
-                # print(type(problems_list))
-                contest.problems.add(*problems)
-            a += 1
-            print(contest.problems.all())
-            print(contest)
-    # print(contests)
+        print(contest)
+        # contest.problems.all().order_by("index")
+        print(contest.problems.all())
+
     return HttpResponse("Hello")

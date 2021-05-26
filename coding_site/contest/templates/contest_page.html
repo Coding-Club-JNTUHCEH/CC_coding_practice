@@ -25,9 +25,10 @@
     <tbody>
         {% for contest in contests %}
         <tr>
-            {%if contest.problems %}
+
+            {%if contest.problems.all %}
             <th scope="row">{{ contest.contestID }}</th>
-            {% for problem in contest.problems %}
+            {% for problem in contest.problems.all %}
             <td><a href={{ problem.link }} target="_blank" class="btn1 btn-primary1">{{ problem.index }}</a></td>
             <!-- <td>{{ problem.index }}</td> -->
             {% endfor %}
