@@ -15,6 +15,7 @@ import django_heroku
 import dj_database_url
 
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,11 +23,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'dg+3a1_@0cb3e$y92t^i6mbznqx5yfvkm=pp7_us7_-gtazttp'
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG') != 'FALSE'
+
+# SECURITY WARNING: keep the secret key used in production secret!
+if DEBUG:
+    SECRET_KEY = 'hello!'
+else:
+    SECRET_KEY = os.getenv('SECRET_KEY')
+
+
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -150,8 +157,8 @@ EMAIL_BACKEND       = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST          = 'smtp.gmail.com'
 EMAIL_PORT          = 587
 EMAIL_USE_TLS       = True
-EMAIL_HOST_USER     = 'ccjntuhceh@gmail.com'
-EMAIL_HOST_PASSWORD = 'xufkcahntmdpiwyb'
+EMAIL_HOST_USER     = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 # DEFAULT_FROM_EMAIL  = 'Coding Club JNTUHCEH <noreply@ccjntuhceh@gmail.com>'
 
 os.makedirs(STATIC_ROOT, exist_ok=True)

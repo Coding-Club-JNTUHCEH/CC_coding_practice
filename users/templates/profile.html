@@ -16,7 +16,7 @@
             <p><b>Max Rating        :</b> {{ codeforces.maxRating }} </p>
         </div>
         <div style="display: inline-block;">
-            <form action= "https://codeforces.com/submissions/{{ codeForces_name }}">
+            <form action= "https://codeforces.com/submissions/{{ codeForces_username }}">
             {% if edit_profile %}
                 <button type="submit" class="btn btn-warning" value="Edit Profile" formaction="{% url 'edit_profile' %}">
                     Edit Profile
