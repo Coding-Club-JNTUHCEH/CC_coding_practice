@@ -159,7 +159,7 @@ EMAIL_PORT          = 587
 EMAIL_USE_TLS       = True
 EMAIL_HOST_USER     = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-# DEFAULT_FROM_EMAIL  = 'Coding Club JNTUHCEH <noreply@ccjntuhceh@gmail.com>'
+
 
 os.makedirs(STATIC_ROOT, exist_ok=True)
 os.makedirs(STATICFILES_DIRS[0], exist_ok=True)
