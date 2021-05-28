@@ -23,8 +23,7 @@ def fetchCFProfileInfo(username):
 
 def getSolvedProblems(username):
     url = "https://codeforces.com/api/user.status?handle="+str(username)
-    data = requests.get(url)
-    JSONdata = data.json()
+    JSONdata = fetchURL(url)
     if JSONdata["status"] != 'OK':
         return []
     return JSONdata["result"]
@@ -37,6 +36,14 @@ def fetchAllProblems():
     if JSONdata["status"] != 'OK':
         return []
     return JSONdata['result']['problems']
+
+def fetchAllUsers(users_str):
+    url = "https://codeforces.com/api/user.info?handles="+ users_str
+    JSONdata = fetchURL(url)
+    if JSONdata["status"] != "OK" :
+        return []
+  
+    return JSONdata["result"]
 
 
 def fetchAllContests():

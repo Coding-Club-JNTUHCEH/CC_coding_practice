@@ -61,4 +61,14 @@ class UserProfile(models.Model):
         p_db = Problem.create(problem)
         p_db.save()
         p_db.link_tags(problem["tags"])
-    
+
+    @staticmethod
+    def updateRatings(updated_data):
+        status = False
+        for user in updated_data:
+            user_p = UserProfile.objects.get(codeForces_username = user["handle"])
+            user_p.rating = user["rating"]
+            user_p.save()
+            status = True
+
+        return UserProfile.objects.all(),status
