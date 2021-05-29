@@ -5,7 +5,14 @@
 
 <div class="">
     <h2>Welcome to the contest page</h2>
-    <h1>Contest Page</h1>
+    <div class="btn-group me-2" role="group" aria-label="Second group">
+        <a href="contest/0" class="btn btn-secondary">All </a>
+        <a href="contest/1" class="btn btn-secondary">Div. 1 </a>
+        <a href="contest/2" class="btn btn-secondary">Div. 2 </a>
+        <a href="contest/3" class="btn btn-secondary">Div. 3 </a>
+        <a href="contest/4" class="btn btn-secondary">Div. 4 </a>
+    </div>
+    <h1>Div {{type}} Contest Page</h1>
 </div>
 
 <table class="table table-bordered" style="width: 95%;">
@@ -25,17 +32,36 @@
     <tbody>
         {% for contest in contests %}
         <tr>
+            {%if type == '0' %}
 
             {%if contest.problems.all %}
             <th scope="row">{{ contest.contestID }}</th>
             {% for problem in contest.problems.all %}
-            <td><a href={{ problem.link }} target="_blank" class="btn1 btn-primary1">{{ problem.index }}</a></td>
-            <!-- <td>{{ problem.index }}</td> -->
+
+            <td>
+                <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
+            </td>
+
             {% endfor %}
-            <!-- <td>{{ problem.index }}</td>
-                <td>{{ problem.name }}</td>
-                <td>{{ problem.rating }}</td> -->
             {% endif %}
+
+            {% else %}
+
+
+            {%if contest.problems.all and contest.type == type %}
+            <th scope="row">{{ contest.contestID }}</th>
+            {% for problem in contest.problems.all %}
+
+            <td>
+                <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
+            </td>
+
+            {% endfor %}
+            {% endif %}
+
+            {% endif %}
+
+
         </tr>
         {% endfor %}
 

@@ -21,7 +21,7 @@ class Problem(models.Model):
     rating = models.IntegerField(default=0)
     link = models.URLField(max_length=200)
     tags = models.ManyToManyField(Tag, blank=True, related_name="Problme")
-    # color = models.CharField(max_length=10)
+    color = models.CharField(max_length=10, default='none')
 
     class Meta:
         unique_together = ['contestID', 'index']
@@ -35,6 +35,7 @@ class Problem(models.Model):
             name=cleaned_problem["name"],
             rating=cleaned_problem["rating"],
             link=cleaned_problem["link"],
+            color=cleaned_problem['color'],
         )
 
         return p
@@ -54,11 +55,14 @@ class Problem(models.Model):
         else:
             tags = []
 
+        color = 'none'
+
         p = {'contestID': problem["contestId"],
              'index': problem["index"],
              'name': problem["name"],
              'rating': rating,
              'tags': tags,
+             'color': color,
              'link': 'https://codeforces.com/problemset/problem/' + str(problem["contestId"]) + '/' + problem["index"],
              }
         return p

@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 
 from users.models import UserProfile
 from users.codeforces_API import fetchAllProblems
+from django.http import HttpResponse
+
 
 from .models import Problem, Tag
 # Create your views here.
@@ -46,18 +48,20 @@ def fetchProblems(min=0, max=5000, tags=[], user=None, filter=False):
         problemSet = Problem.objects.filter(
             rating__lt=max, rating__gt=min, tags__in=tags_objList)
 
-    try:
-        user_solved = UserProfile.objects.get(user=user).sloved_problems.all()
-        problemSet = problemSet.difference(user_solved).values()
-    except:
-        problemSet = problemSet.values()
+    # try:
+    #     user_solved = UserProfile.objects.get(user=user).sloved_problems.all()
+    #     problemSet = problemSet.difference(user_solved).values()
+    # except:
+    #     problemSet = problemSet.values()
+
+    problemSet.values()
+
     return problemSet
 
 
 def loadProblems_view(request):
 
     problems = fetchAllProblems()
-    # Problem.objects.all().delete()
 
     a, count = 1, 1
     if len(problems) == 0 or not request.user.is_superuser:
@@ -76,3 +80,30 @@ def loadProblems_view(request):
         a += 1
 
     return render(request, "hello.html", context={"result": True, "count": count})
+
+
+def update_solvedProblems(request):
+
+    problems = fetchAllProblems()
+
+    a, count = 1, 1
+
+    print(request.user)
+
+    if len(problems) == 0:
+        return render(request, "hello.html", context={"result": False})
+
+    for problem in problems:
+        if a < 20:
+            user_solved = UserProfile.objects.get(
+                user=request.user).sloved_problems.all()
+            print(request.user)
+            print(user_solved)
+            print(problem)
+            for solved_problem in user_solved:
+                if solved_problem == problem:
+                    problem.color = solved_problem.color
+                    print(problem.color)
+            a += 1
+
+    return HttpResponse("Hello")
