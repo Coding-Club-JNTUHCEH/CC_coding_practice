@@ -5,39 +5,51 @@ from index.models import Problem
 from users.codeforces_API import fetchAllContests
 from .models import Contest
 from django.http import HttpResponse
-# from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 
 def contest_page(request, *args, **kwargs):
-    contests = Contest.objects.filter(name__icontains="Div.")
+
     # user_solved = UserProfile.objects.get(
     #     user=request.user).sloved_problems.all()
+
+    if 'type1' in kwargs:
+        typee = kwargs["type1"]
+        contests = Contest.objects.filter(name__icontains="Div. "+typee)
+
+    else:
+        typee = '0'
+        contests = Contest.objects.filter(name__icontains="Div.")
 
     a = 1
     limit = 15
     # if 'contest-all' in request.path:
     #     limit = 200
 
-    for contest in contests:
-        if a < limit:
+    # for contest in contests:
+    #     if a < limit:
 
-            print(contest)
-            print(type(contest.type))
+    #         print(contest)
+    #         print(type(contest.type))
 
-        else:
-            break
-# 'solved_problems':
-    if 'type1' in kwargs:
-        typee = kwargs["type1"]
-    else:
-        typee = '0'
+    #     else:
+    #         break
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(contests, 10)
+    try:
+        contest = paginator.page(page)
+    except PageNotAnInteger:
+        contest = paginator.page(1)
+    except EmptyPage:
+        contest = paginator.page(paginator.num_pages)
 
     print(typee)
     print(request.path)
     print(contests)
     path = request.path + '-all'
-    return render(request, 'contest_page.html', {'contests': contests, 'path': path, 'type': typee})
+    return render(request, 'contest_page.html', {'contests': contest, 'path': path, 'type': typee})
 
 
 # https://codeforces.com/api/contest.list
