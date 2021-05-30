@@ -27,6 +27,9 @@ codeforces API: https://codeforces.com/apiHelp
 - need display proper errors for invalid users ( for now it redirects to hello world )
 - JavaScript should be added for friendly user interface ( making it dynamic )
 - design of Leaderboard
+- add  'add friend' option
+- add feature to check friend's submissions
+- divide dashboard into pages
 - add how to get codeforces username help page
 
 
