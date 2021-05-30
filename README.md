@@ -19,13 +19,13 @@ codeforces API: https://codeforces.com/apiHelp
 - added error pages
 - added forgot password feature
 - added how to get codeforces username help page
+- added to display proper errors for invalid users
 
 
 **Things to do:**
 
 - Improve design of Profile view ( for now it's basic)
-- create a new email account to send forgot password link
-- need display proper errors for invalid users ( for now it redirects to hello world )
+- create a new email account to send forgot password link ( for now not needed )
 - JavaScript should be added for friendly user interface ( making it dynamic )
 - design of Leaderboard
 - add  'add friend' option
