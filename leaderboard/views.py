@@ -18,13 +18,13 @@ def leaderboard_view(request):
     
     users_cfProfile = fetchAllUsers(users_str)
 
-    users_p,status = UserProfile.updateRatings(users_cfProfile)
+    users_p,updated = UserProfile.updateRatings(users_cfProfile)
     for user_p in users_p:
         users.append(extract_leaderboardData(user_p,rank))
         rank+=1
         
         
-    context ={ "users" : users, "status" : status }
+    context ={ "users" : users, "updated" : updated }
     
     return render(request,"leaderboard.html",context=context)
 
