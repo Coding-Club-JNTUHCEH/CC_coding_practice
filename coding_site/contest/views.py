@@ -11,9 +11,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def contest_page(request, *args, **kwargs):
 
-    # user_solved = UserProfile.objects.get(
-    #     user=request.user).sloved_problems.all()
-
+    user_solved = UserProfile.objects.get(
+        user=request.user).sloved_problems.all()
+    print(user_solved)
     if 'type1' in kwargs:
         typee = kwargs["type1"]
         contests = Contest.objects.filter(name__icontains="Div. "+typee)
@@ -22,7 +22,7 @@ def contest_page(request, *args, **kwargs):
         typee = '0'
         contests = Contest.objects.filter(name__icontains="Div.")
 
-    a = 1
+    flag = '0'
     limit = 15
     # if 'contest-all' in request.path:
     #     limit = 200
@@ -49,7 +49,7 @@ def contest_page(request, *args, **kwargs):
     print(request.path)
     print(contests)
     path = request.path + '-all'
-    return render(request, 'contest_page.html', {'contests': contest, 'path': path, 'type': typee})
+    return render(request, 'contest_page.html', {'contests': contest, 'path': path, 'type': typee, 'user_solved': user_solved, 'flag': flag})
 
 
 # https://codeforces.com/api/contest.list

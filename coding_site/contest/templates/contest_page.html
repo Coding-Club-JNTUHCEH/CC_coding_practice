@@ -37,31 +37,37 @@
             {%if contest.problems.all %}
             <th scope="row">{{ contest.contestID }}</th>
             {% for problem in contest.problems.all %}
-
+            {%if problem in user_solved%}
+            <td style="background-color: {{problem.color}};">
+                <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
+            </td>
+            {%else%}
             <td>
                 <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
             </td>
+            {%endif%}
 
             {% endfor %}
             {% endif %}
 
             {% else %}
 
-
             {%if contest.problems.all and contest.type == type %}
             <th scope="row">{{ contest.contestID }}</th>
             {% for problem in contest.problems.all %}
-
+            {%if problem in user_solved%}
+            <td style="background-color: {{problem.color}};">
+                <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
+            </td>
+            {%else%}
             <td>
                 <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
             </td>
+            {%endif%}
 
             {% endfor %}
             {% endif %}
-
             {% endif %}
-
-
         </tr>
         {% endfor %}
 
