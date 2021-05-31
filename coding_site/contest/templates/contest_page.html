@@ -38,9 +38,14 @@
             <th scope="row">{{ contest.contestID }}</th>
             {% for problem in contest.problems.all %}
             {%if problem in user_solved%}
-            <td style="background-color: {{problem.color}};">
+            {% for solved in user_solved %}
+            {% if solved == problem %}
+            <td style="background-color: {{solved.color}};">
                 <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
             </td>
+            {% endif %}
+            {%endfor%}
+
             {%else%}
             <td>
                 <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
@@ -56,9 +61,13 @@
             <th scope="row">{{ contest.contestID }}</th>
             {% for problem in contest.problems.all %}
             {%if problem in user_solved%}
-            <td style="background-color: {{problem.color}};">
+            {% for solved in user_solved %}
+            {% if solved == problem %}
+            <td style="background-color: {{solved.color}};">
                 <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
             </td>
+            {% endif %}
+            {% endfor %}
             {%else%}
             <td>
                 <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
@@ -85,8 +94,10 @@
     {% for i in contests.paginator.page_range %}
     {% if contests.number == i %}
     <li class="active"><span class="btn btn-primary">{{ i }} <span class="sr-only">(current)</span></span></li>
-    {% else %}
-    <li><a class="btn btn-primary" href="?page={{ i }}">{{ i }}</a></li>
+    {% elif i == 1 or i == 109%}
+    <li class="pagination-li"><a class="btn btn-primary" href="?page={{ i }}">{{ i }}</a></li>
+    {% elif i == 2 or i == 108 %}
+    <li class="inactive"><span class="inactive">...</span></li>
     {% endif %}
     {% endfor %}
     {% if contests.has_next %}

@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from users.models import UserProfile
 from users.codeforces_API import fetchAllProblems
 from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 from .models import Problem, Tag
@@ -27,6 +28,18 @@ def dashboard_view(request):
         context["problems"] = fetchProblems()
 
     context["tags"] = list(Tag.objects.all())
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(context["problems"], 20)
+    try:
+        context["problems"] = paginator.page(page)
+    except PageNotAnInteger:
+        context["problems"] = paginator.page(1)
+    except EmptyPage:
+        context["problems"] = paginator.page(paginator.num_pages)
+
+    print(context['problems'].paginator.page_range)
 
     return render(request, "dashboard.html", context=context)
 

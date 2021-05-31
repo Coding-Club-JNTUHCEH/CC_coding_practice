@@ -26,3 +26,12 @@
     padding-top: 2rem;
 }
 
+.inactive{
+    content:"...";
+    display: block;
+}
+
+/*****************  PAGINATION *******************/
+
+
+/********** END OF PAGINATION *****************/

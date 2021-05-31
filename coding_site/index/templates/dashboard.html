@@ -41,30 +41,6 @@
 
                         </select>
 
-                        <link
-                            href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css"
-                            rel="stylesheet">
-                        <link rel="stylesheet" type="text/css" media="screen"
-                            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css">
-
-
-                        <!-- <select class="selectpicker" data-live-search="true">
-                            <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-                            <option data-tokens="mustard">Burger, Shake and a Smile</option>
-                            <option data-tokens="frosting">Sugar, Spice and all things nice</option>
-                        </select> -->
-
-
-                        <!-- 
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                        <script
-                            src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-                        <script
-                            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/js/bootstrap-select.min.js"></script> -->
-
-
-                        <!-- <div class="tags" id="tagList">
-                        </div> -->
                     </div>
 
 
@@ -105,6 +81,35 @@
             {% endfor %}
 
     </table>
+
+</div>
+
+<div>
+    {% if problems.has_other_pages %}
+    <ul class="pagination">
+        {% if problems.has_previous %}
+        <li class="pagination-li"><a class="btn btn-primary cdp_i"
+                href="?page={{ problems.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in problems.paginator.page_range %}
+        {% if problems.number == i %}
+        <li class="active"><span class="btn btn-primary">{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% elif i == 1 or i == 348%}
+        <li class="pagination-li"><a class="btn btn-primary" href="?page={{ i }}">{{ i }}</a></li>
+        {% elif i == 2 or i == 347 %}
+        <li class="inactive"><span class="inactive">...</span></li>
+        {% endif %}
+        {% endfor %}
+        {% if problems.has_next %}
+        <li class="pagination-li"><a class="btn btn-primary" href="?page={{ problems.next_page_number }}">&raquo;</a>
+        </li>
+        {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+    {% endif %}
 </div>
 
 {% endblock %}

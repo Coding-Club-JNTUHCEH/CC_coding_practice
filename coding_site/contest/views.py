@@ -3,6 +3,7 @@ from users.models import UserProfile
 from index.models import Problem
 # from users.codeforces_API import fetchAllProblems
 from users.codeforces_API import fetchAllContests
+from users.codeforces_API import getSolvedProblems
 from .models import Contest
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -24,6 +25,7 @@ def contest_page(request, *args, **kwargs):
 
     flag = '0'
     limit = 15
+
     # if 'contest-all' in request.path:
     #     limit = 200
 
@@ -44,6 +46,8 @@ def contest_page(request, *args, **kwargs):
         contest = paginator.page(1)
     except EmptyPage:
         contest = paginator.page(paginator.num_pages)
+
+    print(contest.paginator.page_range)
 
     print(typee)
     print(request.path)
