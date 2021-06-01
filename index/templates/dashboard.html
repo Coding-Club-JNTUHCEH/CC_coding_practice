@@ -2,75 +2,52 @@
 
 {% load static %}
 {% block content %}
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
-<link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" /> -->
-<!-- Latest compiled and minified CSS -->
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> -->
-
 
 
 <link rel="stylesheet" href="{% static 'dashboard.css' %}?{% now 'U' %}">
 <div class="container">
     <div class="filterBox">
         <div class="FilterHeading">
-            <h4 style="text-align: center;"> Filter Problems</h4>
+            <h4 style="margin-left: 40px;font-size: 17.5px;"> Filter Problems</h4>
         </div>
         <div class="rangeBox">
             <form method="POST" action="" id="form">
                 {% csrf_token %}
                 <div class="form-row">
-                    <div class="col">
-                        <b>Difficulty :</b>
+                    <div class="col-12 col-lg-6 row difficulty">
+                        <div class="col-3 text-center difficulty-text">Difficulty :</div>
+                        <div class="col-9 row">
+                            <div class="col-5">
+                                <input type="number" class="form-control difficulty-input" placeholder="Min"
+                                    name="minPts" value="{{ min }}">
+                            </div>
+                            <div class="col-2" style="max-width: fit-content;"> - </div>
+                            <div class="col-5 ">
+                                <input type="number" class="form-control difficulty-input" placeholder="Max"
+                                    name="maxPts" value="{{ max }}">
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col">
-                        <input type="number" class="form-control" placeholder="Min" name="minPts" value="{{ min }}">
-                    </div>
-                    <div class="col" style="max-width: fit-content;"> - </div>
-                    <div class="col">
-                        <input type="number" class="form-control" placeholder="Max" name="maxPts" value="{{ max }}">
-                    </div>
-                    <div class="col ">Tags:
-                        <select class="selectpicker" id="listOfTags" name="listOfTags" multiple
+
+                    <div class="col-12 col-lg-5 tag row">
+                        <div class="tag-name col-2 tag-text">Tags: </div>
+                        <select class="selectpicker tag-select col-10" id="listOfTags" name="listOfTags" multiple
                             data-selected-text-format="count">
                             <!-- <option value="null" selected></option> -->
-                            
+
                             {% for tag in tags %}
                             <option value="{{ tag }}" title="{{ tag }}">{{ tag }}</option>
                             {% endfor %}
-                            
+
                         </select>
 
-                        <link
-                            href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css"
-                            rel="stylesheet">
-                        <link rel="stylesheet" type="text/css" media="screen"
-                            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css">
-
-
-                        <!-- <select class="selectpicker" data-live-search="true">
-                            <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-                            <option data-tokens="mustard">Burger, Shake and a Smile</option>
-                            <option data-tokens="frosting">Sugar, Spice and all things nice</option>
-                        </select> -->
-
-
-                        <!-- 
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                        <script
-                            src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-                        <script
-                            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/js/bootstrap-select.min.js"></script> -->
-
-
-                        <!-- <div class="tags" id="tagList">
-                        </div> -->
                     </div>
 
 
 
-                    <div class="col" style=" padding-left: 5rem;">
-                        <button type="submit" class="btn btn-primary fivePercentMargin" id="submit">Apply</button>
+                    <div class="col-12 col-lg-1 " style=" padding-left: 5rem;">
+                        <button type="submit" class="btn btn-success btn-sm btn-apply" id="submit">Apply</button>
                     </div>
                 </div>
 
@@ -85,26 +62,65 @@
 
     <table class="table table-bordered" style="width: 95%;">
         <thead>
-            <tr>
-                <th scope="col">Contest</th>
-                <th scope="col">Problem ID</th>
-                <th scope="col">Problem Name</th>
-                <th scope="col">Rating</th>
-                <th scope="col">Submit</th>
+            <tr class="table-head">
+                <th scope="col" class="t-border t-border-head text-center">Contest</th>
+                <th scope="col" class="t-border t-border-head text-center">Problem ID</th>
+                <th scope="col" class="t-border t-border-head text-center">Problem Name</th>
+                <th scope="col" class="t-border t-border-head text-center">Rating</th>
+                <th scope="col" class="t-border t-border-head text-center">Submit</th>
             </tr>
         </thead>
         <tbody>
             {% for problem in problems %}
-            <tr>
-                <th scope="row">{{ problem.contestID }}</th>
-                <td>{{ problem.index }}</td>
-                <td>{{ problem.name }}</td>
-                <td>{{ problem.rating }}</td>
-                <td><a href={{ problem.link }} target="_blank" class="btn btn-primary">Try</a></td>
+            <tr class="table-row">
+                <th scope="row " class="t-border t-border-row text-center">{{ problem.contestID }}</th>
+                <td class="t-border t-border-row text-center">{{ problem.index }}</td>
+                <td class="t-border t-border-row text-center">{{ problem.name }}</td>
+                <td class="t-border t-border-row text-center">{{ problem.rating }}</td>
+                <td class="t-border t-border-row text-center"><a href={{ problem.link }} target="_blank"
+                        class="btn btn-success btn-sm">Try</a></td>
             </tr>
             {% endfor %}
+        </tbody>
 
     </table>
+    <div>
+        {% if problems.has_other_pages %}
+        <ul class="pagination">
+            {% if problems.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ problems.previous_page_number }}">&laquo;
+                    Previous</a></li>
+            {% else %}
+            <li class="page-item disabled "><button type="button" class="page-link" disabled><span>&raquo;
+                        Previous</span></button>
+            </li>
+            {% endif %}
+            {% for i in problems.paginator.page_range %}
+            {% if problems.number == i %}
+            <li class="page-item active pagi-active"><span class="page-link">{{ i }} <span
+                        class="sr-only">(current)</span></span>
+            </li>
+            {% elif i == 1 or i == problems.paginator.num_pages%}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% elif i == 2 or i == ls %}
+            <li class="page-item"><button type="button" class="page-link" disabled><span>...</span></button></li>
+            {% endif %}
+            {% endfor %}
+            {% if problems.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ problems.next_page_number }}">&raquo;
+                    Next</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled "><button type="button" class="page-link" disabled><span>&raquo;
+                        Next</span></button>
+            </li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </div>
+
 </div>
+
+
 
 {% endblock %}

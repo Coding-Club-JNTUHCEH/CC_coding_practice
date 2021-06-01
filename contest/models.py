@@ -2,19 +2,6 @@ from django.db import models
 from index.models import Problem
 from users.codeforces_API import fetchAllProblems
 # from django.apps import apps
-# Problem = apps.get_model('index', 'Problem')
-
-# Create your models here.
-
-# class Tag(models.Model) :
-#     tag_name    = models.CharField(max_length=32)
-#     tag_title   = models.CharField(max_length=64, default="did not set")
-
-#     class Meta:
-#         ordering = ['tag_name']
-
-#     def __str__(self) -> str:
-#         return self.tag_name
 
 
 class Contest(models.Model):
@@ -39,27 +26,17 @@ class Contest(models.Model):
             contestID=cleaned_contest["contestID"],
             index=cleaned_contest["index"],
             name=cleaned_contest["name"],
-            # problems=cleaned_contest["problems"],
             type=cleaned_contest["type"],
             link=cleaned_contest["link"],
         )
 
         return p
 
-    # def link_tags(self,tags):
-    #     for tag in tags:
-    #         tag_obj,created = Tag.objects.get_or_create(tag_name = tag)
-    #         self.tags.add(tag_obj)
+    def link_problems(self, problems):
+        for problem in problems:
+            self.problems.add(problem)
 
     def cleanContestForDB(contest):
-        # if 'rating' in problem:
-        #     rating = problem["rating"]
-        # else:
-        #     rating = 0
-        # if 'tags' in problem:
-        #     tags = problem["tags"]
-        # else:
-        #     tags = []
 
         name = contest["name"]
         typee = 0
@@ -72,6 +49,7 @@ class Contest(models.Model):
         if (name.find("Div. 4") > -1):
             typee = 4
 
+        problems = []
         # problems = Problem.objects.filter(
         #     index=contest["id"]).order_by("index")
 
@@ -79,7 +57,7 @@ class Contest(models.Model):
              'index': contest["id"],
              'name': contest["name"],
              'type': typee,
-             #  'problems': problems,
+             'problems': problems,
              'link': 'https://codeforces.com/contest/' + str(contest["id"]),
              }
         print(p)
@@ -87,38 +65,3 @@ class Contest(models.Model):
 
     def __str__(self) -> str:
         return str(self.contestID) + self.index + " " + self.name
-
-    def add_problems(self):
-
-        # problems =getProblems(self.codeForces_username)
-        problems = Problem.objects.filter(
-            contestID=self.contestID).order_by("index").values()
-        print(problems)
-        print("Yea!!")
-
-        for problem in problems:
-            print(problem)
-            self.add_problem(problem)
-
-    def add_problem(self, problem):
-
-        print("inside add_problem")
-
-        try:
-            contestID = problem["contestId"]
-            # index = problem["index"]
-        except:
-            return
-
-        try:
-            self.problems.add(Problem.objects.get(
-                contestID=contestID))
-        except:
-            self.addNewProblemtoDB(problem)
-            self.problems.add(Problem.objects.get(
-                contestID=contestID))
-
-    def addNewProblemtoDB(self, problem):
-        p_db = Problem.create(problem)
-        p_db.save()
-        p_db.link_tags(problem["tags"])
