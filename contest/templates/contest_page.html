@@ -2,10 +2,18 @@
 
 {% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'contest.css' %}?{% now 'U' %}">
 
 <div class="">
     <h2>Welcome to the contest page</h2>
-    <h1>Contest Page</h1>
+    <div class="btn-group me-2" role="group" aria-label="Second group">
+        <a href="contest/0" class="btn btn-secondary">All </a>
+        <a href="contest/1" class="btn btn-secondary">Div. 1 </a>
+        <a href="contest/2" class="btn btn-secondary">Div. 2 </a>
+        <a href="contest/3" class="btn btn-secondary">Div. 3 </a>
+        <a href="contest/4" class="btn btn-secondary">Div. 4 </a>
+    </div>
+    <h1>Div {{type}} Contest Page</h1>
 </div>
 
 <table class="table table-bordered" style="width: 95%;">
@@ -25,21 +33,94 @@
     <tbody>
         {% for contest in contests %}
         <tr>
-            {%if contest.problems %}
+            {%if type == '0' %}
+
+            {%if contest.problems.all %}
             <th scope="row">{{ contest.contestID }}</th>
-            {% for problem in contest.problems %}
-            <td><a href={{ problem.link }} target="_blank" class="btn1 btn-primary1">{{ problem.index }}</a></td>
-            <!-- <td>{{ problem.index }}</td> -->
+            {% for problem in contest.problems.all %}
+            {%if problem in user_solved%}
+            {% for solved in user_solved %}
+            {% if solved == problem %}
+            <td style="background-color: {{solved.color}};">
+                <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
+            </td>
+            {% endif %}
+            {%endfor%}
+
+            {%else%}
+            <td>
+                <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
+            </td>
+            {%endif%}
+
             {% endfor %}
-            <!-- <td>{{ problem.index }}</td>
-                <td>{{ problem.name }}</td>
-                <td>{{ problem.rating }}</td> -->
+            {% endif %}
+
+            {% else %}
+
+            {%if contest.problems.all and contest.type == type %}
+            <th scope="row">{{ contest.contestID }}</th>
+            {% for problem in contest.problems.all %}
+            {%if problem in user_solved%}
+            {% for solved in user_solved %}
+            {% if solved == problem %}
+            <td style="background-color: {{solved.color}};">
+                <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
+            </td>
+            {% endif %}
+            {% endfor %}
+            {%else%}
+            <td>
+                <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
+            </td>
+            {%endif%}
+
+            {% endfor %}
+            {% endif %}
             {% endif %}
         </tr>
         {% endfor %}
 
+
+
 </table>
 </div>
+<div>
+    {% if contests.has_other_pages %}
+    <ul class="pagination">
+        {% if contests.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ contests.previous_page_number }}">&laquo;
+                Previous</a></li>
+        {% else %}
+        <li class="page-item disabled "><button type="button" class="page-link" disabled><span>&raquo;
+                    Previous</span></button>
+        </li>
+        {% endif %}
+        {% for i in contests.paginator.page_range %}
+        {% if contests.number == i %}
+        <li class="page-item active pagi-active"><span class="page-link">{{ i }} <span
+                    class="sr-only">(current)</span></span>
+        </li>
+        {% elif i == 1 or i == contests.paginator.num_pages%}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% elif i == 2 or i == ls %}
+        <li class="page-item"><button type="button" class="page-link" disabled><span>...</span></button></li>
+        {% endif %}
+        {% endfor %}
+        {% if contests.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ contests.next_page_number }}">&raquo;
+                Next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled "><button type="button" class="page-link" disabled><span>&raquo;
+                    Next</span></button>
+        </li>
+        {% endif %}
+    </ul>
+    {% endif %}
+</div>
+
+<a href={{ path }}>Show All</a>
 </body>
 
 </html>
