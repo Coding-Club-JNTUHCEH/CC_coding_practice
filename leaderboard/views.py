@@ -1,7 +1,9 @@
 from django.shortcuts import render
-import requests
 from django.contrib.auth.decorators import login_required
 from users.models import UserProfile
+from django.http import HttpResponse
+
+from users.codeforces_API import fetchAllUsers
 
 # Create your views here.
 
@@ -9,28 +11,28 @@ def leaderboard_view(request):
     
     users_list  = UserProfile.objects.values_list('codeForces_username')
     users_str = ""
+    users = []
+    rank = 1
     for user in users_list:
         users_str += user[0] + ";"
     
-    url = "https://codeforces.com/api/user.info?handles="+ users_str
-    data = requests.get(url)
-    JSONdata = data.json()
-    if JSONdata["status"] != "OK" :
-        pass
-    else:
-        users = []
-        rank = 1
-        for user in JSONdata["result"]:
-            user_p = UserProfile.objects.get(codeForces_username = user["handle"])
-            user_p.rating = user["rating"]
-            user_p.save()
-            users.append({
-                            "username" : user_p.user.username ,
-                            "rating"   : user_p.rating,
-                            "rank"     : rank
-                        })
-            rank+=1
+    users_cfProfile = fetchAllUsers(users_str)
+
+    users_p,updated = UserProfile.updateRatings(users_cfProfile)
+    for user_p in users_p:
+        users.append(extract_leaderboardData(user_p,rank))
+        rank+=1
+        
+        
+    context ={ "users" : users, "updated" : updated }
     
-    context ={ "users" : users }
     return render(request,"leaderboard.html",context=context)
 
+
+def extract_leaderboardData(user,rank):
+    return {
+        "username" : user.user.username ,
+        "rating"   : user.rating,
+        "rank"     : rank
+
+    }

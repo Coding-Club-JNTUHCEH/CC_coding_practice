@@ -5,23 +5,21 @@ from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import User
 from datetime import date
 from .models import UserProfile
-from .codeforces_API import getRating
-import requests
+from .codeforces_API import getRating,fetchCFProfileInfo
+
 
 def validate_CFUsername(value):
     if UserProfile.objects.filter(codeForces_username =value).exists():
             raise ValidationError(
                 "Username already exists"
             )
-    url = "https://codeforces.com/api/user.rating?handle=" + str(value)
-    data = requests.get(url)
-    JSONdata = data.json()
-    if JSONdata["status"] == 'OK' :
-        return value
-    else:
+    JSONdata = fetchCFProfileInfo(str(value))
+    if JSONdata["status"] == {} :
         raise ValidationError(
             "codeforces account does not exist, check again"
         )
+    return value
+        
     
 
 class SignUpForm(UserCreationForm):

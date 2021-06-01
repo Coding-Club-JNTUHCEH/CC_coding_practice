@@ -3,6 +3,10 @@
 import os
 import sys
 
+from dotenv import load_dotenv   #for python-dotenv method
+load_dotenv()                    #for python-dotenv method
+
+
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'coding_site.settings')

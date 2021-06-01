@@ -14,3 +14,4 @@ python-decouple
 gitignore==0.0.8
 pytz==2018.9
 static3==0.7.0
+python-dotenv==0.17.1

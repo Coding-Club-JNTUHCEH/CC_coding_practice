@@ -10,24 +10,28 @@ codeforces API: https://codeforces.com/apiHelp
 - Created login and register page 
 - wrote code to view UserProfiles
 - verify codeforces username when user registers
-- add filters to sort problems( need to change to backend for it)
+- added filters to sort problems( need to change to backend for it)
 - wrote code to display leaderboard ( backend & frontend )
 - Wrote code user can edit profile ( including password )
-- add code to hide already solved problems by user
-- add code to check and add recently submitted problems to solved_problems
+- added code to hide already solved problems by user
+- added code to check and add recently submitted problems to solved_problems
 - improved UI of dasboard
 - added error pages
 - added forgot password feature
+- added how to get codeforces username help page
+- added to display proper errors for invalid users
 
 
 **Things to do:**
 
 - Improve design of Profile view ( for now it's basic)
-- create a new email account to send forgot password link
-- need display proper errors for invalid users ( for now it redirects to hello world )
+- create a new email account to send forgot password link ( for now not needed )
 - JavaScript should be added for friendly user interface ( making it dynamic )
 - design of Leaderboard
-- add how to get codeforces username help page
+- add  'add friend' option
+- add feature to check friend's submissions
+- divide dashboard into pages
+
 
 
 **Final Touch**

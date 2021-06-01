@@ -1,11 +1,18 @@
-
 {% extends 'base1.html' %}
 {% load static %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'formField.css' %}">
-    <div>
-        <a href="{% url 'signup' %}"><button class="btn btn-primary btn-block " type="button" id="btn-signup" " ><i class="fas fa-user-plus" ></i> Go back</button></a>
+    <div style = "margin-left: 10%;">
+        <h1 class="code-line" data-line-start=2 data-line-end=3><a id="How_to_get_codeforces_username__2"></a>How to get codeforces username ?</h1>
+        <p class="has-line-data" data-line-start="3" data-line-end="9"><strong>Step 1:</strong> Open <a href="www.codeforces.com">codeforces webiste</a><br>
+        <strong>Step 2:</strong> Login to your account , if you dont have create a new account<br>
+        <strong>Step 3:</strong> As you login you will be redirected to your profile which looks like this<br>
+        <div style = " display: block; margin-left: auto; margin-right: auto; width: 50%;"><img src="static/imgs/cf_username_exp.png" alt="alt text" style="width: 90%;"></div><br>
+        <strong>Step 4:</strong> The name higlighted in the box is your codeforces username<br>
+        <strong>Step 5:</strong> Please copy the name and paste it in your sign up form</p>
+        <br>
+        <div style="text-align: center;"><a href = "{% url 'signup' %}"><button type="button" class="btn btn-primary"> Go Back</button></a></div>
+        
     </div>
-
+    
 {% endblock %}
