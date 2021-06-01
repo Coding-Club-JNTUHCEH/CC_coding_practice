@@ -1,4 +1,4 @@
-.green{
+/* .green{
     height: 100%;
     width: 100%;
     background-color: lightgreen;
@@ -12,7 +12,7 @@
     height: 100%;
     width: 100%;
 
-}
+} */
 
 .container {
     margin-left: auto;
@@ -58,4 +58,19 @@ body{
 }
 .nav-link:hover{
     color: rgb(255, 255, 255) !important;
+}
+
+
+.pagination{
+    justify-content: center;
+    
+    
+}
+.page-link{
+    color: #0c6eca;
+}
+
+.pagi-active{
+    background-color:#1f8aee;
+    /* border: 2px solid rgba(4, 94, 179, 0.65); */
 }
