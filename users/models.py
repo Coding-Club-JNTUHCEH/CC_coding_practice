@@ -43,9 +43,8 @@ class UserProfile(models.Model):
         return self.sloved_problems
 
 
-    def add_solvedProblem(self,problem):
-        if problem["verdict"] == 'OK' :
-
+    def add_solvedProblem(self, problem):
+        if problem["verdict"] == 'OK' or problem["verdict"] == 'WRONG_ANSWER':
             try:
                 contestID = problem["problem"]["contestId"]
                 index = problem["problem"]["index"]
