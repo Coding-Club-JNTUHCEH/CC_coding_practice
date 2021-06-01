@@ -40,6 +40,8 @@ def dashboard_view(request):
         context["problems"] = paginator.page(paginator.num_pages)
 
     print(context['problems'].paginator.page_range)
+    print(context['problems'].paginator.num_pages)
+    context['ls'] = context['problems'].paginator.num_pages - 1
 
     return render(request, "dashboard.html", context=context)
 

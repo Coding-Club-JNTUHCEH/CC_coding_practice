@@ -48,12 +48,13 @@ def contest_page(request, *args, **kwargs):
         contest = paginator.page(paginator.num_pages)
 
     print(contest.paginator.page_range)
-
+    ls = contest.paginator.num_pages - 1
+    print(ls)
     print(typee)
     print(request.path)
     print(contests)
     path = request.path + '-all'
-    return render(request, 'contest_page.html', {'contests': contest, 'path': path, 'type': typee, 'user_solved': user_solved, 'flag': flag})
+    return render(request, 'contest_page.html', {'contests': contest, 'path': path, 'type': typee, 'user_solved': user_solved, 'ls': ls})
 
 
 # https://codeforces.com/api/contest.list

@@ -94,9 +94,9 @@
     {% for i in contests.paginator.page_range %}
     {% if contests.number == i %}
     <li class="active"><span class="btn btn-primary">{{ i }} <span class="sr-only">(current)</span></span></li>
-    {% elif i == 1 or i == 109%}
+    {% elif i == 1 or i == contests.paginator.num_pages%}
     <li class="pagination-li"><a class="btn btn-primary" href="?page={{ i }}">{{ i }}</a></li>
-    {% elif i == 2 or i == 108 %}
+    {% elif i == 2 or i == ls %}
     <li class="inactive"><span class="inactive">...</span></li>
     {% endif %}
     {% endfor %}
