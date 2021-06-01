@@ -14,7 +14,7 @@ def validate_CFUsername(value):
                 "Username already exists"
             )
     JSONdata = fetchCFProfileInfo(str(value))
-    if JSONdata["status"] == {} :
+    if JSONdata == {} :
         raise ValidationError(
             "codeforces account does not exist, check again"
         )

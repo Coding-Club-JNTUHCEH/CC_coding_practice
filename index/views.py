@@ -14,20 +14,18 @@ from .models import Problem, Tag
 
 @login_required
 def dashboard_view(request):
-    context = {}
+    context = { "tags" : list(Tag.objects.all()) }
+
     if(request.method == "POST"):
-        context["min"] = int(request.POST.get("minPts"))
-        context["max"] = int(request.POST.get("maxPts"))
-        tags = request.POST.getlist("listOfTags")
-        context["problems"] = fetchProblems(
-            min=context["min"], max=context["max"], tags=tags, user=request.user, filter=True)
+        context["min"]      = int(request.POST.get("minPts"))
+        context["max"]      = int(request.POST.get("maxPts"))
+        tags                = request.POST.getlist("listOfTags")
+        context["problems"] = fetchProblems( min=context["min"] , max=context["max"] , tags=tags, user = request.user, filter=True )
 
     else:
-        context["min"] = 0
-        context["max"] = 5000
-        context["problems"] = fetchProblems()
-
-    context["tags"] = list(Tag.objects.all())
+        context["min"]      = 0
+        context["max"]      = 5000
+        context["problems"] = fetchProblems(user = request.user)
 
     page = request.GET.get('page', 1)
 
@@ -46,31 +44,24 @@ def dashboard_view(request):
     return render(request, "dashboard.html", context=context)
 
 
-def fetchProblems(min=0, max=5000, tags=[], user=None, filter=False):
-
+def fetchProblems(min=0, max=5000, tags=[],user = None ,filter=False):
+    
     if not filter:
-        problemSet = Problem.objects.all().values()
-
+        problemSet  = Problem.objects.all().values()
+        
     elif len(tags) == 0:
-        problemSet = Problem.objects.filter(
-            rating__lt=max, rating__gt=min).values()
+        problemSet  = Problem.objects.filter(rating__lt = max, rating__gt = min).values()
 
     else:
         tags_objList = []
         for tag in tags:
-            tags_objList.append(Tag.objects.get_or_create(tag_name=tag)[0])
+            tags_objList.append(Tag.objects.get_or_create(tag_name = tag)[0])
+            
+        problemSet = Problem.objects.filter(rating__lt = max, rating__gt = min, tags__in = tags_objList )
 
-        problemSet = Problem.objects.filter(
-            rating__lt=max, rating__gt=min, tags__in=tags_objList)
-
-    # try:
-    #     user_solved = UserProfile.objects.get(user=user).sloved_problems.all()
-    #     problemSet = problemSet.difference(user_solved).values()
-    # except:
-    #     problemSet = problemSet.values()
-
-    problemSet.values()
-
+    user_solved =  UserProfile.objects.get(user = user).updated_solvedProblems().all()
+    problemSet = problemSet.difference(user_solved).values()
+    
     return problemSet
 
 
