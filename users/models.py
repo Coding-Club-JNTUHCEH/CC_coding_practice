@@ -81,4 +81,3 @@ class UserProfile(models.Model):
             status = True
 
         return UserProfile.objects.all(),status
-
