@@ -1,6 +1,8 @@
 .container {
     margin-left: auto;
     margin-right: auto;
+    /* display: flex;
+  justify-content: center; */
     
 }
 
@@ -51,7 +53,7 @@ body{
 
 .filterBox {
     width: 95%;
-    height: 10rem;
+    height: 9.6rem;
     border-color: rgba(38,132,220,0.85);
     border-width: 3px;
     border-style: solid;
@@ -111,6 +113,14 @@ body{
     top: 20%;
 }
 
+/*************************DIV MENU*******************************/
+.div-link{
+    padding-left:24px;
+    padding-right:24px;
+}
+
+
+
 
 /*************** TABLE************************/
 .table{
@@ -145,6 +155,17 @@ body{
     padding-bottom: 12px !important;
 }
 
+.contest-link{
+
+    
+    text-decoration: none;
+    color:rgb(73, 73, 73);
+}
+.contest-link:hover{
+    text-decoration: none;
+    color: rgb(36, 139, 235);
+}
+
 
 
 /*****************  PAGINATION *******************/
@@ -166,3 +187,94 @@ body{
 
 
 /********** END OF PAGINATION *****************/
+
+
+/*********************************PROFILE************************************/
+.d-container{
+
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 3rem;
+    width:60rem;
+    
+}
+.d-profile{
+    margin-left: 1.5rem;
+    margin-top: 4rem;
+    height: 26.5rem;
+    border: 3px solid rgba(38,132,220,0.65);
+    background-color: rgba(38,132,220,0.55);
+}
+.d-details{
+    margin-left: 1.5rem;
+    margin-top: 4rem;
+    height: 26.5rem;
+    border: 3px solid rgba(38,132,220,0.65);
+    
+}
+
+.d-profile-pic{
+    border-radius: 50%;
+    width: 12rem;
+    height: 12rem;
+    background-position:center;
+    object-fit:cover;
+   
+    
+}
+.d-profile-pic1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.d-row{
+    margin: 22px;
+    padding-left: 2rem;
+    padding-right: 2.4rem;
+}
+.d-row-1{
+    padding-top: 1.3rem;
+}
+
+.d-row-p{
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(61, 61, 61,0.33);
+}
+.d-row-p-head{
+    font-weight: bold;
+}
+.d-btn{
+    margin-left: 0.8rem;
+    width: 10rem;
+    margin-top: 0.3rem;
+}
+.container1{
+    display: flex;
+    justify-content:center;
+}
+
+
+/*******************LEADERBOARD************************************/
+.l-table{
+    /* background-color: antiquewhite; */
+    width: 50rem;
+    margin: auto;
+    
+}
+@media only screen and (max-width: 900px) {
+    .l-table{
+        /* background-color: antiquewhite; */
+        width: 30rem;
+        margin: auto;
+        
+    }
+}
+
+.l-table-head{
+    background-color: rgb(77, 77, 77);
+    height: 3rem;
+    color: white;
+}

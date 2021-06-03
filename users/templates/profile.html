@@ -1,36 +1,69 @@
-{% extends 'base.html' %}
+{% extends 'base1.html' %}
 {% load static %}
 
 {% block content %}
-    <div class="container">
-        <div style="text-align: center;">
-            <img src= {{ codeforces.titlePhoto }}> 
-            <h3> {{ name }}</h3>
-            <h6> {{ username }}</h6>
-        </div>
-        <div style="text-align: left;">
-            <p><b>CodeForces Name   :</b> {{ codeForces_username }} </p>
-            <p><b>Year of Admission :</b> {{ year }} </p>
-            <p><b>Last Online       :</b> {{ codeforces.lastonline }} Hours ago </p>
-            <p><b>Current Rating    :</b> {{ codeforces.rating }} </p>
-            <p><b>Max Rating        :</b> {{ codeforces.maxRating }} </p>
-        </div>
-        <div style="display: inline-block;">
-            <form action= "https://codeforces.com/submissions/{{ codeForces_username }}">
-            {% if edit_profile %}
-                <button type="submit" class="btn btn-warning" value="Edit Profile" formaction="{% url 'edit_profile' %}">
-                    Edit Profile
-                </button>
-            {% endif%}
-            <button type="submit" class="btn btn-success" target="_blank" >
-                    Submissions
-            </button>
-            </form>
-            
+<div class="container1">
 
-                
-            
+    <div class="row d-container">
+        <div class="col-12 col-lg-4 d-profile">
+            <div class="d-profile-pic1"><img class="d-profile-pic " src={{ codeforces.titlePhoto }}></div>
+            <div class="d-profile-name">
+                <h3 class="text-center"> {{ name }}</h3>
+                <h6 class="text-center"> {{ username }}</h6>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-7 d-details">
+            <div class="d-row d-row-1">
+                <div class="d-row-p row">
+                    <div class="col-6 d-row-p-head">CodeForces Name </div>
+                    <div class="col-6">{{ codeForces_username }} </div>
+                </div>
+            </div>
+            <div class="d-row">
+                <div class="d-row-p row">
+                    <div class="col-6 d-row-p-head">Year of Admission </div>
+                    <div class="col-6">{{ year }}</div>
+                </div>
+            </div>
+            <div class="d-row">
+                <div class="d-row-p row">
+                    <div class="col-6 d-row-p-head">Last Online </div>
+                    <div class="col-6">{{ codeforces.lastonline }} Hours ago</div>
+                </div>
+            </div>
+            <div class="d-row">
+                <div class="d-row-p row">
+                    <div class="col-6 d-row-p-head" d-row-p-head>Current Rating </div>
+                    <div class="col-6">{{ codeforces.rating }}</div>
+                </div>
+            </div>
+            <div class="d-row">
+                <div class="d-row-p row">
+                    <div class="col-6 d-row-p-head">Max Rating </div>
+                    <div class="col-6">{{ codeforces.maxRating }}</div>
+                </div>
+            </div>
+            <div class="d-row">
+                <div style="display: inline-block;">
+                    <form action="https://codeforces.com/submissions/{{ codeForces_username }}">
+                        {% if edit_profile %}
+
+                        <button type="submit" class="btn btn-warning d-btn" value="Edit Profile"
+                            formaction="{% url 'edit_profile' %}">
+                            Edit Profile
+                        </button>
+
+                        {% endif%}
+                        <button type="submit" class="btn btn-success d-btn" target="_blank">
+                            Submissions
+                        </button>
+
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
+</div>
 {% endblock %}

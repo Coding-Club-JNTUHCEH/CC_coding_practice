@@ -14,18 +14,26 @@ from .models import Problem, Tag
 
 @login_required
 def dashboard_view(request):
-    context = { "tags" : list(Tag.objects.all()) }
+    context = {"tags": list(Tag.objects.all())}
+
+    user_solved = UserProfile.objects.get(
+        user=request.user).sloved_problems.all()
+    user_not_solved = UserProfile.objects.get(
+        user=request.user).not_sloved_problems.all()
+    context['user_solved'] = user_solved
+    context['user_not_solved'] = user_not_solved
 
     if(request.method == "POST"):
-        context["min"]      = int(request.POST.get("minPts"))
-        context["max"]      = int(request.POST.get("maxPts"))
-        tags                = request.POST.getlist("listOfTags")
-        context["problems"] = fetchProblems( min=context["min"] , max=context["max"] , tags=tags, user = request.user, filter=True )
+        context["min"] = int(request.POST.get("minPts"))
+        context["max"] = int(request.POST.get("maxPts"))
+        tags = request.POST.getlist("listOfTags")
+        context["problems"] = fetchProblems(
+            min=context["min"], max=context["max"], tags=tags, user=request.user, filter=True)
 
     else:
-        context["min"]      = 0
-        context["max"]      = 5000
-        context["problems"] = fetchProblems(user = request.user)
+        context["min"] = 0
+        context["max"] = 5000
+        context["problems"] = fetchProblems(user=request.user)
 
     page = request.GET.get('page', 1)
 
@@ -44,24 +52,30 @@ def dashboard_view(request):
     return render(request, "dashboard.html", context=context)
 
 
-def fetchProblems(min=0, max=5000, tags=[],user = None ,filter=False):
-    
+def fetchProblems(min=0, max=5000, tags=[], user=None, filter=False):
+
     if not filter:
-        problemSet  = Problem.objects.all().values()
-        
+        problemSet = Problem.objects.all().values()
+
     elif len(tags) == 0:
-        problemSet  = Problem.objects.filter(rating__lt = max, rating__gt = min).values()
+        problemSet = Problem.objects.filter(
+            rating__lt=max, rating__gt=min).values()
 
     else:
         tags_objList = []
         for tag in tags:
-            tags_objList.append(Tag.objects.get_or_create(tag_name = tag)[0])
-            
-        problemSet = Problem.objects.filter(rating__lt = max, rating__gt = min, tags__in = tags_objList )
+            tags_objList.append(Tag.objects.get_or_create(tag_name=tag)[0])
 
-    user_solved =  UserProfile.objects.get(user = user).updated_solvedProblems().all()
-    problemSet = problemSet.difference(user_solved).values()
-    
+        problemSet = Problem.objects.filter(
+            rating__lt=max, rating__gt=min, tags__in=tags_objList)
+
+    # user_solved = UserProfile.objects.get(
+    #     user=user).updated_solvedProblems().all()
+    # user_not_solved = UserProfile.objects.get(
+    #     user=user).updated_not_solvedProblems().all()
+    # problemSet = problemSet.difference(user_solved).values()
+    # problemSet = problemSet.difference(user_not_solved).values()
+
     return problemSet
 
 

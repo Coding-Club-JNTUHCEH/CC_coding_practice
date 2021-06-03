@@ -4,7 +4,7 @@
 {% block content %}
 
 
-<link rel="stylesheet" href="{% static 'dashboard.css' %}?{% now 'U' %}">
+<link rel="stylesheet" href="{% static '/css/dashboard.css' %}?{% now 'U' %}">
 <div class="container">
     <div class="filterBox">
         <div class="FilterHeading">
@@ -15,14 +15,14 @@
                 {% csrf_token %}
                 <div class="form-row">
                     <div class="col-12 col-lg-6 row difficulty">
-                        <div class="col-3 text-center difficulty-text">Difficulty :</div>
+                        <div class="col-3 difficulty-text">Difficulty :</div>
                         <div class="col-9 row">
                             <div class="col-5">
                                 <input type="number" class="form-control difficulty-input" placeholder="Min"
                                     name="minPts" value="{{ min }}">
                             </div>
-                            <div class="col-2" style="max-width: fit-content;"> - </div>
-                            <div class="col-5 ">
+                            <div class="col-1" style="max-width: fit-content;"> - </div>
+                            <div class="col-5">
                                 <input type="number" class="form-control difficulty-input" placeholder="Max"
                                     name="maxPts" value="{{ max }}">
                             </div>
@@ -75,11 +75,22 @@
             <tr class="table-row">
                 <th scope="row " class="t-border t-border-row text-center">{{ problem.contestID }}</th>
                 <td class="t-border t-border-row text-center">{{ problem.index }}</td>
+                {%if problem in user_solved%}
+                <td class="t-border t-border-row text-center" style="background-color: rgb(144, 211, 144);">{{
+                    problem.name }}</td>
+                {% elif problem in user_not_solved %}
+                <td class="t-border t-border-row text-center" style="background-color: rgb(211, 144, 144);">{{
+                    problem.name }}</td>
+                {%else%}
                 <td class="t-border t-border-row text-center">{{ problem.name }}</td>
+                {%endif%}
+
                 <td class="t-border t-border-row text-center">{{ problem.rating }}</td>
                 <td class="t-border t-border-row text-center"><a href={{ problem.link }} target="_blank"
                         class="btn btn-success btn-sm">Try</a></td>
             </tr>
+
+
             {% endfor %}
         </tbody>
 
