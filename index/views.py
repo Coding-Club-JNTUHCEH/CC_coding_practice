@@ -17,9 +17,9 @@ def dashboard_view(request):
     context = {"tags": list(Tag.objects.all())}
 
     user_solved = UserProfile.objects.get(
-        user=request.user).sloved_problems.all()
+        user=request.user).sloved_problems.all().values()
     user_not_solved = UserProfile.objects.get(
-        user=request.user).not_sloved_problems.all()
+        user=request.user).not_sloved_problems.all().values()
     context['user_solved'] = user_solved
     context['user_not_solved'] = user_not_solved
 

@@ -76,11 +76,9 @@
                 <th scope="row " class="t-border t-border-row text-center">{{ problem.contestID }}</th>
                 <td class="t-border t-border-row text-center">{{ problem.index }}</td>
                 {%if problem in user_solved%}
-                <td class="t-border t-border-row text-center" style="background-color: rgb(144, 211, 144);">{{
-                    problem.name }}</td>
+                <td class="t-border t-border-row text-center" style="background-color: rgb(144, 211, 144);">{{ problem.name }}</td>
                 {% elif problem in user_not_solved %}
-                <td class="t-border t-border-row text-center" style="background-color: rgb(211, 144, 144);">{{
-                    problem.name }}</td>
+                <td class="t-border t-border-row text-center" style="background-color: rgb(211, 144, 144);">{{ problem.name }}</td>
                 {%else%}
                 <td class="t-border t-border-row text-center">{{ problem.name }}</td>
                 {%endif%}
