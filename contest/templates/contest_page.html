@@ -2,88 +2,97 @@
 
 {% load static %}
 {% block content %}
-<link rel="stylesheet" href="{% static 'contest.css' %}?{% now 'U' %}">
+<link rel="stylesheet" href="{% static '/css/dashboard.css' %}?{% now 'U' %}">
+<div class="container">
 
-<div class="">
-    <h2>Welcome to the contest page</h2>
-    <div class="btn-group me-2" role="group" aria-label="Second group">
-        <a href="contest/0" class="btn btn-secondary">All </a>
-        <a href="contest/1" class="btn btn-secondary">Div. 1 </a>
-        <a href="contest/2" class="btn btn-secondary">Div. 2 </a>
-        <a href="contest/3" class="btn btn-secondary">Div. 3 </a>
-        <a href="contest/4" class="btn btn-secondary">Div. 4 </a>
+
+    <div class="btn-group me-2 div-menu" style="margin-top: 3rem; margin-bottom: 2rem;" role="group"
+        aria-label="Second group">
+        <a href="contest" class="btn btn-secondary div-link">All </a>
+        <a href="contest/1" class="btn btn-secondary div-link">Div. 1 </a>
+        <a href="contest/2" class="btn btn-secondary div-link">Div. 2 </a>
+        <a href="contest/3" class="btn btn-secondary div-link">Div. 3 </a>
+        <a href="contest/4" class="btn btn-secondary div-link">Div. 4 </a>
     </div>
-    <h1>Div {{type}} Contest Page</h1>
-</div>
+    <div class="contest-heading " style="margin-bottom: 2rem;">
+        {% if type == '0' %}
+        <h2>All Contests</h2>
+        {% else %}
+        <h2>Div {{type}} Contests</h2>
+        {% endif %}
+    </div>
 
-<table class="table table-bordered" style="width: 95%;">
-    <thead>
-        <tr>
-            <th scope="col">Contest</th>
-            <th scope="col">A</th>
-            <th scope="col">B</th>
-            <th scope="col">C</th>
-            <th scope="col">D</th>
-            <th scope="col">E</th>
-            <th scope="col">F</th>
-            <th scope="col">G</th>
-            <th scope="col">H</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for contest in contests %}
-        <tr>
-            {%if type == '0' %}
+    <table class="table table-bordered" style="width: 95%;">
+        <thead>
+            <tr class="table-head">
+                <th scope="col" class="t-border t-border-head text-center">Contest</th>
+                <th scope="col" class="t-border t-border-head text-center">A</th>
+                <th scope="col" class="t-border t-border-head text-center">B</th>
+                <th scope="col" class="t-border t-border-head text-center">C</th>
+                <th scope="col" class="t-border t-border-head text-center">D</th>
+                <th scope="col" class="t-border t-border-head text-center">E</th>
+                <th scope="col" class="t-border t-border-head text-center">F</th>
+                <th scope="col" class="t-border t-border-head text-center">G</th>
+                <th scope="col" class="t-border t-border-head text-center">H</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contest in contests %}
+            <tr class="table-row">
+                {%if type == '0' %}
 
-            {%if contest.problems.all %}
-            <th scope="row">{{ contest.contestID }}</th>
-            {% for problem in contest.problems.all %}
-            {%if problem in user_solved%}
-            {% for solved in user_solved %}
-            {% if solved == problem %}
-            <td style="background-color: {{solved.color}};">
-                <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
-            </td>
-            {% endif %}
-            {%endfor%}
+                {%if contest.problems.all %}
+                <th scope="row" class="t-border t-border-row text-center">{{ contest.contestID }}</th>
+                {% for problem in contest.problems.all %}
+                {%if problem in user_solved%}
+                <td class="t-border t-border-row text-center" style="background-color: rgb(144, 211, 144);">
+                    <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
+                </td>
+                {% elif problem in user_not_solved %}
+                <td class="t-border t-border-row text-center" style="background-color: rgb(250, 153, 153);">
+                    <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
+                </td>
+                {%else%}
+                <td class="t-border t-border-row text-center">
+                    <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
+                </td>
+                {%endif%}
 
-            {%else%}
-            <td>
-                <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
-            </td>
-            {%endif%}
 
+                {% endfor %}
+
+
+
+                {% endif %}
+
+                {% else %}
+
+                {%if contest.problems.all and contest.type == type %}
+                <th scope="row" class="t-border t-border-row text-center">{{ contest.contestID }}</th>
+                {% for problem in contest.problems.all %}
+                {%if problem in user_solved%}
+                <td class="t-border t-border-row text-center" style="background-color: rgb(99, 172, 99);">
+                    <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
+                </td>
+                {% elif problem in user_not_solved %}
+                <td class="t-border t-border-row text-center" style="background-color: rgb(255, 124, 124);">
+                    <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
+                </td>
+                {%else%}
+                <td class="t-border t-border-row text-center">
+                    <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
+                </td>
+                {%endif%}
+
+                {% endfor %}
+                {% endif %}
+                {% endif %}
+            </tr>
             {% endfor %}
-            {% endif %}
-
-            {% else %}
-
-            {%if contest.problems.all and contest.type == type %}
-            <th scope="row">{{ contest.contestID }}</th>
-            {% for problem in contest.problems.all %}
-            {%if problem in user_solved%}
-            {% for solved in user_solved %}
-            {% if solved == problem %}
-            <td style="background-color: {{solved.color}};">
-                <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
-            </td>
-            {% endif %}
-            {% endfor %}
-            {%else%}
-            <td>
-                <a href={{ problem.link }} target="_blank" class="btn btn-primary">{{ problem.index }}</a>
-            </td>
-            {%endif%}
-
-            {% endfor %}
-            {% endif %}
-            {% endif %}
-        </tr>
-        {% endfor %}
 
 
 
-</table>
+    </table>
 </div>
 <div>
     {% if contests.has_other_pages %}
@@ -119,8 +128,8 @@
     </ul>
     {% endif %}
 </div>
+</div>
 
-<a href={{ path }}>Show All</a>
 </body>
 
 </html>

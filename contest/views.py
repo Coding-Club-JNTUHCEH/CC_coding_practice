@@ -1,39 +1,56 @@
 from django.shortcuts import render
 from users.models import UserProfile
 from index.models import Problem
+from django.contrib.auth.decorators import login_required
 # from users.codeforces_API import fetchAllProblems
 from users.codeforces_API import fetchAllContests
 from .models import Contest
 from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # Create your views here.
 
 
-def contest_page(request):
+@login_required
+def contest_page(request, *args, **kwargs):
+    context = {}
     contests = Contest.objects.filter(name__icontains="Div.").values()
-    a = 1
-    for contest in contests:
-        # if a < 10:
-        print(contest)
-        print(contest['name'])
-        print(contest['contestID'])
-        print(contest['type'])
-        # print(contest['problems'])
-        # # contest['problems'] = ['A']
-        # problems = Problem.objects.filter(
-        #     contestID=contest['contestID']).order_by("index")
-        # print(problems)
-        # print(len(problems))
-        # # print(problems)
-        # if problems.exists() and len(problems) > 4:
 
-        #     # print(type(problems_list))
-        #     contest['problems'] = list(problems)
-        #     # a += 1
-        # print(contest)
-        # print(', '.join(contest.problems.values_list('name', flat=True)))
-        # a += 1
-    # print(contests)
-    return render(request, 'contest_page.html', {'contests': contests})
+    user_solved = UserProfile.objects.get(
+        user=request.user).sloved_problems.all()
+    user_not_solved = UserProfile.objects.get(
+        user=request.user).not_sloved_problems.all()
+    print(user_solved)
+    if 'type1' in kwargs:
+        typee = kwargs["type1"]
+        contests = Contest.objects.filter(name__icontains="Div. "+typee)
+    else:
+        typee = '0'
+        contests = Contest.objects.filter(name__icontains="Div.")
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(contests, 20)
+
+    try:
+        contest = paginator.page(page)
+    except PageNotAnInteger:
+        contest = paginator.page(1)
+    except EmptyPage:
+        contest = paginator.page(paginator.num_pages)
+
+    print(contest.paginator.page_range)
+    ls = contest.paginator.num_pages - 1
+    print(ls)
+    print(typee)
+    print(request.path)
+    print(contests)
+    context['contests'] = contest
+    context['user_not_solved'] = user_not_solved
+    context['type'] = typee
+    context['user_solved'] = user_solved
+    context['ls'] = ls
+
+    return render(request, 'contest_page.html', context=context)
 
 
 # https://codeforces.com/api/contest.list

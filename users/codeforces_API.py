@@ -37,12 +37,13 @@ def fetchAllProblems():
         return []
     return JSONdata['result']['problems']
 
+
 def fetchAllUsers(users_str):
-    url = "https://codeforces.com/api/user.info?handles="+ users_str
+    url = "https://codeforces.com/api/user.info?handles=" + users_str
     JSONdata = fetchURL(url)
-    if JSONdata["status"] != "OK" :
+    if JSONdata["status"] != "OK":
         return []
-  
+
     return JSONdata["result"]
 
 

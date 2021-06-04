@@ -1,29 +1,43 @@
-
 {% extends 'base1.html' %}
 {% load static %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'formField.css' %}">
-    <div style="text-align: center;" class = "formField">
-        <h2 class="fivePercentMargin">Login</h2>
-        <form class="form-signin" action="{% url 'login' %}" method="post" >
+{% if message %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{%endif%}
+<link rel="stylesheet" href="{% static 'formField.css' %}">
+<div class="background">
+    <div style="text-align: center;" class="login">
+        <div class="profile-pic">
+            <img src="{% static 'imgs/profile-pic.svg' %}" width="140" height="140" class="profile-pic"
+                alt="profile-pic">
+        </div>
+        <h3 class="fivePercentMargin">Sign In</h3>
+        <form class="form-signin" action="{% url 'login' %}" method="post">
             {% csrf_token %}
-            <div style="padding: 4px;">
-                <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required="" autofocus="">
+            <div style="padding: 4px;" class="username l-input">
+                <input type="text" id="username" name="username" class="form-control" placeholder="Username" required=""
+                    autofocus="">
             </div>
-            <div style="padding: 4px;">
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="" >
-                <div style="text-align: right; margin: 1%;">
-                    <a href="{% url 'reset_password' %}">Forgot Password?</a>
-                </div>
+            <div style="padding: 4px;" class="password l-input">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password"
+                    required="">
             </div>
-            <button class="btn btn-success btn-block fivePercentMargin" type="submit"><i class="fas fa-sign-in-alt"></i> Log in</button>
-            
+            <div style="text-align: right; margin: 1%;" class="forgot-password l-input row">
+                <a href="{% url 'reset_password' %}" class="l-input-link col-6 text-center">Forgot Password?</a>
+                <a href="{% url 'signup' %}" class="l-input-link col-6 text-center">New User? Register</a>
+            </div>
+            <button class="btn btn-success submit" type="submit"> Log
+                In</button>
+
             <br>
             <!-- <p>Don't have an account!</p>  -->
-            
-            <a href="{% url 'signup' %}"><button class="btn btn-primary btn-block " type="button" id="btn-signup" formaction="{% url 'signup' %}" ><i class="fas fa-user-plus" ></i> Sign up New Account</button></a>
+
+
         </form>
     </div>
+</div>
 
 {% endblock %}

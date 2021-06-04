@@ -7,6 +7,7 @@ from index.models import Problem
 from .codeforces_API import getSolvedProblems
 # Create your models here.
 
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30, default="forgot")
@@ -15,6 +16,8 @@ class UserProfile(models.Model):
     rating = models.IntegerField(default=800)
     sloved_problems = models.ManyToManyField(
         Problem, blank=True, related_name="UserSolved")
+    not_sloved_problems = models.ManyToManyField(
+        Problem, blank=True, related_name="UserNotSolved")
 
     class Meta:
         ordering = ['-rating']
@@ -31,17 +34,27 @@ class UserProfile(models.Model):
 
     def add_solvedProblems(self):
 
-        solvedProblems = getSolvedProblems( username = self.codeForces_username )
+        solvedProblems = getSolvedProblems(username=self.codeForces_username)
         for problem in solvedProblems:
             self.add_solvedProblem(problem)
 
     def updated_solvedProblems(self):
-        solvedProblems  = getSolvedProblems( username = self.codeForces_username )
-        remaing         = len(solvedProblems) - self.sloved_problems.count()
+        problems = getSolvedProblems(username=self.codeForces_username)
+        remaing = len(problems) - self.sloved_problems.count() - \
+            self.not_sloved_problems.count()
         for p in range(remaing):
-            self.add_solvedProblem(solvedProblems[p])
+            if problems[p]["verdict"] == 'OK':
+                self.sloved_problems.add(problems[p])
         return self.sloved_problems
 
+    def updated_not_solvedProblems(self):
+        problems = getSolvedProblems(username=self.codeForces_username)
+        remaing = len(problems) - self.sloved_problems.count() - \
+            self.not_sloved_problems.count()
+        for p in range(remaing):
+            if problems[p]["verdict"] != 'OK':
+                self.not_sloved_problems.add(problems[p])
+        return self.not_sloved_problems
 
     def add_solvedProblem(self, problem):
         if problem["verdict"] == 'OK' or problem["verdict"] == 'WRONG_ANSWER':
@@ -50,20 +63,28 @@ class UserProfile(models.Model):
                 index = problem["problem"]["index"]
             except:
                 return
+
             try:
                 problem1 = Problem.objects.get(
                     contestID=contestID, index=index)
 
                 if problem["verdict"] == 'OK':
-                    problem1.color = 'green'
+                    self.sloved_problems.add(problem1)
                 else:
-                    problem1.color = 'red'
-
-                self.sloved_problems.add(problem1)
+                    if problem not in self.sloved_problems.all():
+                        self.not_sloved_problems.add(problem1)
             except:
                 self.addNewProblemtoDB(problem["problem"])
-                self.sloved_problems.add(Problem.objects.get(
-                    contestID=contestID, index=index))
+                problem1 = Problem.objects.get(
+                    contestID=contestID, index=index)
+
+                if problem["verdict"] == 'OK':
+                    if problem in self.not_sloved_problems.all():
+                        self.not_sloved_problems.remove(problem1)
+                    self.sloved_problems.add(problem1)
+                else:
+                    if problem not in self.sloved_problems.all():
+                        self.not_sloved_problems.add(problem1)
 
     def addNewProblemtoDB(self, problem):
         p_db = Problem.create(problem)
@@ -74,10 +95,10 @@ class UserProfile(models.Model):
     def updateRatings(updated_data):
         status = False
         for user in updated_data:
-            user_p = UserProfile.objects.get(codeForces_username = user["handle"])
+            user_p = UserProfile.objects.get(
+                codeForces_username=user["handle"])
             user_p.rating = user["rating"]
             user_p.save()
             status = True
 
-        return UserProfile.objects.all(),status
-
+        return UserProfile.objects.all(), status

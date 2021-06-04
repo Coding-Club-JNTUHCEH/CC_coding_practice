@@ -90,7 +90,7 @@ DATABASES = {
     }
 }
 
-db_from_env = dj_database_url.config(conn_max_age = 600)
+db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES["default"].update(db_from_env)
 
 # Password validation
@@ -144,14 +144,15 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-LOGIN_URL='/login'
 
-#SMTP Configurations
-EMAIL_BACKEND       = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST          = 'smtp.gmail.com'
-EMAIL_PORT          = 587
-EMAIL_USE_TLS       = True
-EMAIL_HOST_USER     = os.getenv('EMAIL_HOST_USER')
+LOGIN_URL = '/login'
+
+# SMTP Configurations
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 os.makedirs(STATIC_ROOT, exist_ok=True)
