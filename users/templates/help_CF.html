@@ -2,17 +2,32 @@
 {% load static %}
 
 {% block content %}
-    <div style = "margin-left: 10%;">
-        <h1 class="code-line" data-line-start=2 data-line-end=3><a id="How_to_get_codeforces_username__2"></a>How to get codeforces username ?</h1>
-        <p class="has-line-data" data-line-start="3" data-line-end="9"><strong>Step 1:</strong> Open <a href="www.codeforces.com">codeforces webiste</a><br>
-        <strong>Step 2:</strong> Login to your account , if you dont have create a new account<br>
-        <strong>Step 3:</strong> As you login you will be redirected to your profile which looks like this<br>
-        <div style = " display: block; margin-left: auto; margin-right: auto; width: 50%;"><img src="static/imgs/cf_username_exp.png" alt="alt text" style="width: 90%;"></div><br>
-        <strong>Step 4:</strong> The name higlighted in the box is your codeforces username<br>
-        <strong>Step 5:</strong> Please copy the name and paste it in your sign up form</p>
-        <br>
-        <div style="text-align: center;"><a href = "{% url 'signup' %}"><button type="button" class="btn btn-primary"> Go Back</button></a></div>
-        
+<div class="q-container">
+    <div style="margin-left: 10%;" class="card q-card">
+        <h2 class="code-line card-header" data-line-start=2 data-line-end=3><a
+                id="How_to_get_codeforces_username__2"></a>How to get
+            codeforces username ?</h2>
+        <div class="info">
+            <p class="has-line-data" data-line-start="3" data-line-end="9"><strong>Step 1:&nbsp;&nbsp;&nbsp; </strong>
+                Open <a href="https://codeforces.com/">Codeforces webiste</a><br>
+                <strong>Step 2:&nbsp;&nbsp;&nbsp; </strong> Login to your account , if you dont have create a new
+                account<br>
+                <strong>Step 3:&nbsp;&nbsp;&nbsp; </strong> As you login you will be redirected to your profile which
+                looks
+                like
+                this<br>
+            <div style=" display: block; margin-left: auto; margin-right: auto; width: 50%;"><img
+                    src="static/imgs/cf_username_exp.png" alt="alt text" style="width: 90%;"></div><br>
+            <strong>Step 4:&nbsp;&nbsp;&nbsp; </strong> The name higlighted in the box is your codeforces username<br>
+            <strong>Step 5:&nbsp;&nbsp;&nbsp; </strong> Please copy the name and paste it in your sign up form</p>
+            <br>
+            <div style="text-align: center;"><a href="{% url 'signup' %}"><button type="button" class="btn btn-primary"
+                        style="width: 120px;">
+                        Go
+                        Back</button></a></div>
+        </div>
+
     </div>
-    
+</div>
+
 {% endblock %}

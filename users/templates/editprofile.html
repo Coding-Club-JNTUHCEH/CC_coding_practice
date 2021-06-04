@@ -1,32 +1,39 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <link rel="stylesheet" href="{% static 'formField.css' %}">
-    <div style="text-align: center;" class = "formField">
-        <h2 class="fivePercentMargin">Edit Profile</h2>
-        
-        <form method="post">
-            {% csrf_token %}
-            {% for field in form %}
+<link rel="stylesheet" href="{% static 'formField.css' %}">
+{% if msg %}
+<div class="alert alert-danger" role="alert">
+    {{ msg }}
+</div>
+{%endif%}
+<div style="text-align: center;" class="formField">
+    <h2 class="fivePercentMargin">Edit Profile</h2>
 
-                <div class="form-group row">
-                    <label for="staticEmail" class="col-sm-3 col-form-label">{{ field.label}}</label>
-                    <div class="col-sm-9">
-                        {{ field }}
-                    </div>
-    
-                {% for error in field.errors %}
-                <p style="color: red">{{ error }}</p>
-                {% endfor %}
-                </div>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-3 col-form-label">{{ field.label}}</label>
+            <div class="col-sm-9">
+                {{ field }}
+            </div>
+
+            {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
             {% endfor %}
-            
-            <button type="submit" class="btn btn-primary fivePercentMargin">Submit</button>
-        </form>
-        {{ msg }}
-        <form action="{% url 'changePassword_view' %}" method="GET">
-            <button type="submit" class="btn btn-warning fourPercentMargin" >Change Password</button>
-        </form>
-        {{ msg }}
-    </div>
+        </div>
+        {% endfor %}
+
+        <button type="submit" style="width: 13rem;margin-top: 5px;" class="btn btn-primary">Submit</button>
+    </form>
+    <!-- {{ msg }} -->
+    <form action="{% url 'changePassword_view' %}" method="GET">
+        <button type="submit" style="width: 13rem;margin-top: 8px; margin-bottom: 20px;" class="btn btn-warning">Change
+            Password</button>
+    </form>
+    <!-- {{ msg }} -->
+
+</div>
 {% endblock %}
