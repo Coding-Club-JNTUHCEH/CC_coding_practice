@@ -322,11 +322,7 @@ body{
 
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
-body {
-  background-color: #1a8fb4;
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-}
+
 .owl {
   margin: auto;
   width: 211px;
