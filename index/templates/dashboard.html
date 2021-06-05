@@ -14,7 +14,7 @@
             <form method="POST" action="" id="form">
                 {% csrf_token %}
                 <div class="form-row">
-                    <div class="col-12 col-lg-6 row difficulty">
+                    <div class="col-12 col-lg-6 row difficulty mb-3">
                         <div class="col-3 difficulty-text">Difficulty :</div>
                         <div class="col-9 row">
                             <div class="col-5">
@@ -30,7 +30,7 @@
 
                     </div>
 
-                    <div class="col-12 col-lg-5 tag row">
+                    <div class="col-12 col-lg-5 tag row mb-3">
                         <div class="tag-name col-2 tag-text">Tags: </div>
                         <select class="selectpicker tag-select col-10" id="listOfTags" name="listOfTags" multiple
                             data-selected-text-format="count">
@@ -76,11 +76,11 @@
                 <th scope="row " class="t-border t-border-row text-center">{{ problem.contestID }}</th>
                 <td class="t-border t-border-row text-center">{{ problem.index }}</td>
                 {%if problem in user_solved%}
-                <td class="t-border t-border-row text-center" style="background-color: rgb(144, 211, 144);">{{
-                    problem.name }}</td>
+                <td class="t-border t-border-row text-center" style="background-color: rgb(144, 211, 144);">
+                    {{ problem.name }}</td>
                 {% elif problem in user_not_solved %}
-                <td class="t-border t-border-row text-center" style="background-color: rgb(211, 144, 144);">{{
-                    problem.name }}</td>
+                <td class="t-border t-border-row text-center" style="background-color: rgb(211, 144, 144);">
+                    {{ problem.name }}</td>
                 {%else%}
                 <td class="t-border t-border-row text-center">{{ problem.name }}</td>
                 {%endif%}

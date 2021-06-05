@@ -38,12 +38,8 @@ def contest_page(request, *args, **kwargs):
     except EmptyPage:
         contest = paginator.page(paginator.num_pages)
 
-    print(contest.paginator.page_range)
     ls = contest.paginator.num_pages - 1
-    print(ls)
-    print(typee)
-    print(request.path)
-    print(contests)
+
     context['contests'] = contest
     context['user_not_solved'] = user_not_solved
     context['type'] = typee

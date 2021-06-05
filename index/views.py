@@ -15,28 +15,21 @@ from .models import Problem, Tag
 @login_required
 def dashboard_view(request):
     context = {"tags": list(Tag.objects.all())}
-
     user_solved = UserProfile.objects.get(
         user=request.user).sloved_problems.all()
     user_not_solved = UserProfile.objects.get(
         user=request.user).not_sloved_problems.all()
-    context['user_solved'] = user_solved
-    context['user_not_solved'] = user_not_solved
-
     if(request.method == "POST"):
         context["min"] = int(request.POST.get("minPts"))
         context["max"] = int(request.POST.get("maxPts"))
         tags = request.POST.getlist("listOfTags")
         context["problems"] = fetchProblems(
             min=context["min"], max=context["max"], tags=tags, user=request.user, filter=True)
-
     else:
         context["min"] = 0
         context["max"] = 5000
         context["problems"] = fetchProblems(user=request.user)
-
     page = request.GET.get('page', 1)
-
     paginator = Paginator(context["problems"], 20)
     try:
         context["problems"] = paginator.page(page)
@@ -48,6 +41,8 @@ def dashboard_view(request):
     print(context['problems'].paginator.page_range)
     print(context['problems'].paginator.num_pages)
     context['ls'] = context['problems'].paginator.num_pages - 1
+    context['user_solved'] = user_solved.values()
+    context['user_not_solved'] = user_not_solved.values()
 
     return render(request, "dashboard.html", context=context)
 
