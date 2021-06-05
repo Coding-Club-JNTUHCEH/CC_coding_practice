@@ -125,3 +125,4 @@ def logout_view(request):
 
 def help_CF_view(request):
     return render(request, 'help_CF.html')
+

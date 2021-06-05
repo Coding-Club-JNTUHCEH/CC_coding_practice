@@ -38,6 +38,7 @@ def contest_page(request, *args, **kwargs):
     except EmptyPage:
         contest = paginator.page(paginator.num_pages)
 
+
     ls = contest.paginator.num_pages - 1
 
     context['contests'] = contest

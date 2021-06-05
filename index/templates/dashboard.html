@@ -14,6 +14,7 @@
             <form method="POST" action="" id="form">
                 {% csrf_token %}
                 <div class="form-row">
+
                     <div class="col-12 col-lg-6 row difficulty mb-3">
                         <div class="col-3 difficulty-text">Difficulty :</div>
                         <div class="col-9 row">
@@ -76,6 +77,7 @@
                 <th scope="row " class="t-border t-border-row text-center">{{ problem.contestID }}</th>
                 <td class="t-border t-border-row text-center">{{ problem.index }}</td>
                 {%if problem in user_solved%}
+
                 <td class="t-border t-border-row text-center" style="background-color: rgb(144, 211, 144);">
                     {{ problem.name }}</td>
                 {% elif problem in user_not_solved %}
