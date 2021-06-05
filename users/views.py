@@ -1,6 +1,6 @@
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
@@ -41,6 +41,7 @@ def login_view(request):
         return render(request, "login.html", context)
 
     if(request.method == "POST"):
+        print(request.POST)
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
@@ -80,6 +81,10 @@ def profile_view(request, *args, **kwargs):
 
     if request.user.id == user_details["user_id"]:
         user_details["edit_profile"] = True
+    else:
+        friends = UserProfile.objects.get(user = request.user).friends.all()
+        if UserProfile.objects.get(user = user) in friends:
+            user_details["friend"] = True
 
     return render(request, "profile.html", context=user_details)
 
@@ -126,3 +131,25 @@ def logout_view(request):
 def help_CF_view(request):
     return render(request, 'help_CF.html')
 
+
+def add_friend_JSON(request, *args, **kwargs):
+    print("received add request")
+    
+    username = kwargs["username"]
+    try:
+        friend = UserProfile.objects.get(user = User.objects.get(username = username))
+        UserProfile.objects.get(user = request.user).friends.add(friend)
+        return JsonResponse({'status': 0 })
+    except:
+        return JsonResponse({'status': 1 })
+
+def remove_friend_JSON(request, *args, **kwargs):
+    print("received remove request")
+    
+    username = kwargs["username"]
+    try:
+        friend = UserProfile.objects.get(user = User.objects.get(username = username))
+        UserProfile.objects.get(user = request.user).friends.remove(friend)
+        return JsonResponse({'status': 0 })
+    except:
+        return JsonResponse({'status': 1 })

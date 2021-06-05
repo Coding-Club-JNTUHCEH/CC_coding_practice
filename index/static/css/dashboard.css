@@ -350,6 +350,10 @@ body{
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
+
+.submissions {
+    margin-bottom: 2%;
+}
 @media only screen and (max-width: 900px) {
     .c-card{
         /* background-color: antiquewhite; */

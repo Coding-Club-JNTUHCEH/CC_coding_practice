@@ -5,16 +5,13 @@ from users.codeforces_API import fetchAllProblems
 
 
 class Contest(models.Model):
-    contestID = models.IntegerField()
-    index = models.CharField(max_length=5)
-    name = models.CharField(max_length=50)
-    type = models.CharField(max_length=50)
-    # rating = models.IntegerField(default=0)
-    problems = models.ManyToManyField(
-        Problem, blank=True, related_name="Problme")
-    # problems = models.ForeignKey('index.Problem', on_delete=models.CASCADE,)
-    link = models.URLField(max_length=200)
-    # tags = models.ManyToManyField(Tag,blank=True,related_name="Problme")
+    contestID       = models.IntegerField()
+    index           = models.CharField(max_length=5)
+    name            = models.CharField(max_length=50)
+    type            = models.CharField(max_length=50)
+    problems        = models.ManyToManyField(
+                        Problem, blank=True, related_name="Problem")
+    link            = models.URLField(max_length=200)
 
     class Meta:
         unique_together = ['contestID', 'index']
@@ -50,8 +47,7 @@ class Contest(models.Model):
             typee = 4
 
         problems = []
-        # problems = Problem.objects.filter(
-        #     index=contest["id"]).order_by("index")
+        
 
         p = {'contestID': contest["id"],
              'index': contest["id"],

@@ -70,5 +70,8 @@ def getRating(username):
 
 
 def fetchURL(url):
-    data = requests.get(url)
-    return data.json()
+    try:
+        data = requests.get(url)
+        return data.json()
+    except:
+        return {"status" : "FAILED"}

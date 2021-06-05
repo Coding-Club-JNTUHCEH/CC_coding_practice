@@ -25,5 +25,8 @@ urlpatterns = [
     path('reset-password-complete', 
         auth_views.PasswordResetView.as_view(template_name="password_reset/password_reset_done.html"), 
         name = 'password_reset_complete'),
+
+    path('add_friend_JSON/<str:username>' , views.add_friend_JSON, name = "addFriend"),
+    path('remove_friend_JSON/<str:username>' , views.remove_friend_JSON, name = "removeFriend"),
 ]
 

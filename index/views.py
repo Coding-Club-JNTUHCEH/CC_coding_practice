@@ -17,14 +17,12 @@ def dashboard_view(request):
     context = {"tags": list(Tag.objects.all())}
 
 
-    user_solved = UserProfile.objects.get(
-        user=request.user).sloved_problems.all().values()
-    user_not_solved = UserProfile.objects.get(
-        user=request.user).not_sloved_problems.all().values()
-    context['user_solved'] = user_solved
-    context['user_not_solved'] = user_not_solved
-
-
+    context['user_solved']      = UserProfile.objects.get(
+                                    user=request.user).sloved_problems.all().values()
+    context['user_not_solved']  = UserProfile.objects.get(
+                                    user=request.user).not_sloved_problems.all().values()
+    context['friends_solved']   = friendsSubmissions(user = request.user)
+    
     if(request.method == "POST"):
         context["min"] = int(request.POST.get("minPts"))
         context["max"] = int(request.POST.get("maxPts"))
@@ -46,12 +44,10 @@ def dashboard_view(request):
     except EmptyPage:
         context["problems"] = paginator.page(paginator.num_pages)
 
-    print(context['problems'].paginator.page_range)
-    print(context['problems'].paginator.num_pages)
+    # print(context['problems'].paginator.page_range)
+    # print(context['problems'].paginator.num_pages)
     context['ls'] = context['problems'].paginator.num_pages - 1
-    context['user_solved'] = user_solved.values()
-    context['user_not_solved'] = user_not_solved.values()
-
+    
     return render(request, "dashboard.html", context=context)
 
 
@@ -81,6 +77,18 @@ def fetchProblems(min=0, max=5000, tags=[], user=None, filter=False):
 
     return problemSet
 
+def friendsSubmissions(user):
+    allProblems = []
+    per = 2 # --> no of questions from each friend should be taken
+    friends = UserProfile.objects.get(user = user).friends.all()
+    for friend in friends:
+        try:
+            problems = friend.sloved_problems.all()[:per].values()
+        except:
+            problems = friend.sloved_problems.all().values()
+        allProblems.extend(problems)
+    
+    return allProblems
 
 def loadProblems_view(request):
 
@@ -105,28 +113,3 @@ def loadProblems_view(request):
     return render(request, "hello.html", context={"result": True, "count": count})
 
 
-def update_solvedProblems(request):
-
-    problems = fetchAllProblems()
-
-    a, count = 1, 1
-
-    print(request.user)
-
-    if len(problems) == 0:
-        return render(request, "hello.html", context={"result": False})
-
-    for problem in problems:
-        if a < 20:
-            user_solved = UserProfile.objects.get(
-                user=request.user).sloved_problems.all()
-            print(request.user)
-            print(user_solved)
-            print(problem)
-            for solved_problem in user_solved:
-                if solved_problem == problem:
-                    problem.color = solved_problem.color
-                    print(problem.color)
-            a += 1
-
-    return HttpResponse("Hello")

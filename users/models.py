@@ -9,15 +9,17 @@ from .codeforces_API import getSolvedProblems
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=30, default="forgot")
-    codeForces_username = models.CharField(max_length=30)
-    year = models.IntegerField(help_text='Year of Admission')
-    rating = models.IntegerField(default=800)
-    sloved_problems = models.ManyToManyField(
-        Problem, blank=True, related_name="UserSolved")
-    not_sloved_problems = models.ManyToManyField(
-        Problem, blank=True, related_name="UserNotSolved")
+    user                    = models.OneToOneField(User, on_delete=models.CASCADE)
+    name                    = models.CharField(max_length=30, default="forgot")
+    codeForces_username     = models.CharField(max_length=30)
+    year                    = models.IntegerField(help_text='Year of Admission')
+    rating                  = models.IntegerField(default=800)
+    sloved_problems         = models.ManyToManyField(
+                                Problem, blank=True, related_name="UserSolved")
+    not_sloved_problems     = models.ManyToManyField(
+                                Problem, blank=True, related_name="UserNotSolved")
+    friends                 = models.ManyToManyField(
+                                "UserProfile", blank=True, related_name="friend")
 
     class Meta:
         ordering = ['-rating']
@@ -59,14 +61,14 @@ class UserProfile(models.Model):
     def add_solvedProblem(self, problem):
         if problem["verdict"] == 'OK' or problem["verdict"] == 'WRONG_ANSWER':
             try:
-                contestID = problem["problem"]["contestId"]
-                index = problem["problem"]["index"]
+                contestID   = problem["problem"]["contestId"]
+                index       = problem["problem"]["index"]
             except:
                 return
 
             try:
                 problem1 = Problem.objects.get(
-                    contestID=contestID, index=index)
+                            contestID=contestID, index=index)
 
                 if problem["verdict"] == 'OK':
                     self.sloved_problems.add(problem1)
@@ -102,3 +104,6 @@ class UserProfile(models.Model):
             status = True
 
         return UserProfile.objects.all(), status
+    
+    def __str__(self) -> str:
+        return self.name

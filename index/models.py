@@ -4,8 +4,8 @@ from django.db import models
 
 
 class Tag(models.Model):
-    tag_name = models.CharField(max_length=32)
-    tag_title = models.CharField(max_length=64, default="did not set")
+    tag_name    = models.CharField(max_length=32)
+    tag_title   = models.CharField(max_length=64, default="did not set")
 
     class Meta:
         ordering = ['tag_name']
@@ -15,13 +15,12 @@ class Tag(models.Model):
 
 
 class Problem(models.Model):
-    contestID = models.IntegerField()
-    index = models.CharField(max_length=5)
-    name = models.CharField(max_length=50)
-    rating = models.IntegerField(default=0)
-    link = models.URLField(max_length=200)
-    tags = models.ManyToManyField(Tag, blank=True, related_name="Problme")
-    color = models.CharField(max_length=10, default='none')
+    contestID   = models.IntegerField()
+    index       = models.CharField(max_length=5)
+    name        = models.CharField(max_length=50)
+    rating      = models.IntegerField(default=0)
+    link        = models.URLField(max_length=200)
+    tags        = models.ManyToManyField(Tag, blank=True, related_name="Problme")
 
     class Meta:
         unique_together = ['contestID', 'index']
@@ -35,7 +34,6 @@ class Problem(models.Model):
             name=cleaned_problem["name"],
             rating=cleaned_problem["rating"],
             link=cleaned_problem["link"],
-            color=cleaned_problem['color'],
         )
 
         return p
@@ -55,14 +53,12 @@ class Problem(models.Model):
         else:
             tags = []
 
-        color = 'none'
 
         p = {'contestID': problem["contestId"],
              'index': problem["index"],
              'name': problem["name"],
              'rating': rating,
              'tags': tags,
-             'color': color,
              'link': 'https://codeforces.com/problemset/problem/' + str(problem["contestId"]) + '/' + problem["index"],
              }
         return p
