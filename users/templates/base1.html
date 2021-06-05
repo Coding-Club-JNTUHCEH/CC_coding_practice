@@ -75,4 +75,14 @@
     {% block content %}
     {% endblock %}
 
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Your custom script here -->
+    <script type="text/babel">
+        $('input[type="password"]').on('focus', () => {
+            $('*').addClass('password');
+        }).on('focusout', () => {
+            $('*').removeClass('password');
+        });
+    </script>
+
 </body>

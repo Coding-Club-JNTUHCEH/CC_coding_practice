@@ -16,13 +16,12 @@ from .models import Problem, Tag
 def dashboard_view(request):
     context = {"tags": list(Tag.objects.all())}
 
+    context['user_solved'] = UserProfile.objects.get(
+        user=request.user).sloved_problems.all().values()
+    context['user_not_solved'] = UserProfile.objects.get(
+        user=request.user).not_sloved_problems.all().values()
+    context['friends_solved'] = friendsSubmissions(user=request.user)
 
-    context['user_solved']      = UserProfile.objects.get(
-                                    user=request.user).sloved_problems.all().values()
-    context['user_not_solved']  = UserProfile.objects.get(
-                                    user=request.user).not_sloved_problems.all().values()
-    context['friends_solved']   = friendsSubmissions(user = request.user)
-    
     if(request.method == "POST"):
         context["min"] = int(request.POST.get("minPts"))
         context["max"] = int(request.POST.get("maxPts"))
@@ -47,7 +46,7 @@ def dashboard_view(request):
     # print(context['problems'].paginator.page_range)
     # print(context['problems'].paginator.num_pages)
     context['ls'] = context['problems'].paginator.num_pages - 1
-    
+
     return render(request, "dashboard.html", context=context)
 
 
@@ -77,18 +76,20 @@ def fetchProblems(min=0, max=5000, tags=[], user=None, filter=False):
 
     return problemSet
 
+
 def friendsSubmissions(user):
     allProblems = []
-    per = 2 # --> no of questions from each friend should be taken
-    friends = UserProfile.objects.get(user = user).friends.all()
+    per = 2  # --> no of questions from each friend should be taken
+    friends = UserProfile.objects.get(user=user).friends.all()
     for friend in friends:
         try:
             problems = friend.sloved_problems.all()[:per].values()
         except:
             problems = friend.sloved_problems.all().values()
         allProblems.extend(problems)
-    
+
     return allProblems
+
 
 def loadProblems_view(request):
 
@@ -111,5 +112,3 @@ def loadProblems_view(request):
         a += 1
 
     return render(request, "hello.html", context={"result": True, "count": count})
-
-

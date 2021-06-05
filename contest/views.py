@@ -38,7 +38,6 @@ def contest_page(request, *args, **kwargs):
     except EmptyPage:
         contest = paginator.page(paginator.num_pages)
 
-
     ls = contest.paginator.num_pages - 1
 
     context['contests'] = contest
@@ -66,15 +65,25 @@ def loadContests_view(request):
 
     for contest in contests:
 
+        # if a < 100:
+
         c_db = Contest.create(contest)
-        c_db.problems = c_db.add_problems()
-        # print(c_db.problems)
-        # problems = Problem.
-        # c_db.problems.set(problems)
+
         try:
             c_db.save()
+            problems = Problem.objects.filter(
+                contestID=c_db.contestID).order_by("index")
+            # problems.reverse()
+            print(problems)
+            print(len(problems))
+            # print(problems)
+            if problems.exists() and len(problems) > 4:
+
+                # print(type(problems_list))
+                c_db.problems.add(*problems)
+
+            print(contest.problems.all())
             count += 1
-            # p_db.link_tags(problem["tags"])
             # print(str(a)+".Contest ", c_db, " saved" .format(a))
         except:
             print("Error!!!")
