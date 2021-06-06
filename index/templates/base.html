@@ -3,8 +3,7 @@
 
 <head>
     <title>CC JNTUHCEH</title>
-    <script src="{% static '/js/script.js' %}" type="text/javascript"></script>
-    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}">
+    
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
@@ -21,6 +20,7 @@
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
 
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -33,6 +33,10 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+    <script src="{% static '/js/script.js' %}" type="text/javascript"></script>
+    
+    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}">  
 </head>
 
 <body>
@@ -65,8 +69,10 @@
             </ul>
             <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'profile' %}">
                 {% csrf_token %}
-                <input class="form-control mr-sm-2" type="search" placeholder="User" id="username" name="username"
-                    aria-label="Search">
+                
+                <input class="form-control mr-sm-2" type="search" placeholder="User" id="username" name="username" 
+                        aria-label="Search">
+                
                 <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
@@ -76,3 +82,5 @@
     {% endblock %}
 
 </body>
+
+  

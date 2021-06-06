@@ -5,7 +5,7 @@ from users.codeforces_API import fetchAllProblems
 
 
 class Contest(models.Model):
-    contestID       = models.IntegerField()
+    contestID       = models.IntegerField(unique=True)
     index           = models.CharField(max_length=5)
     name            = models.CharField(max_length=50)
     type            = models.CharField(max_length=50)
@@ -14,7 +14,7 @@ class Contest(models.Model):
     link            = models.URLField(max_length=200)
 
     class Meta:
-        unique_together = ['contestID', 'index']
+        pass
 
     @classmethod
     def create(self, *args, **kwargs):
@@ -60,4 +60,4 @@ class Contest(models.Model):
         return p
 
     def __str__(self) -> str:
-        return str(self.contestID) + self.index + " " + self.name
+        return (str(self.contestID) + self.index + " " + self.name)

@@ -144,8 +144,7 @@ def add_friend_JSON(request, *args, **kwargs):
         return JsonResponse({'status': 1 })
 
 def remove_friend_JSON(request, *args, **kwargs):
-    print("received remove request")
-    
+   
     username = kwargs["username"]
     try:
         friend = UserProfile.objects.get(user = User.objects.get(username = username))
@@ -153,3 +152,12 @@ def remove_friend_JSON(request, *args, **kwargs):
         return JsonResponse({'status': 0 })
     except:
         return JsonResponse({'status': 1 })
+
+def find_users_JSON(request, *args, **kwargs):
+    username = kwargs["username"]
+    users = User.objects.filter(username__contains = username)
+    usernames = []
+    for user in users:
+        usernames.append(user.username)
+    
+    return JsonResponse({'usernames': usernames })

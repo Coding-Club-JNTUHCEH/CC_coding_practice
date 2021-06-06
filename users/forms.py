@@ -32,11 +32,13 @@ class SignUpForm(UserCreationForm):
                                                                     }))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
                                                                     "placeholder"   : "Password",
+                                                                    "label"         : "Password",
                                                                     "class"         : "form-control",
                                                                     "required"      : True,
                                                                     }))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
                                                                     "placeholder"   : " Confirm Password",
+                                                                    "label"         : "Confirm Password",
                                                                     "class"         : "form-control",
                                                                     "required"      : True,
                                                                     }))
@@ -65,7 +67,7 @@ class SignUpForm(UserCreationForm):
                                                                     }))
     class Meta:
         model = User
-        fields = ('email', 'username', 'name', 'codeForces_username','year', 'password1', 'password2', )
+        fields = ('email', 'username', 'name', 'codeForces_username','year', 'password1', 'password2')
     
     def save(self, commit=True):
         user = super(SignUpForm, self).save(commit=False)

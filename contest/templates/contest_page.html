@@ -8,21 +8,21 @@
 
     <div class="btn-group me-2 div-menu" style="margin-top: 3rem; margin-bottom: 2rem;" role="group"
         aria-label="Second group">
-        <a href="contest" class="btn btn-secondary div-link">All </a>
-        <a href="contest/1" class="btn btn-secondary div-link">Div. 1 </a>
-        <a href="contest/2" class="btn btn-secondary div-link">Div. 2 </a>
-        <a href="contest/3" class="btn btn-secondary div-link">Div. 3 </a>
-        <a href="contest/4" class="btn btn-secondary div-link">Div. 4 </a>
+        <a href="{% url 'contest_page_all' %}" class="btn btn-secondary div-link">All </a>
+        <a href="{% url 'contest_page' 1 %}" class="btn btn-secondary div-link">Div. 1 </a>
+        <a href="{% url 'contest_page' 2 %}" class="btn btn-secondary div-link">Div. 2 </a>
+        <a href="{% url 'contest_page' 3 %}" class="btn btn-secondary div-link">Div. 3 </a>
+        <a href="{% url 'contest_page' 4 %}" class="btn btn-secondary div-link">Div. 4 </a>
     </div>
     <div class="contest-heading " style="margin-bottom: 2rem;">
         {% if type == '0' %}
-        <h2>All Contests</h2>
+            <h2>All Contests</h2>
         {% else %}
-        <h2>Div {{type}} Contests</h2>
+            <h2>Div {{type}} Contests</h2>
         {% endif %}
     </div>
 
-    <table class="table table-bordered" style="width: 95%;">
+    <table class="table table-bordered" style="width: 95%; empty-cells: show;">
         <thead>
             <tr class="table-head">
                 <th scope="col" class="t-border t-border-head text-center">Contest</th>
@@ -39,54 +39,23 @@
         <tbody>
             {% for contest in contests %}
             <tr class="table-row">
-                {%if type == '0' %}
-
-                {%if contest.problems.all %}
+                
+                
                 <th scope="row" class="t-border t-border-row text-center">{{ contest.contestID }}</th>
-                {% for problem in contest.problems.all %}
-                {%if problem in user_solved%}
-                <td class="t-border t-border-row text-center" style="background-color: rgb(144, 211, 144);">
-                    <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
-                </td>
-                {% elif problem in user_not_solved %}
-                <td class="t-border t-border-row text-center" style="background-color: rgb(250, 153, 153);">
-                    <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
-                </td>
-                {%else%}
-                <td class="t-border t-border-row text-center">
-                    <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
-                </td>
-                {%endif%}
+                {% for problem in contest.problems.all reversed %}
 
+                    <td class="t-border t-border-row text-center" 
+                    {%if problem in user_solved %}
+                        style= "background-color: rgb(144, 211, 144);"
 
+                    {% elif problem in user_not_solved %}
+                        style="background-color: rgb(250, 153, 153);"
+
+                    {%endif%} >
+                        <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
+                    </td>
+                    
                 {% endfor %}
-
-
-
-                {% endif %}
-
-                {% else %}
-
-                {%if contest.problems.all and contest.type == type %}
-                <th scope="row" class="t-border t-border-row text-center">{{ contest.contestID }}</th>
-                {% for problem in contest.problems.all %}
-                {%if problem in user_solved%}
-                <td class="t-border t-border-row text-center" style="background-color: rgb(144, 211, 144);">
-                    <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
-                </td>
-                {% elif problem in user_not_solved %}
-                <td class="t-border t-border-row text-center" style="background-color: rgb(250, 153, 153);">
-                    <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
-                </td>
-                {%else%}
-                <td class="t-border t-border-row text-center">
-                    <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
-                </td>
-                {%endif%}
-
-                {% endfor %}
-                {% endif %}
-                {% endif %}
             </tr>
             {% endfor %}
 

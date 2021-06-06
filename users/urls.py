@@ -28,5 +28,6 @@ urlpatterns = [
 
     path('add_friend_JSON/<str:username>' , views.add_friend_JSON, name = "addFriend"),
     path('remove_friend_JSON/<str:username>' , views.remove_friend_JSON, name = "removeFriend"),
+    path('find_users_JSON/<str:username>' , views.find_users_JSON, name = "findUsers"),
 ]
 

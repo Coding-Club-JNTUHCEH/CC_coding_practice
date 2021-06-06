@@ -78,25 +78,24 @@
             </thead>
             <tbody>
                 {% for problem in friends_solved %}
-                <tr class="table-row">
-                    <th scope="row " class="t-border t-border-row text-center">{{ problem.contestID }}</th>
-                    <td class="t-border t-border-row text-center">{{ problem.index }}</td>
-                    {%if problem in user_solved%}
-
-                    <td class="t-border t-border-row text-center" style="background-color: rgb(144, 211, 144);">
-                        {{ problem.name }}</td>
-                    {% elif problem in user_not_solved %}
-                    <td class="t-border t-border-row text-center" style="background-color: rgb(211, 144, 144);">
-                        {{ problem.name }}</td>
-                    {%else%}
-                    <td class="t-border t-border-row text-center">{{ problem.name }}</td>
-                    {%endif%}
-
-                    <td class="t-border t-border-row text-center">{{ problem.rating }}</td>
-                    <td class="t-border t-border-row text-center"><a href={{ problem.link }} target="_blank"
-                            class="btn btn-success btn-sm">Try</a></td>
-                </tr>
-
+                    <tr class="table-row">
+                        <th scope="row " class="t-border t-border-row text-center">{{ problem.contestID }}</th>
+                        <td class="t-border t-border-row text-center">{{ problem.index }}</td>
+                        <td class="t-border t-border-row text-center" 
+                    
+                            {%if problem in user_solved%}
+                                style="background-color: rgb(144, 211, 144);"
+                            {% elif problem in user_not_solved %}
+                                style="background-color: rgb(211, 144, 144);"
+                            {%endif%} >
+                            
+                            {{ problem.name }}
+                        </td>
+                    
+                        <td class="t-border t-border-row text-center">{{ problem.rating }}</td>
+                        <td class="t-border t-border-row text-center"><a href={{ problem.link }} target="_blank"
+                                class="btn btn-success btn-sm">Try</a></td>
+                    </tr>
 
                 {% endfor %}
             </tbody>
