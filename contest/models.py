@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.manager import EmptyManager
 from index.models import Problem
 from users.codeforces_API import fetchAllProblems
 # from django.apps import apps
@@ -12,7 +13,7 @@ class Contest(models.Model):
     problems        = models.ManyToManyField(
                         Problem, blank=True, related_name="Problem")
     link            = models.URLField(max_length=200)
-
+    empty           = models.IntegerField(default=0)
     class Meta:
         pass
 
@@ -56,8 +57,7 @@ class Contest(models.Model):
              'problems': problems,
              'link': 'https://codeforces.com/contest/' + str(contest["id"]),
              }
-        print(p)
         return p
 
     def __str__(self) -> str:
-        return (str(self.contestID) + self.index + " " + self.name)
+        return (str(self.contestID) + " " + self.name)

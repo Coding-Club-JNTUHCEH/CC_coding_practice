@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load my_filters %}
 {% block content %}
 <link rel="stylesheet" href="{% static '/css/dashboard.css' %}?{% now 'U' %}">
+
 <div class="container">
 
 
@@ -56,6 +58,12 @@
                     </td>
                     
                 {% endfor %}
+                
+                {% for e in contest.empty|range %}
+                    <td class="t-border t-border-row text-center" > - </td>
+                {% endfor %}
+                
+                
             </tr>
             {% endfor %}
 

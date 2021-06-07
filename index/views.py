@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 
 from users.models import UserProfile
 from users.codeforces_API import fetchAllProblems
-from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -16,22 +15,22 @@ from .models import Problem, Tag
 def dashboard_view(request):
     context = {"tags": list(Tag.objects.all())}
 
-    context['user_solved'] = UserProfile.objects.get(
-        user=request.user).sloved_problems.all().values()
-    context['user_not_solved'] = UserProfile.objects.get(
-        user=request.user).not_sloved_problems.all().values()
-    context['friends_solved'] = friendsSubmissions(user=request.user)
+    context['user_solved']      = UserProfile.objects.get(
+                                user=request.user).sloved_problems.all().values()
+    context['user_not_solved']  = UserProfile.objects.get(
+                                user=request.user).not_sloved_problems.all().values()
+    context['friends_solved']   = friendsSubmissions(user=request.user)
 
     if(request.method == "POST"):
-        context["min"] = int(request.POST.get("minPts"))
-        context["max"] = int(request.POST.get("maxPts"))
-        tags = request.POST.getlist("listOfTags")
+        context["min"]      = int(request.POST.get("minPts"))
+        context["max"]      = int(request.POST.get("maxPts"))
+        tags                = request.POST.getlist("listOfTags")
         context["problems"] = fetchProblems(
-            min=context["min"], max=context["max"], tags=tags, user=request.user, filter=True)
+                                min=context["min"], max=context["max"], tags=tags, user=request.user, filter=True)
 
     else:
-        context["min"] = 0
-        context["max"] = 5000
+        context["min"]      = 0
+        context["max"]      = 5000
         context["problems"] = fetchProblems(user=request.user)
 
     page = request.GET.get('page', 1)
