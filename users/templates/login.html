@@ -7,24 +7,7 @@
     {{ message }}
 </div>
 {%endif%}
-<div class="owl">
-    <div class="hand"></div>
-    <div class="hand hand-r"></div>
-    <div class="arms">
-        <div class="arm"></div>
-        <div class="arm arm-r"></div>
-    </div>
-</div>
-<div class="form">
-    <div class="control">
-        <label for="email" class="fa fa-envelope"></label>
-        <input id="email" placeholder="Email" type="email">
-    </div>
-    <div class="control">
-        <label for="password" class="fa fa-asterisk"></label>
-        <input id="password" placeholder="Password" type="password">
-    </div>
-</div>
+
 <link rel="stylesheet" href="{% static 'formField.css' %}">
 <div class="background">
     <div style="text-align: center;" class="login">
@@ -32,7 +15,7 @@
             <img src="{% static 'imgs/profile-pic.svg' %}" width="140" height="140" class="profile-pic"
                 alt="profile-pic">
         </div>
-        <h3 class="fivePercentMargin">Sign In</h3>
+        <h3 class="fivePercentMargin">Log In</h3>
         <form class="form-signin" action="{% url 'login' %}" method="post">
             {% csrf_token %}
             <div style="padding: 4px;" class="username l-input">
