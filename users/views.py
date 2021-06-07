@@ -80,7 +80,9 @@ def profile_view(request, *args, **kwargs):
         rating=user_details["codeforces"]["rating"])
 
     if request.user.id == user_details["user_id"]:
-        user_details["edit_profile"] = True
+        user_details["friends"]             = UserProfile.objects.get(user = request.user ).getFriendsList()
+        user_details["view_friends"]        = True
+        user_details["edit_profile"]        = True
     else:
         friends = UserProfile.objects.get(user = request.user).friends.all()
         if UserProfile.objects.get(user = user) in friends:
@@ -144,7 +146,7 @@ def add_friend_JSON(request, *args, **kwargs):
         return JsonResponse({'status': 1 })
 
 def remove_friend_JSON(request, *args, **kwargs):
-   
+    print("remove request received")
     username = kwargs["username"]
     try:
         friend = UserProfile.objects.get(user = User.objects.get(username = username))

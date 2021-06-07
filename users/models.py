@@ -93,6 +93,12 @@ class UserProfile(models.Model):
         p_db.save()
         p_db.link_tags(problem["tags"])
 
+    def getFriendsList(self):
+        fr_list = []
+        for friend in self.friends.all():
+            fr_list.append(friend.user.username)
+        return fr_list
+        
     @staticmethod
     def updateRatings(updated_data):
         status = False

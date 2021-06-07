@@ -21,6 +21,10 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+     <!-- For Auto complete -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -69,14 +73,17 @@
             </ul>
             <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'profile' %}">
                 {% csrf_token %}
-
-                <input class="form-control mr-sm-2" type="search" placeholder="User" id="username" name="username"
-                    aria-label="Search">
-
+                
+                    <input class="form-control mr-sm-2" type="search" placeholder="User" id="username" name="username"
+                        aria-label="Search">  
+                
                 <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
             </form>
+            
         </div>
     </nav>
+    <div id="match-list" style="margin-left: 80%; position:absolute;">
+    </div>
 
     {% block content %}
     {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'base1.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
@@ -56,12 +56,12 @@
                         </button>
                         {% elif friend %}
 
-                        <button type="button" class="btn btn-danger d-btn" value="Unfriend" id = "friend">
+                        <button type="button" class="btn btn-danger d-btn" value="0" id = "friend">
                             Unfriend
                         </button>
                         {% else %}
 
-                        <button type="button" class="btn btn-warning d-btn" value="Add Friend"  name = "addFriend" id = "friend">
+                        <button type="button" class="btn btn-warning d-btn" value="1"  name = "addFriend" id = "friend">
                             Add Friend
                         </button>
 
@@ -71,10 +71,36 @@
                         </button>
 
                     </form>
+
                 </div>
             </div>
         </div>
     </div>
-
 </div>
+
+{% if view_friends %}
+<div style="width: 100%;">
+    <h2 style="margin-left:18% ;">Friends</h2>
+</div>
+<div class="container1">
+        <table class="table table-bordered" style="width: 64%; empty-cells: show;">
+            <tbody>
+                {% for friend in friends %}
+
+                <tr class="table-row" id = "{{ friend }}">
+                    
+                    <td style="width: 70%" class="t-border t-border-row text-center"><a href="{% url 'profile'  friend %}">{{ friend }}</a></td>
+                    <td class="t-border t-border-row text-center" >
+                        <button class = "btn btn-danger d-btn removeFriend" value = "{{ friend }}">remove</button>
+                    </td>
+                    
+                    {% endfor %}
+                    
+                    
+                </tr>
+        </table>
+    
+    
+</div>
+{% endif %}
 {% endblock %}
