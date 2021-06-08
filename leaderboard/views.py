@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from users.models import UserProfile
-from django.http import HttpResponse
 
-from users.codeforces_API import fetchAllUsers
+from API_manager import codeforces_API
+from users.models import UserProfile
+from . import services
+
 
 # Create your views here.
 
@@ -16,23 +16,15 @@ def leaderboard_view(request):
     for user in users_list:
         users_str += user[0] + ";"
     
-    users_cfProfile = fetchAllUsers(users_str)
-
+    users_cfProfile = codeforces_API.fetchAllUsers(users_str)
+    
     users_p,updated = UserProfile.updateRatings(users_cfProfile)
     for user_p in users_p:
-        users.append(extract_leaderboardData(user_p,rank))
+        users.append(services.extract_leaderboardData(user_p,rank))
         rank+=1
         
-        
     context ={ "users" : users, "updated" : updated }
-    
+    if users_cfProfile == []:
+        context["server_down"] = True
+        
     return render(request,"leaderboard.html",context=context)
-
-
-def extract_leaderboardData(user,rank):
-    return {
-        "username" : user.user.username ,
-        "rating"   : user.rating,
-        "rank"     : rank
-
-    }

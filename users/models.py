@@ -1,10 +1,9 @@
 
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
-from index.models import Problem
 
-from .codeforces_API import getSolvedProblems
+from index.models import Problem
+from API_manager import codeforces_API
 # Create your models here.
 
 
@@ -36,26 +35,37 @@ class UserProfile(models.Model):
 
     def add_solvedProblems(self):
 
-        solvedProblems = getSolvedProblems(username=self.codeForces_username)
+        solvedProblems = codeforces_API.getSolvedProblems(username=self.codeForces_username)
         for problem in solvedProblems:
             self.add_solvedProblem(problem)
 
     def updated_solvedProblems(self):
-        problems = getSolvedProblems(username=self.codeForces_username)
-        remaing = len(problems) - self.sloved_problems.count() - \
+        problems    = codeforces_API.getSolvedProblems(username=self.codeForces_username)
+        if problems == []:
+            return self.sloved_problems
+        remaing     = len(problems) - self.sloved_problems.count() - \
             self.not_sloved_problems.count()
         for p in range(remaing):
             if problems[p]["verdict"] == 'OK':
-                self.sloved_problems.add(problems[p])
+                prob    = problems[p]["problem"]
+                problem = Problem.objects.get(contestID = prob["contestId"] , index = prob["index"])
+                self.sloved_problems.add(problem)
+                if prob in self.not_sloved_problems.all():
+                        self.not_sloved_problems.remove(problem)
         return self.sloved_problems
 
     def updated_not_solvedProblems(self):
-        problems = getSolvedProblems(username=self.codeForces_username)
-        remaing = len(problems) - self.sloved_problems.count() - \
+        problems    = codeforces_API.getSolvedProblems(username=self.codeForces_username)
+        if problems == []:
+            return self.sloved_problems
+        remaing     = len(problems) - self.sloved_problems.count() - \
             self.not_sloved_problems.count()
         for p in range(remaing):
-            if problems[p]["verdict"] != 'OK':
-                self.not_sloved_problems.add(problems[p])
+            if problems[p]["verdict"] != 'OK' and problems[p]["problem"] not in self.sloved_problems.all():
+                prob = problems[p]["problem"]
+                problem = Problem.objects.get(contestID = prob["contestId"] , index = prob["index"])
+                self.not_sloved_problems.add(problem)
+        
         return self.not_sloved_problems
 
     def add_solvedProblem(self, problem):
@@ -104,7 +114,7 @@ class UserProfile(models.Model):
         status = False
         for user in updated_data:
             user_p = UserProfile.objects.get(
-                codeForces_username=user["handle"])
+                        codeForces_username=user["handle"])
             user_p.rating = user["rating"]
             user_p.save()
             status = True

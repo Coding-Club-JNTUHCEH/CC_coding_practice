@@ -3,10 +3,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.db import IntegrityError
+from django.core.exceptions import PermissionDenied
 
 from users.models import UserProfile
 from index.models import Problem
-from users.codeforces_API import fetchAllContests
+from API_manager import codeforces_API
 
 from .models import Contest
 
@@ -17,10 +18,10 @@ from .models import Contest
 def contest_page(request, *args, **kwargs):
     context = {}
 
-    user_solved = UserProfile.objects.get(
-        user=request.user).sloved_problems.all()
+    user_solved     = UserProfile.objects.get(
+                        user=request.user).sloved_problems.all()
     user_not_solved = UserProfile.objects.get(
-        user=request.user).not_sloved_problems.all()
+                        user=request.user).not_sloved_problems.all()
 
     if 'type1' in kwargs:
         typee = kwargs["type1"]
@@ -58,10 +59,10 @@ def contest_page(request, *args, **kwargs):
 
 def loadContests_view(request):
     no_columns = 8
-    contests = fetchAllContests()
+    contests = codeforces_API.fetchAllContests()
     a, count = 1, 1
     if len(contests) == 0 or not request.user.is_superuser:
-        return render(request, "hello.html", context={"result": False})
+        raise PermissionDenied()
 
     for contest in contests:
 
@@ -74,15 +75,17 @@ def loadContests_view(request):
             try:
                 c_db.save()
                 c_db.problems.add(*problems)
+                print(str(count)+". Contest " + str(c_db) + " saved")
 
             except IntegrityError:
                 Contest.objects.filter(contestID=c_db.contestID).update(
                     empty=no_columns - len(problems))
+                print(str(count)+". Contest " + str(c_db) + " updated")
             except:
                 pass
-
+        
         count += 1
 
-        print(str(a)+". Contest " + str(c_db) + " saved")
+        
 
     return render(request, "hello.html", context={"result": True, "count": count})

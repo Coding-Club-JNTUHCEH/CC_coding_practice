@@ -23,6 +23,7 @@ def fetchCFProfileInfo(username):
 
 def getSolvedProblems(username):
     url = "https://codeforces.com/api/user.status?handle="+str(username)
+    
     JSONdata = fetchURL(url)
     if JSONdata["status"] != 'OK':
         return []
@@ -71,7 +72,7 @@ def getRating(username):
 
 def fetchURL(url):
     try:
-        data = requests.get(url)
+        data = requests.get(url,timeout=8)
         return data.json()
     except:
         return {"status" : "FAILED"}

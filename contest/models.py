@@ -1,19 +1,17 @@
 from django.db import models
-from django.db.models.manager import EmptyManager
+
 from index.models import Problem
-from users.codeforces_API import fetchAllProblems
-# from django.apps import apps
+
 
 
 class Contest(models.Model):
-    contestID       = models.IntegerField(unique=True)
-    index           = models.CharField(max_length=5)
-    name            = models.CharField(max_length=50)
-    type            = models.CharField(max_length=50)
-    problems        = models.ManyToManyField(
-                        Problem, blank=True, related_name="Problem")
-    link            = models.URLField(max_length=200)
-    empty           = models.IntegerField(default=0)
+    contestID       = models.IntegerField( unique=True )
+    index           = models.CharField( max_length=5 )
+    name            = models.CharField( max_length=50 )
+    type            = models.CharField( max_length=50 )
+    problems        = models.ManyToManyField( Problem, blank=True, related_name="Problem" )
+    link            = models.URLField( max_length=200 )
+    empty           = models.IntegerField(default=0 )
     class Meta:
         pass
 
@@ -30,31 +28,24 @@ class Contest(models.Model):
 
         return p
 
-    def link_problems(self, problems):
-        for problem in problems:
-            self.problems.add(problem)
 
     def cleanContestForDB(contest):
 
-        name = contest["name"]
-        typee = 0
-        if (name.find("Div. 1") > -1):
-            typee = 1
-        if (name.find("Div. 2") > -1):
-            typee = 2
-        if (name.find("Div. 3") > -1):
-            typee = 3
+        name    = contest["name"]
+        type   = 0
         if (name.find("Div. 4") > -1):
-            typee = 4
-
-        problems = []
-        
+            type = 4
+        elif (name.find("Div. 3") > -1):
+            type = 3
+        elif (name.find("Div. 2") > -1):
+            type = 2
+        elif (name.find("Div. 1") > -1):
+            type = 1
 
         p = {'contestID': contest["id"],
              'index': contest["id"],
              'name': contest["name"],
-             'type': typee,
-             'problems': problems,
+             'type': type,
              'link': 'https://codeforces.com/contest/' + str(contest["id"]),
              }
         return p

@@ -84,7 +84,11 @@
     </nav>
     <div id="match-list" style="margin-left: 80%; position:absolute;">
     </div>
-
+    {% if server_down %}
+    <div class="alert alert-danger" role="alert">
+        CodeForces Server is down
+    </div>
+    {% endif %}
     {% block content %}
     {% endblock %}
 
