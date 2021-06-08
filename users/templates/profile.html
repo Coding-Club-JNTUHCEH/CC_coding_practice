@@ -79,55 +79,27 @@
 </div>
 
 {% if view_friends %}
-<!-- <div style="width: 100%;">
-    <h2 style="margin-left:18% ;">Friends</h2>
-</div> -->
+
 <div class="container1">
-    <!-- <table class="table table-bordered" style="width: 64%; empty-cells: show;">
-        <tbody>
-            {% for friend in friends %}
-
-            <tr class="table-row" id="{{ friend }}">
-
-                <td style="width: 70%" class="t-border t-border-row text-center"><a
-                        href="{% url 'profile'  friend %}">{{ friend }}</a></td>
-                <td class="t-border t-border-row text-center">
-                    <button class="btn btn-danger d-btn removeFriend" value="{{ friend }}">remove</button>
-                </td>
-
-                {% endfor %}
-
-
-            </tr>
-    </table> -->
-    <table class="l-table mt-5 mb-5" style="width: 40rem;">
+    <table class="l-table mt-5 mb-5 friend-table">
         <thead class="l-table-head" style="background-color: #2884D9;">
-
             <tr class="l-table-head-row row">
-
-                <th scope="col" class="col-3 text-center" style="font-size: 18px;font-weight:500;">Friends</th>
-                <!-- <th scope="col" class="col-5 text-center">User Name</th>
-                <th scope="col" class="col-5 text-center">Rating</th> -->
+                <th scope="col" class="col-6" style="font-size: 18px;font-weight:500; margin-left:40px">
+                    Friends</th>
             </tr>
         </thead>
         <tbody class="l-table-body">
             {% for friend in friends %}
-
             <tr class="l-table-body-row row">
-                <!-- <td class="col-1"></td> -->
-
-                <td class="col-9">
+                <td class="col-6 col-lg-9">
                     <div class="ml-4"><a href="{% url 'profile'  friend %}">{{ friend }}</a></div>
                 </td>
-                <td class="col-3 text-center">
-                    <button class="btn btn-danger d-btn removeFriend mb-2" style="height: 35px;width:6rem;"
+                <td class="col-6 col-lg-3 text-center">
+                    <button class="btn btn-danger d-btn mb-2 removeFriend" style="height: 35px;width:6rem;"
                         value="{{ friend }}">remove</button>
                 </td>
             </tr>
-
             {% endfor %}
-
-
     </table>
 
 

@@ -85,7 +85,10 @@ def profile_view(request, *args, **kwargs):
     if request.user.id == user_details["user_id"]:
         user_details["friends"] = UserProfile.objects.get(
             user=request.user).getFriendsList()
-        user_details["view_friends"] = True
+        if len(user_details["friends"]) > 0:
+            user_details["view_friends"] = True
+        else:
+            user_details["view_friends"] = False
         user_details["edit_profile"] = True
     else:
         friends = UserProfile.objects.get(user=request.user).friends.all()
