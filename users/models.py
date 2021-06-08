@@ -48,8 +48,11 @@ class UserProfile(models.Model):
         for p in range(remaing):
             if problems[p]["verdict"] == 'OK':
                 prob    = problems[p]["problem"]
-                problem = Problem.objects.get(contestID = prob["contestId"] , index = prob["index"])
-                self.sloved_problems.add(problem)
+                try:
+                    problem = Problem.objects.get(contestID = prob["contestId"] , index = prob["index"])
+                    self.sloved_problems.add(problem)
+                except:
+                    pass
                 if prob in self.not_sloved_problems.all():
                         self.not_sloved_problems.remove(problem)
         return self.sloved_problems
@@ -63,8 +66,11 @@ class UserProfile(models.Model):
         for p in range(remaing):
             if problems[p]["verdict"] != 'OK' and problems[p]["problem"] not in self.sloved_problems.all():
                 prob = problems[p]["problem"]
-                problem = Problem.objects.get(contestID = prob["contestId"] , index = prob["index"])
-                self.not_sloved_problems.add(problem)
+                try:
+                    problem = Problem.objects.get(contestID = prob["contestId"] , index = prob["index"])
+                    self.not_sloved_problems.add(problem)
+                except:
+                    pass
         
         return self.not_sloved_problems
 
