@@ -29,7 +29,7 @@ if DEBUG:
 else:
     SECRET_KEY = os.getenv('SECRET_KEY')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', 'coding-club-coding-practice.herokuapp.com']
 
 
 # Application definition
