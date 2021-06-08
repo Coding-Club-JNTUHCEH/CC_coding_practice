@@ -10,10 +10,19 @@ def fetchCFProfileInfo(username):
         return {}
     profile = JSONdata["result"][0]
     lastOnline = convertTime(profile["lastOnlineTimeSeconds"])
+    # print(profile["rating"])
+    try:
+        rating = profile['rating']
+    except:
+        rating = 0
+    try:
+        maxRating = profile['maxRating']
+    except:
+        maxRating = 0
 
     p = {
-        "rating":   profile["rating"],
-        "maxRating":   profile["maxRating"],
+        "rating":  rating,
+        "maxRating":   maxRating,
         "titlePhoto":   profile["titlePhoto"],
         "lastonline":  lastOnline
     }
@@ -23,7 +32,7 @@ def fetchCFProfileInfo(username):
 
 def getSolvedProblems(username):
     url = "https://codeforces.com/api/user.status?handle="+str(username)
-    
+
     JSONdata = fetchURL(url)
     if JSONdata["status"] != 'OK':
         return []
@@ -72,7 +81,7 @@ def getRating(username):
 
 def fetchURL(url):
     try:
-        data = requests.get(url,timeout=8)
+        data = requests.get(url, timeout=8)
         return data.json()
     except:
-        return {"status" : "FAILED"}
+        return {"status": "FAILED"}
