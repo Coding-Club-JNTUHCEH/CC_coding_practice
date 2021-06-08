@@ -11,8 +11,8 @@ from .models import UserProfile
 from .forms import SignUpForm, EditProfileForm
 
 
-def landing(request):
-    return render(request, 'landing.html')
+# def landing(request):
+#     return render(request, 'landing.html')
 
 
 def signup_view(request):
