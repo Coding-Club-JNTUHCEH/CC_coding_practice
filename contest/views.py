@@ -57,35 +57,3 @@ def contest_page(request, *args, **kwargs):
 
 # https://codeforces.com/api/contest.list
 
-def loadContests_view(request):
-    no_columns = 8
-    contests = codeforces_API.fetchAllContests()
-    a, count = 1, 1
-    if len(contests) == 0 or not request.user.is_superuser:
-        raise PermissionDenied()
-
-    for contest in contests:
-
-        c_db = Contest.create(contest)
-
-        problems = Problem.objects.filter(
-            contestID=c_db.contestID).order_by("-index")
-        if problems.exists() and len(problems) > 4 and len(problems) < 9:
-            c_db.empty = no_columns - len(problems)
-            try:
-                c_db.save()
-                c_db.problems.add(*problems)
-                print(str(count)+". Contest " + str(c_db) + " saved")
-
-            except IntegrityError:
-                Contest.objects.filter(contestID=c_db.contestID).update(
-                    empty=no_columns - len(problems))
-                print(str(count)+". Contest " + str(c_db) + " updated")
-            except:
-                pass
-        
-        count += 1
-
-        
-
-    return render(request, "hello.html", context={"result": True, "count": count})

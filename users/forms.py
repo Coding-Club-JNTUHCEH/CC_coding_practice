@@ -14,8 +14,8 @@ class SignUpForm(UserCreationForm):
                                 "placeholder": "Enter Username",
                                 "class": "form-control",
                                 "id": "user-name",
-                                "required": True,
-                                "autofocus": True
+                                "required": True
+                                
                             }))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
                                 "placeholder": "Password",
@@ -46,6 +46,7 @@ class SignUpForm(UserCreationForm):
                                 "class": "form-control",
                                 "id": "email",
                                 "required": True,
+                                "autofocus": True
                             }))
     year = forms.IntegerField(validators=[MinValueValidator(2010), MaxValueValidator(date.today().year)],
                             widget=forms.NumberInput(attrs={

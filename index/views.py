@@ -48,24 +48,3 @@ def dashboard_view(request):
     return render(request, "dashboard.html", context=context)
 
 
-def loadProblems_view(request):
-
-    problems = codeforces_API.fetchAllProblems()
-
-    a, count = 1, 1
-    if len(problems) == 0 or not request.user.is_superuser:
-        raise PermissionDenied()
-
-    for problem in problems:
-
-        p_db = Problem.create(problem)
-        try:
-            p_db.save()
-            count += 1
-            p_db.link_tags(problem["tags"])
-            print(str(a)+".Problem ", p_db, " saved" .format(a))
-        except:
-            print(str(a)+".Problem ", p_db, " could not add" .format(a))
-        a += 1
-
-    return render(request, "hello.html", context={"result": True, "count": count})
