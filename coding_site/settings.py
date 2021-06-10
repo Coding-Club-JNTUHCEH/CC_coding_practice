@@ -28,7 +28,7 @@ if DEBUG:
 else:
     SECRET_KEY = os.getenv('SECRET_KEY')
 
-ALLOWED_HOSTS = ['localhost', 'coding-club-coding-practice.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'codingclubjntuhceh.pythonanywhere.com']
 
 
 # Application definition
