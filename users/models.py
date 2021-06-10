@@ -8,17 +8,17 @@ from API_manager import codeforces_API
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=30, default="forgot")
+    user                = models.OneToOneField(User, on_delete=models.CASCADE)
+    name                = models.CharField(max_length=30, default="forgot")
     codeForces_username = models.CharField(max_length=30)
-    year = models.IntegerField(help_text='Year of Admission')
-    rating = models.IntegerField(default=800)
-    sloved_problems = models.ManyToManyField(
-        Problem, blank=True, related_name="UserSolved")
+    year                = models.IntegerField(help_text='Year of Admission')
+    rating              = models.IntegerField(default=800)
+    sloved_problems     = models.ManyToManyField(
+                            Problem, blank=True, related_name="UserSolved")
     not_sloved_problems = models.ManyToManyField(
-        Problem, blank=True, related_name="UserNotSolved")
-    friends = models.ManyToManyField(
-        "UserProfile", blank=True, related_name="friend")
+                            Problem, blank=True, related_name="UserNotSolved")
+    friends             = models.ManyToManyField(
+                            "UserProfile", blank=True, related_name="friend")
 
     class Meta:
         ordering = ['-rating']
