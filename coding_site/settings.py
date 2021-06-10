@@ -28,7 +28,7 @@ if DEBUG:
 else:
     SECRET_KEY = os.getenv('SECRET_KEY')
 
-ALLOWED_HOSTS = ['localhost', 'codingclubjntuhceh.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'codingclubjntuhceh.pythonanywhere.com']
 
 
 # Application definition
