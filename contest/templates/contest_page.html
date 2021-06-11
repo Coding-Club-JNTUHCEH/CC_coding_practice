@@ -54,7 +54,7 @@
                         style="background-color: rgb(250, 153, 153);"
 
                     {%endif%} >
-                        <a href={{ problem.link }} target="_blank" class="contest-link">{{ problem.name }}</a>
+                        <a href={{ problem.link }} target="_blank" class="contest-link contestDark" >{{ problem.name }}</a>
                     </td>
                     
                 {% endfor %}
@@ -94,7 +94,7 @@
         {% endif %}
         {% endfor %}
         {% if contests.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ contests.next_page_number }}">&raquo;
+        <li class="page-item"><a class="page-link " href="?page={{ contests.next_page_number }}">&raquo;
                 Next</a>
         </li>
         {% else %}

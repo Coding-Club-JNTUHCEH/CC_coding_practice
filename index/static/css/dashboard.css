@@ -20,7 +20,6 @@ body{
 }
 
 
-
 /********************* BASE *****************/
 .navbar-custom{
      /* height: 60px; */
@@ -161,7 +160,8 @@ body{
 
 .contest-link{
     text-decoration: none;
-    color:rgb(73, 73, 73);
+    /* color:rgb(73, 73, 73); */
+    color:#222
 }
 .contest-link:hover{
     text-decoration: none;
@@ -383,6 +383,28 @@ body{
         margin-bottom: 2rem;
     }
 }
+
+/*********************************DARK MODE************************************/
+
+.dark{
+    background-color: #222;
+    color: #e6e6e6;
+}
+
+.dark th{
+    
+    color: #e6e6e6; 
+}
+.dark td{
+    
+    color: #e6e6e6; 
+}
+.dark .contestDark {
+    
+    color: #e6e6e6; 
+}
+
+
 
 /************************************************************************************************/
 /****************************************************************************************************/
