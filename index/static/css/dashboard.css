@@ -219,6 +219,11 @@ body{
 .dark .d-details{
     border: 3px solid #5EB1FF;
 }
+
+.dark .contest-link:hover{
+    text-decoration: none;
+    color: rgb(36, 139, 235);
+}
 /* @media only screen and (max-width: 900px) {
     .d-details{
         height: 27.5rem;
@@ -434,7 +439,7 @@ body{
 }
 
 .dark input::placeholder{
-    color:#ffffff;
+    color:rgba(253, 253, 253, 0.5);
 }
 
 .dark .dropdown-item{
