@@ -33,6 +33,8 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+    <script src="https://code.iconify.design/1/1.0.4/iconify.min.js">   </script>
 </head>
 
 <body>
@@ -70,6 +72,7 @@
                 {% endif %}
 
             </ul>
+
             <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'profile' %}">
                 {% csrf_token %}
                 <input class="form-control mr-sm-2" type="search" placeholder="User" id="username" name="username"
