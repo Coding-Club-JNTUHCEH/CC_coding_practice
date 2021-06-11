@@ -433,6 +433,10 @@ body{
     border: none;
 }
 
+.dark input::placeholder{
+    color:#ffffff;
+}
+
 .dark .dropdown-item{
     background-color: #222;
     color: #ffffff;;
