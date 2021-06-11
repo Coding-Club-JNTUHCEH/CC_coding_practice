@@ -408,7 +408,8 @@ body{
     color: #ffffff;
 }
 .dark .navbar-custom{
-   color: #ffffff;
+    background-color: rgb(35, 38, 52);
+    color: #ffffff;
 }
 
 
@@ -426,6 +427,17 @@ body{
     color: #ffffff;
     border: none;
 }
+.dark .search{
+    background-color: rgba(138, 138, 138, 0.28);
+    color: #ffffff;
+    border: none;
+}
+
+.dark .dropdown-item{
+    background-color: #222;
+    color: #ffffff;;
+}
+
 
 
 .dark .bootstrap-select .btn{

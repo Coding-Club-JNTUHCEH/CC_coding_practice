@@ -32,7 +32,7 @@ def contest_page(request, *args, **kwargs):
     else:
         typee = '0'
         contests = (Contest.objects.annotate(num_problems=Count('problems'))
-                    .filter(name__icontains="Div.", num_problems__gt=4))
+                    .filter(name__icontains="Div.", num_problems__gt=4)).order_by("id")
 
     page = request.GET.get('page', 1)
     paginator = Paginator(contests, 20)
