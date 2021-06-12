@@ -408,6 +408,7 @@ body{
     color: #ffffff;
 }
 .dark .navbar-custom{
+    background-color: rgba(28,30,47,.88);
    color: #ffffff;
 }
 
