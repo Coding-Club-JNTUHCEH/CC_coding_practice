@@ -397,12 +397,14 @@ body{
     display:grid;
     grid-template-columns: auto;
     grid-template-rows: auto auto auto;
+    /* font-family: 'Nunito',sans-serif; */
 }
 .container-1{
     grid-row: 2/3;
     grid-column: 1/2;
     z-index:10;
 }
+
 
 .section{
    display: grid;
@@ -458,13 +460,14 @@ body{
     font-size: 1.1rem;
     margin-left: 1rem;
     margin-right: 2rem;
-    color: rgba(38,132,220,0.82);
+    color: #6a6f77;
 }
 .nav-link1:hover{
     text-decoration: none;
-    color: rgba(38,132,220,1);
+    color: #414549;
 }
 .head-1{
+    
     margin-top: 90px;
     margin-left:30px;
     font-family: 'Roboto Condensed', sans-serif;
@@ -507,6 +510,7 @@ body{
 */
 .j-btn{
     margin-left:30px;
+    
 }
 
 
@@ -675,9 +679,10 @@ it should always be at the center of the browser */
 
 .circles li:nth-child(3){
     left: 70%;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     animation-delay: 4s;
+    animation-duration: 8s;
 }
 
 .circles li:nth-child(4){
@@ -693,6 +698,7 @@ it should always be at the center of the browser */
     width: 20px;
     height: 20px;
     animation-delay: 0s;
+    animation-duration: 6s;
 }
 
 .circles li:nth-child(6){
@@ -700,6 +706,7 @@ it should always be at the center of the browser */
     width: 60px;
     height: 60px;
     animation-delay: 4s;
+    animation-duration: 7s;
 }
 
 .circles li:nth-child(7){
@@ -707,22 +714,23 @@ it should always be at the center of the browser */
     width: 40px;
     height: 40px;
     animation-delay: 9s;
+    animation-duration: 8s;
 }
 
 .circles li:nth-child(8){
     left: 50%;
     width: 25px;
     height: 25px;
-    animation-delay: 15s;
-    animation-duration: 45s;
+    animation-delay: 5s;
+    animation-duration: 13s;
 }
 
 .circles li:nth-child(9){
     left: 20%;
     width: 15px;
     height: 15px;
-    animation-delay: 2s;
-    animation-duration: 35s;
+    animation-delay: 7s;
+    animation-duration: 10s;
 }
 
 .circles li:nth-child(10){
@@ -730,7 +738,21 @@ it should always be at the center of the browser */
     width: 80px;
     height: 80px;
     animation-delay: 0s;
-    animation-duration: 11s;
+    animation-duration: 18s;
+}
+.circles li:nth-child(11){
+    left: 70%;
+    width: 40px;
+    height: 40px;
+    animation-delay: 3s;
+    animation-duration: 6s;
+}
+.circles li:nth-child(12){
+    left: 80%;
+    width: 35px;
+    height: 35px;
+    animation-delay: 2s;
+    animation-duration: 14s;
 }
 
 
