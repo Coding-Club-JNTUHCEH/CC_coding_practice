@@ -103,6 +103,23 @@
     </table>
 
 
+<<<<<<< Updated upstream
+=======
+                <tr class="table-row" id = "{{ friend }}">
+                    
+                    <td style="width: 70%" class="t-border t-border-row text-center"><h4><a href="{% url 'profile'  friend %}">{{ friend }}</a></h4></td>
+                    <td class="t-border t-border-row text-center" >
+                        <button class = "btn btn-danger d-btn removeFriend" value = "{{ friend }}">remove</button>
+                    </td>
+                    
+                    {% endfor %}
+                    
+                    
+                </tr>
+        </table>
+    
+    
+>>>>>>> Stashed changes
 </div>
 {% endif %}
 {% endblock %}
