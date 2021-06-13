@@ -229,7 +229,11 @@ body{
     color: rgb(36, 139, 235);
 }
 
-
+.dark .page-link{
+    background-color: rgba(138, 138, 138, 0.28) !important;
+    color: #ffffff !important;
+    border: none;
+}
 
 /* @media only screen and (max-width: 900px) {
     .d-details{
