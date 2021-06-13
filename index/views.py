@@ -25,7 +25,7 @@ def dashboard_view(request):
     else:
         context["min"]      = 0
         context["max"]      = 5000
-        context["problems"] = services.fetchProblems(user=request.user)
+        context["problems"] = services.fetchProblems(user=request.user).order_by("id")
 
     context['user_solved']      = UserProfile.objects.get(
                                     user=request.user).updated_solvedProblems().all().values()

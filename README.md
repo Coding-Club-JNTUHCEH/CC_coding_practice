@@ -25,6 +25,9 @@ codeforces API: https://codeforces.com/apiHelp
 - added feature to check friend's submissions
 - Improved design of Profile view
 - divided dashboard into pages
+- clean up functions
+- design Front End more beautiful
+- add dark mode
 
 
 **Things to do:**
@@ -32,12 +35,6 @@ codeforces API: https://codeforces.com/apiHelp
 
 - create a new email account to send forgot password link ( for now not needed )
 - JavaScript should be added for friendly user interface ( making it dynamic )
-- clean up functions
-
-
-**Final Touch**
-- design Front End more beautiful
-- add dark mode
 
 
 if there are any more todo's to add, add them

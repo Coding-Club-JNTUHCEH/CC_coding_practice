@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -46,6 +45,7 @@ INSTALLED_APPS = [
     'leaderboard',
     'contest',
     'error_handling',
+    'landing_page',
 ]
 
 MIDDLEWARE = [
@@ -155,5 +155,3 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 os.makedirs(STATIC_ROOT, exist_ok=True)
 os.makedirs(STATICFILES_DIRS[0], exist_ok=True)
-
-
