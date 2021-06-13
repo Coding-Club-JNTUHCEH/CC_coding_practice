@@ -2,7 +2,7 @@
 A website to practice for coding club members
 codeforces API: https://codeforces.com/apiHelp
 
-
+Deployed link : https://codingclubjntuhceh.pythonanywhere.com/
 
 **Things done**
 
