@@ -4,3 +4,5 @@
 .DS_Store
 *.sqlite3
 *.env
+staticfiles/**
+static/**
