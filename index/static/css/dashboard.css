@@ -18,6 +18,9 @@ body{
     -moz-box-shadow: 0px 3px 11px 0px rgba(45,45,45,0.11);
     /* background-color: #4CAF50; */
 }
+ a:hover{
+    text-decoration:none;
+}
 
 
 /********************* BASE *****************/
@@ -227,6 +230,7 @@ body{
 }
 
 
+
 /* @media only screen and (max-width: 900px) {
     .d-details{
         height: 27.5rem;
@@ -276,6 +280,9 @@ body{
     display: flex;
     justify-content:center;
 }
+
+
+
 .friend-table{
     width: 40rem !important;
 }
@@ -444,6 +451,16 @@ body{
     color: #ffffff;
     border: none;
 }
+.dark input{
+    background-color: rgba(138, 138, 138, 0.28);
+    color: #ffffff;
+    border: none;
+}
+.dark input:focus{
+    background-color: rgba(138, 138, 138, 0.28);
+    color: #ffffff;
+    border: none;
+}
 
 .dark input::placeholder{
     color:rgba(253, 253, 253, 0.5);
@@ -503,6 +520,15 @@ body{
 .dark .contestDark {
     
     color: #ffffff; 
+}
+.dark .q-card{
+    background-color: rgba(138, 138, 138, 0.28);
+    color: #ffffffd5;
+    border: none;
+}
+.dark .q-card-header{
+    background-color: rgba(138, 138, 138, 0.18);
+    
 }
 
 
@@ -608,6 +634,7 @@ body{
     display:grid;
     grid-template-columns: auto;
     grid-template-rows: auto auto auto;
+    line-height: 28px !important;
     /* font-family: 'Nunito',sans-serif; */
 }
 .container-1{
@@ -774,17 +801,67 @@ body{
   }
 
 
+  /****sign-btn****/
+  .sign-btn {
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    width: 180px;
+    cursor: pointer;
+    color: rgba(20, 60, 97, 0.95);
+    
+    transition: all 0.5s;
+    position: relative;
+  }
+
+  .sign-btn::before {
+    content: 'Sign Up';
+      color:aliceblue;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(20, 60, 97, 0.75);
+    transition: all 0.3s;
+  }
+  .sign-btn:hover::before {
+    opacity: 0 ;
+    color: rgba(20, 60, 97, 0.95);
+    transform: scale(0.5,0.5);
+  }
+  .sign-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.3s;
+    
+    border: 2px solid rgba(20, 60, 97, 0.75);
+    transform: scale(1.2,1.2);
+  }
+  .sign-btn:hover::after {
+    opacity: 1;
+    transform: scale(1,1);
+  }
+
 
 
   /* Let's style the wrapper in such away that, 
 it should always be at the center of the browser */
-/* .wrapper {
-    z-index:10;
-  } */
+.wrapper {
+    margin-top:-1rem;
+  }
   
   /* Style the Un-order list by setting its list-style to none */
   .wrapper ul {
     list-style: none;
+    
     /* display: block; */
   }
   
@@ -802,6 +879,7 @@ it should always be at the center of the browser */
     border: 1.8px solid rgba(38,132,220,0.8);
     float: left;
     transition: all 0.5s ease;
+    text-decoration: none;
   }
   
   /* Style the icons by setting its color and margin-top value to 20px 
@@ -833,6 +911,12 @@ it should always be at the center of the browser */
       background-color:#6c7a85;
       color: #fff;
   }
+  .a-final{
+      color: #474a50;
+  }
+  .a-final:hover{
+    color: #2d2f31;
+}
 
 
 
