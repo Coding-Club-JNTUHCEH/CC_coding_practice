@@ -63,13 +63,16 @@
             <div class="form-inline my-2 my-lg-0">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item1">
-                        <a class="nav-link1" href="#">Home</a>
+                        <a class="nav-link1" href="">Home</a>
                     </li>
                     <li class="nav-item1">
                         <a class="nav-link1" href="{% url 'dashboard' %}">Practice</a>
                     </li>
                     <li class="nav-item1">
-                        <a class="nav-link1 " href="#">Contact</a>
+                        <a class="nav-link1" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a class="nav-link1 " href="mailto:ccjntuhceh@gmail.com" target="_blank">Contact</a>
                     </li>
 
                 </ul>
@@ -101,19 +104,16 @@
                     <h2 class="head-2">JNTUHCEH</h2>
                 </div>
                 <div class="h-info" style="margin:2rem;color:#74787c;font-size:16.2px;">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium doloribus aperiam cupiditate
-                    animi
-                    ullam molestias amet sapiente minima id corporis. Vel voluptatem explicabo mollitia nam at tempore
-                    aut
-                    maiores repudiandae?
+                    Coding Club is university based community established in 2017 to encourage students to learn & practice coding.
+                    <br>Students from all undergraduate or graduate programs with an interest to learn coding are welcome.
                 </div>
                 <div class="btns">
-                    <div class="j-btn join-btn">Join Coding Club</div>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6kmr0ZUuKSobjyr9-yLaNLTIF7Co7RIFrsu8Yhi4_Paf3rA/viewform?usp=sf_link " target="_blank"><div class="j-btn join-btn">Join Coding Club</div></a><br>
                     <div class="wrapper" style="margin-top:1.5rem;">
                         <ul>
                             <li class="icon instagram"><a href="https://www.instagram.com/jntuhceh_coding_club/"><i
                                         class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                            <li class="icon google"><a href="#"><i class="fa fa-google" aria-hidden="true"></i></a>
+                            <li class="icon google"><a href="{% url 'landing' %}"><i class="fa fa-google" aria-hidden="true"></i></a>
                             </li>
                             <li class="icon github"><a href="https://github.com/Coding-Club-JNTUHCEH"><i
                                         class="fa fa-github" aria-hidden="true"></i></a>
@@ -137,32 +137,26 @@
                 </div>
                 <div class="right">
                     <div class="heading-1">
-                        <h3>Heading-1</h3>
+                        <h3>Why Coding?</h3>
                     </div>
                     <div class="h-info" style="margin:2rem;color:#818992;font-size:16.2px;">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium doloribus aperiam
-                        cupiditate
-                        animi
-                        ullam molestias amet sapiente minima id corporis. Vel voluptatem explicabo mollitia nam at
-                        tempore
-                        aut
-                        maiores repudiandae?
+                        <b>“Learning to code has the inadvertent effect of teaching you how to think,”</b> says Adrian Degus, CEO of Nuvro.
+                        <br> <br>
+                        <a href="https://youtu.be/Dv7gLpW91DM" target="_blank">Coding</a> will boost skills which are actually useful to most jobs. Problem solving and logic are the main two
                     </div>
                 </div>
             </div>
             <div class="about-2 section">
                 <div class="left">
                     <div class="heading-1">
-                        <h3>Heading-2</h3>
+                        <h3>Coding Practice</h3>
                     </div>
                     <div class="h-info" style="margin:2rem;color:#818992;font-size:16.2px;">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium doloribus aperiam
-                        cupiditate
-                        animi
-                        ullam molestias amet sapiente minima id corporis. Vel voluptatem explicabo mollitia nam at
-                        tempore
-                        aut
-                        maiores repudiandae?
+                        We built this <a href ="{% url 'login' %}">website</a> using codeForces API exclusively for JNTU students to practice coding and
+                        It contains <b>6000+ problems</b> & <b>500+ contests</b>
+                        <br>
+                        Designed and Built by <a href="https://www.linkedin.com/in/jaya-shankar-bandaru-08032a192/" target="_blank">Jaya Shankar B</a>  & <a href="https://www.linkedin.com/in/gayatri-sowmya-667b311b7/" target="_blank">Gayatri Sowmya V</a><br>
+                        <a href="{% url 'signup' %}" ><button class="btn btn-primary btn" style="margin: 2px; margin-top: 5px;"> Sign Up </button></a>
                     </div>
                 </div>
                 <div class="right"><img src="static/img/img-5.svg" width="380" height="320"
@@ -175,17 +169,12 @@
                 </div>
                 <div class="right">
                     <div class="heading-1">
-                        <h3>Heading-3</h3>
+                        <h3>Interview Preparation</h3>
 
                     </div>
                     <div class="h-info" style="margin:2rem;color:#818992;font-size:16.2px;">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium doloribus aperiam
-                        cupiditate
-                        animi
-                        ullam molestias amet sapiente minima id corporis. Vel voluptatem explicabo mollitia nam at
-                        tempore
-                        aut
-                        maiores repudiandae?
+                        If you're looking for interview prepartion tips & tricks check out the website<a href="https://bitsandbytes2020.herokuapp.com/" target="_blank"> Bits&Bytes</a> built by our alumni
+                        <a href = "https://www.linkedin.com/in/abhay-bhat/" target="_blank">Abhay Bhatt</a>
                     </div>
                 </div>
             </div>

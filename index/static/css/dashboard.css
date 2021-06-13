@@ -225,6 +225,8 @@ body{
     text-decoration: none;
     color: rgb(36, 139, 235);
 }
+
+
 /* @media only screen and (max-width: 900px) {
     .d-details{
         height: 27.5rem;
@@ -371,6 +373,10 @@ body{
     /* background: rgba(38,132,220,0.9) !important; */
 }
 
+.dark .col-form-label{
+    color: #ffffff;
+
+}
 /**********************Q*******************************/
 
 .q-container{
