@@ -23,5 +23,5 @@ urlpatterns = [
     path('', include('index.urls')),
     path('', include('leaderboard.urls')),
     path('', include('contest.urls')),
-    # path('', include('training.urls')),
+    path('', include('landing_page.urls')),
 ]

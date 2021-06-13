@@ -26,12 +26,13 @@ body{
     padding-top: 0.6rem;
     padding-bottom: 0.6rem;
     padding-left: 2rem;
-    padding-right: 4rem;
+    padding-right: 2.6rem;
     background-color:#2884D9;
     box-shadow: 0px 3px 11px 0px rgba(45,45,45,0.38);
     -webkit-box-shadow: 0px 3px 11px 0px rgba(45,45,45,0.38);
     -moz-box-shadow: 0px 3px 11px 0px rgba(45,45,45,0.38);
 }
+
 .nav-link{
     color: rgb(214, 237, 255) !important;
     font-family: Helvetica;
@@ -224,6 +225,8 @@ body{
     text-decoration: none;
     color: rgb(36, 139, 235);
 }
+
+
 /* @media only screen and (max-width: 900px) {
     .d-details{
         height: 27.5rem;
@@ -370,6 +373,10 @@ body{
     /* background: rgba(38,132,220,0.9) !important; */
 }
 
+.dark .col-form-label{
+    color: #ffffff;
+
+}
 /**********************Q*******************************/
 
 .q-container{
@@ -592,3 +599,387 @@ body{
 /************************************************************************************************/
 /****************************************************************************************************/
 
+
+
+
+
+/*************************************landing***************************************************/
+.color{
+    display:grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto;
+    /* font-family: 'Nunito',sans-serif; */
+}
+.container-1{
+    grid-row: 2/3;
+    grid-column: 1/2;
+    z-index:10;
+}
+
+
+.section{
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   margin-bottom: 3rem;
+   
+}
+@media only screen and (max-width: 700px) {
+    .section{
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-bottom: 2rem;
+        width: 100vw;
+    }
+    .container-1{
+        width:100vw;
+    }
+  }
+
+.section-1{
+    height: 85vh;
+    margin-bottom: 7rem;
+}
+
+.navbar-custom1{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    z-index:11;
+    padding-top: 1.2rem;
+    padding-bottom: 0.6rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    color: rgba(38,132,220,0.9) !important;
+    
+}
+@media only screen and (max-width: 700px) {
+    .navbar-custom1{
+        display: block;
+        width: 100vw;
+    }
+    .navbar-toggler{
+        position: absolute;
+        right: 30px !important ;
+    }
+    .nav-item1{
+        padding-top: 1.6rem;
+    }
+  }
+.nav-link1{
+    
+    font-family: Helvetica;
+    /* font-weight: bold; */
+    font-size: 1.1rem;
+    margin-left: 1rem;
+    margin-right: 2rem;
+    color: #6a6f77;
+}
+.nav-link1:hover{
+    text-decoration: none;
+    color: #414549;
+}
+.head-1{
+    
+    margin-top: 90px;
+    margin-left:30px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size:60px;
+    color: rgba(38,132,220,1);
+}
+.head-2{
+    margin-left:30px;
+    font-family: Helvetica;
+    /* font-size:30px; */
+    color: #EB8E8E;
+    font-weight: 600;
+}
+
+
+.right{
+    
+    margin:auto;
+}
+.left{
+   
+    margin:auto;
+    
+}
+@media only screen and (max-width: 700px) {
+    .img-delete{
+        display: none;
+    }
+  }
+
+.heading-1{
+    margin-left:2rem;
+    margin-top:6rem;
+}
+
+/* 
+========================
+     JOIN BUTTON 
+========================
+*/
+.j-btn{
+    margin-left:30px;
+    
+}
+
+
+  .join-btn {
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    width: 180px;
+    cursor: pointer;
+    color: rgba(20, 60, 97, 0.95);
+
+    transition: all 0.5s;
+    position: relative;
+  }
+
+  .join-btn::before {
+    content: 'Join Coding Club';
+      color:aliceblue;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(20, 60, 97, 0.75);
+    transition: all 0.3s;
+  }
+  .join-btn:hover::before {
+    opacity: 0 ;
+    color: rgba(20, 60, 97, 0.95);
+    transform: scale(0.5,0.5);
+  }
+  .join-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.3s;
+    
+    border: 2px solid rgba(20, 60, 97, 0.75);
+    transform: scale(1.2,1.2);
+  }
+  .join-btn:hover::after {
+    opacity: 1;
+    transform: scale(1,1);
+  }
+
+
+
+
+  /* Let's style the wrapper in such away that, 
+it should always be at the center of the browser */
+/* .wrapper {
+    z-index:10;
+  } */
+  
+  /* Style the Un-order list by setting its list-style to none */
+  .wrapper ul {
+    list-style: none;
+    /* display: block; */
+  }
+  
+  /* Style the list items inside the UL list, by setting its width, height and line-height 
+    and float them to left and set its border and border-radius.
+   */
+  .wrapper ul li {
+    width: 36px;
+    height: 36px;
+    line-height: 33px;
+    margin: 0 7px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1.8px solid rgba(38,132,220,0.8);
+    float: left;
+    transition: all 0.5s ease;
+  }
+  
+  /* Style the icons by setting its color and margin-top value to 20px 
+  to align it properly */
+  .wrapper ul li .fa {
+    color: rgba(38,132,220,0.8);
+    transition: all 0.5s ease;
+  }
+  
+  /* Now target the specific li classes for styling and use box-shadow effect to border and text-shadow effect
+    to icons for glowing effect and use transition property for smooth transition effect. */
+  /*facebook*/
+  .wrapper ul li:hover.icon {
+   background:rgba(38,132,220,0.8);
+    /* box-shadow: 0 0 5px #3b5998; */
+    transition: all 0.5s ease;
+  }
+
+  .wrapper ul li:hover .fa {
+    color: #fff;
+    /* text-shadow: 0 0 5px #3b5998; */
+    transition: all 0.5s ease;
+  }
+  
+  
+  .footer{
+      padding: 1.5rem;
+      grid-row:3/4;
+      background-color:#6c7a85;
+      color: #fff;
+  }
+
+
+
+
+  /*******************************CIRCLES*************************************************/
+
+  .area{
+    /* background: #4e54c8;   */
+    /* background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);   */
+    width: 100%;
+    height:100vh;
+   
+    grid-row: 2/3;
+    grid-column: 1/2;
+    z-index:0;
+   
+}
+
+.circles{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.circles li{
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(159, 236, 250, 0.5);
+    animation: animate 25s linear infinite;
+    bottom: -150px;
+    
+}
+
+.circles li:nth-child(1){
+    left: 25%;
+    width: 40px;
+    height: 40px;
+    animation-delay: 0s;
+}
+
+
+.circles li:nth-child(2){
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+}
+
+.circles li:nth-child(3){
+    left: 70%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 4s;
+    animation-duration: 8s;
+}
+
+.circles li:nth-child(4){
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+
+.circles li:nth-child(5){
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+    animation-duration: 6s;
+}
+
+.circles li:nth-child(6){
+    left: 75%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 4s;
+    animation-duration: 7s;
+}
+
+.circles li:nth-child(7){
+    left: 35%;
+    width: 40px;
+    height: 40px;
+    animation-delay: 9s;
+    animation-duration: 8s;
+}
+
+.circles li:nth-child(8){
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 5s;
+    animation-duration: 13s;
+}
+
+.circles li:nth-child(9){
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 7s;
+    animation-duration: 10s;
+}
+
+.circles li:nth-child(10){
+    left: 90%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+.circles li:nth-child(11){
+    left: 70%;
+    width: 40px;
+    height: 40px;
+    animation-delay: 3s;
+    animation-duration: 6s;
+}
+.circles li:nth-child(12){
+    left: 80%;
+    width: 35px;
+    height: 35px;
+    animation-delay: 2s;
+    animation-duration: 14s;
+}
+
+
+
+@keyframes animate {
+
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 10%;
+    }
+
+    100%{
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+
+}
