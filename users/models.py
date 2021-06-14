@@ -124,13 +124,19 @@ class UserProfile(models.Model):
     def updateRatings(updated_data):
         status = False
         for user in updated_data:
-            user_p = UserProfile.objects.get(
-                codeForces_username=user["handle"])
+            print(user["handle"])
+            try:
+
+                user_p = UserProfile.objects.get(
+                    codeForces_username=user["handle"])
+            except:
+                break
             try:
                 user_p.rating = user["rating"]
             except:
                 user_p.rating = 0
             user_p.save()
+        else:
             status = True
 
         return UserProfile.objects.all(), status
