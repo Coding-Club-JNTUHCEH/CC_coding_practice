@@ -306,6 +306,7 @@ body{
     /* background-color: antiquewhite; */
     width: 50rem;
     margin: auto;
+    margin-bottom:2rem
 }
 
 
@@ -337,6 +338,14 @@ body{
     background-color: rgba(138, 138, 138, 0.24);
 }
 
+.dark .l-table-link{
+    color:rgba(38,132,220,0.7);
+    
+}
+
+.dark .l-table-link:hover{
+    color:rgba(38,132,220,0.4);
+}
 @media only screen and (max-width: 900px) {
     .l-table{
         /* background-color: antiquewhite; */
