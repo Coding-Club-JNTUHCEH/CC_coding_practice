@@ -123,22 +123,21 @@ class UserProfile(models.Model):
     @staticmethod
     def updateRatings(updated_data):
         status = False
+        
         for user in updated_data:
-            print(user["handle"])
             try:
-
                 user_p = UserProfile.objects.get(
-                    codeForces_username=user["handle"])
+                        codeForces_username=user[1])
+                
+                try:
+                    user_p.rating = user[0]["rating"]
+                except:
+                    user_p.rating = 0
+                user_p.save()
             except:
                 break
-            try:
-                user_p.rating = user["rating"]
-            except:
-                user_p.rating = 0
-            user_p.save()
         else:
             status = True
-
         return UserProfile.objects.all(), status
 
     def __str__(self) -> str:
