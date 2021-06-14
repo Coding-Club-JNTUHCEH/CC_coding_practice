@@ -32,12 +32,16 @@ def signup_view(request):
             return redirect('/dashboard')
     else:
         form = SignUpForm()
+        if request.user.is_authenticated :
+            return redirect("/dashboard")
     return render(request, 'signup.html', {'form': form})
 
 
 def login_view(request):
     if(request.method == "GET"):
         context = {}
+        if request.user.is_authenticated :
+            return redirect("/dashboard")
         return render(request, "login.html", context)
 
     if(request.method == "POST"):
