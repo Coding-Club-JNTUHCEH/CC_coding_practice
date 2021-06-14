@@ -45,7 +45,6 @@ def login_view(request):
         return render(request, "login.html", context)
 
     if(request.method == "POST"):
-        print(request.POST)
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
@@ -149,7 +148,6 @@ def help_CF_view(request):
 
 
 def add_friend_JSON(request, *args, **kwargs):
-    print("received add request")
 
     username = kwargs["username"]
     try:
@@ -162,7 +160,6 @@ def add_friend_JSON(request, *args, **kwargs):
 
 
 def remove_friend_JSON(request, *args, **kwargs):
-    print("remove request received")
     username = kwargs["username"]
     try:
         friend = UserProfile.objects.get(

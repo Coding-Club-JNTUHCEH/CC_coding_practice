@@ -17,11 +17,12 @@ class UserProfile(models.Model):
                             Problem, blank=True, related_name="UserSolved")
     not_sloved_problems = models.ManyToManyField(
                             Problem, blank=True, related_name="UserNotSolved")
+    sloved_problems_count = models.IntegerField(default = 0)
     friends             = models.ManyToManyField(
                             "UserProfile", blank=True, related_name="friend")
 
     class Meta:
-        ordering = ['-rating']
+        ordering = ['-rating', '-sloved_problems_count']
 
     def __str__(self):
         return "{}".format(self.codeForces_username)
@@ -39,6 +40,7 @@ class UserProfile(models.Model):
             username=self.codeForces_username)
         for problem in solvedProblems:
             self.add_solvedProblem(problem)
+        self.sloved_problems_count = self.sloved_problems.all().count()
 
     def updated_solvedProblems(self):
         problems = codeforces_API.getSolvedProblems(
@@ -58,6 +60,7 @@ class UserProfile(models.Model):
                     pass
                 if prob in self.not_sloved_problems.all():
                     self.not_sloved_problems.remove(problem)
+        self.sloved_problems_count = self.sloved_problems.all().count()
         return self.sloved_problems
 
     def updated_not_solvedProblems(self):

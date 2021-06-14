@@ -15,10 +15,8 @@ def leaderboard_view(request):
     rank = 1
     usernames=[]
     for user in users_list:
-        # print(user[0])
         usernames.append(user[0])
         users_str += user[0] + ";"
-    print("in views")
     
     users_cfProfile = codeforces_API.fetchAllUsers(users_str)
     updated_data = zip(users_cfProfile,usernames)

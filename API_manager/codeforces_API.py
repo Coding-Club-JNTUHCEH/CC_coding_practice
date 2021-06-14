@@ -10,7 +10,6 @@ def fetchCFProfileInfo(username):
         return {}
     profile = JSONdata["result"][0]
     lastOnline = convertTime(profile["lastOnlineTimeSeconds"])
-    # print(profile["rating"])
     try:
         rating = profile['rating']
     except:
