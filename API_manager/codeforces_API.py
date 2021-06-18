@@ -9,7 +9,7 @@ def fetchCFProfileInfo(username):
     if JSONdata["status"] != 'OK':
         return {}
     profile = JSONdata["result"][0]
-    lastOnline = convertTime(profile["lastOnlineTimeSeconds"])
+    lastOnline,format = convertTime(profile["lastOnlineTimeSeconds"])
     try:
         rating = profile['rating']
     except:
@@ -20,10 +20,11 @@ def fetchCFProfileInfo(username):
         maxRating = 0
 
     p = {
-        "rating":  rating,
-        "maxRating":   maxRating,
+        "rating"    :   rating,
+        "maxRating" :   maxRating,
         "titlePhoto":   profile["titlePhoto"],
-        "lastonline":  lastOnline
+        "lastonline":   lastOnline,
+        "format"    :   format
     }
 
     return p
@@ -68,7 +69,18 @@ def fetchAllContests():
 def convertTime(seconds):
     now = time.time()
     diff = now - seconds
-    return round(diff/3600, 2)
+    hours = round(diff/3600, 2)
+
+    if hours >= 48:
+        days = hours//24
+        if days>60:
+            months = days//30
+            if months>=24:
+                years = months//12
+                return years,"Years"
+            return months,"Months"
+        return days,"Days"
+    return hours,"Hours"
 
 
 def getRating(username):

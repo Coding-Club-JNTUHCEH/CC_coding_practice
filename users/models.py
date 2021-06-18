@@ -40,7 +40,10 @@ class UserProfile(models.Model):
             username=self.codeForces_username)
         for problem in solvedProblems:
             self.add_solvedProblem(problem)
+
         self.sloved_problems_count = self.sloved_problems.all().count()
+        self.save()
+
 
     def updated_solvedProblems(self):
         problems = codeforces_API.getSolvedProblems(
@@ -61,6 +64,7 @@ class UserProfile(models.Model):
                 if prob in self.not_sloved_problems.all():
                     self.not_sloved_problems.remove(problem)
         self.sloved_problems_count = self.sloved_problems.all().count()
+        self.save()
         return self.sloved_problems
 
     def updated_not_solvedProblems(self):
