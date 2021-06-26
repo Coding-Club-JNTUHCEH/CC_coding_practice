@@ -16,7 +16,7 @@ if there are any more todo's to add, add them
 
 
 ## How to contribute
-Every contribution is welcome, check out our [TODOs](https://github.com/realsirjoe/instagram-scraper/blob/master/CONTRIBUTING.md)
+Every contribution is welcome, check out our [TODOs](https://github.com/Coding-Club-JNTUHCEH/CC_coding_practice/blob/main/CONTRIBUTING.md)
 <br />
 
 
