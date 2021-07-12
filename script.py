@@ -76,7 +76,22 @@ def update_solvedProblems_count_value():
     else:
         print("success")
 
+def update_users_solved_problems():
+    users  = UserProfile.objects.all()
+    for user in users:
+        print("updating "+str(user))
+        try:
+            user.updated_solvedProblems();
+        except:
+            print("failed updating "+str(user))
+    print("completed updating")
+    return
+
+    
+    
+
 if __name__ == "__main__":
 
     loadProblems()
     loadContests()
+    update_users_solved_problems()
