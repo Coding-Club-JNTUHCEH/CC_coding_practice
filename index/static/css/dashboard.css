@@ -229,7 +229,11 @@ body{
     color: rgb(36, 139, 235);
 }
 
-
+.dark .page-link{
+    background-color: rgba(138, 138, 138, 0.28) !important;
+    color: #ffffff !important;
+    border: none;
+}
 
 /* @media only screen and (max-width: 900px) {
     .d-details{
@@ -302,6 +306,7 @@ body{
     /* background-color: antiquewhite; */
     width: 50rem;
     margin: auto;
+    margin-bottom:2rem
 }
 
 
@@ -314,7 +319,7 @@ body{
 }
 
 .dark .l-table-head{
-    background-color: rgba(38,132,220,0.4);
+    background-color: rgba(38,132,220,0.6)
 }
 
 
@@ -333,6 +338,14 @@ body{
     background-color: rgba(138, 138, 138, 0.24);
 }
 
+.dark .l-table-link{
+    color:#5EB1FF;
+    
+}
+
+.dark .l-table-link:hover{
+    color:rgba(38,132,220,0.8)
+}
 @media only screen and (max-width: 900px) {
     .l-table{
         /* background-color: antiquewhite; */

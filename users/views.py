@@ -32,16 +32,19 @@ def signup_view(request):
             return redirect('/dashboard')
     else:
         form = SignUpForm()
+        if request.user.is_authenticated :
+            return redirect("/dashboard")
     return render(request, 'signup.html', {'form': form})
 
 
 def login_view(request):
     if(request.method == "GET"):
         context = {}
+        if request.user.is_authenticated :
+            return redirect("/dashboard")
         return render(request, "login.html", context)
 
     if(request.method == "POST"):
-        print(request.POST)
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
@@ -145,7 +148,6 @@ def help_CF_view(request):
 
 
 def add_friend_JSON(request, *args, **kwargs):
-    print("received add request")
 
     username = kwargs["username"]
     try:
@@ -158,7 +160,6 @@ def add_friend_JSON(request, *args, **kwargs):
 
 
 def remove_friend_JSON(request, *args, **kwargs):
-    print("remove request received")
     username = kwargs["username"]
     try:
         friend = UserProfile.objects.get(

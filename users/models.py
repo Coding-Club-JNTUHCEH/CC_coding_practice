@@ -17,11 +17,12 @@ class UserProfile(models.Model):
                             Problem, blank=True, related_name="UserSolved")
     not_sloved_problems = models.ManyToManyField(
                             Problem, blank=True, related_name="UserNotSolved")
+    sloved_problems_count = models.IntegerField(default = 0)
     friends             = models.ManyToManyField(
                             "UserProfile", blank=True, related_name="friend")
 
     class Meta:
-        ordering = ['-rating']
+        ordering = ['-rating', '-sloved_problems_count']
 
     def __str__(self):
         return "{}".format(self.codeForces_username)
@@ -39,6 +40,10 @@ class UserProfile(models.Model):
             username=self.codeForces_username)
         for problem in solvedProblems:
             self.add_solvedProblem(problem)
+
+        self.sloved_problems_count = self.sloved_problems.all().count()
+        self.save()
+
 
     def updated_solvedProblems(self):
         problems = codeforces_API.getSolvedProblems(
@@ -58,6 +63,8 @@ class UserProfile(models.Model):
                     pass
                 if prob in self.not_sloved_problems.all():
                     self.not_sloved_problems.remove(problem)
+        self.sloved_problems_count = self.sloved_problems.all().count()
+        self.save()
         return self.sloved_problems
 
     def updated_not_solvedProblems(self):
@@ -123,16 +130,21 @@ class UserProfile(models.Model):
     @staticmethod
     def updateRatings(updated_data):
         status = False
+        
         for user in updated_data:
-            user_p = UserProfile.objects.get(
-                codeForces_username=user["handle"])
             try:
-                user_p.rating = user["rating"]
+                user_p = UserProfile.objects.get(
+                        codeForces_username=user[1])
+                
+                try:
+                    user_p.rating = user[0]["rating"]
+                except:
+                    user_p.rating = 0
+                user_p.save()
             except:
-                user_p.rating = 0
-            user_p.save()
+                break
+        else:
             status = True
-
         return UserProfile.objects.all(), status
 
     def __str__(self) -> str:

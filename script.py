@@ -11,6 +11,7 @@ from django.db import IntegrityError
 from contest.models import Contest
 from index.models import Problem
 from API_manager import codeforces_API
+from users.models import UserProfile
 
 def loadProblems():
     
@@ -62,9 +63,35 @@ def loadContests():
 
     print("Contests updated")
     print(str(count) + " Contests lodaed")
+
+def update_solvedProblems_count_value():
+    users = UserProfile.objects.all()
+    for user in users:
+        try:
+            user.sloved_problems_count = user.sloved_problems.all().count()
+            user.save()
+        except:
+            print("failure")
+            break
+    else:
+        print("success")
+
+def update_users_solved_problems():
+    users  = UserProfile.objects.all()
+    for user in users:
+        print("updating "+str(user))
+        try:
+            user.updated_solvedProblems();
+        except:
+            print("failed updating "+str(user))
+    print("completed updating")
+    return
+
+    
     
 
 if __name__ == "__main__":
 
     loadProblems()
     loadContests()
+    update_users_solved_problems()

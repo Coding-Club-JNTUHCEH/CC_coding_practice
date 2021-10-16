@@ -13,16 +13,18 @@
         <thead class="l-table-head">
             <tr class="l-table-head-row row">
                 <th scope="col" class="col-2 text-center">Rank</th>
-                <th scope="col" class="col-5 text-center">User Name</th>
-                <th scope="col" class="col-5 text-center">Rating</th>
+                <th scope="col" class="col-4 text-center">User Name</th>
+                <th scope="col" class="col-3 text-center">Rating</th>
+                <th scope="col" class="col-3 text-center">Problems Solved</th>
             </tr>
         </thead>
         <tbody class="l-table-body">
             {% for user in users %}
             <tr class="l-table-body-row row">
                 <th scope="row" class="col-2  text-center">{{ user.rank }}</th>
-                <td class="col-5 text-center"><a href="{% url 'profile' user.username %}">{{ user.username }}</a></td>
-                <td class="col-5 text-center">{{ user.rating }}</td>
+                <td class="col-4 text-center"><a class = "l-table-link" href="{% url 'profile' user.username %}">{{ user.username }}</a></td>
+                <td class="col-3 text-center">{{ user.rating }}</td>
+                <td class="col-3 text-center">{{ user.solved_problems }}</td>
             </tr>
             {% endfor %}
 
