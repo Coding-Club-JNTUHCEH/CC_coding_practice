@@ -6,4 +6,4 @@
 *.env
 staticfiles/**
 static/**
-
+**/migrations/**
