@@ -26,6 +26,6 @@
 
 **Things to do:**
 
-- needed one more page to display all the upcoming & previous events by the club ( important )
+- need one page to display all the upcoming & previous events by the club ( important )
 - create a new email account to send forgot password link ( for now not needed )
 - JavaScript should be added for friendly user interface ( making it dynamic )
