@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'contest',
     'error_handling',
     'landing_page',
+    'clubevents',
 ]
 
 MIDDLEWARE = [

@@ -24,4 +24,6 @@ urlpatterns = [
     path('', include('leaderboard.urls')),
     path('', include('contest.urls')),
     path('', include('landing_page.urls')),
+    path('',include('clubevents.urls')),
+
 ]
